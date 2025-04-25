@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "../helpers/cookie";
 
 const fetchApi = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_SERVICE_HOST,
+	baseURL: `${process.env.NEXT_PUBLIC_SERVICE_HOST}/api`,
 });
 
 fetchApi.interceptors.request.use((config) => {
