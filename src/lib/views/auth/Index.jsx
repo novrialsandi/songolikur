@@ -44,29 +44,24 @@ const Login = () => {
 					password: userAuth.password,
 				});
 
-				if (req.status === 200) {
+				if (req.status === 201) {
+					setCookie("sid", req.data.access_token);
 					setCookie("cid", req.data.user);
-					setCookie("sid", req.data.token);
-					setSession(req.data.user);
 					setErrorMsg("");
 
 					router.replace("/");
 				}
 			} else if (!isLogin) {
-				const req = await fetchApi.post("/auth/register", {
-					name: userAuth.name,
-					email: userAuth.email,
-					password: userAuth.password,
-				});
-
-				if (req.status === 201) {
-					setCookie("cid", req.data.user);
-					setCookie("sid", req.data.token);
-					setSession(req.data.user);
-					setErrorMsg("");
-
-					router.replace("/");
-				}
+				// const req = await fetchApi.post("/auth/register", {
+				// 	name: userAuth.name,
+				// 	email: userAuth.email,
+				// 	password: userAuth.password,
+				// });
+				// if (req.status === 201) {
+				// 	setCookie("cid", req.data.user);
+				// 	setErrorMsg("");
+				// 	router.replace("/");
+				// }
 			}
 		} catch (error) {
 			setErrorMsg(error.response.data.message);

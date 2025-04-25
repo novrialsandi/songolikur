@@ -3,15 +3,24 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
 	const url = request.nextUrl.clone();
 
+	const token = request.cookies.get("sid") || "";
+
+	const userCookie = request.cookies.get("cid") || "";
+
+	let role = "user";
+
+	if (userCookie?.value) {
+		const userData = JSON.parse(userCookie.value);
+		role = userData.role || "user";
+	}
+
+	// List of public routes that don't require authentication
+	const publicRoutes = ["/login", "/register", "/forgot-password"];
+
 	// Ignore requests for static files
 	if (url.pathname.startsWith("/public") || url.pathname.includes(".")) {
 		return NextResponse.next();
 	}
-
-	const token = request.cookies.get("sid") || "";
-
-	// List of public routes that don't require authentication
-	const publicRoutes = ["/login", "/register", "/forgot-password"];
 
 	// Redirect authenticated users away from public routes
 	if (token.value && publicRoutes.includes(url.pathname)) {
@@ -19,8 +28,17 @@ export function middleware(request) {
 	}
 
 	// Redirect unauthenticated users to the login page
-	if (!token.value && !publicRoutes.includes(url.pathname)) {
-		return NextResponse.redirect(new URL("/login", request.url));
+	// if (!token.value && !publicRoutes.includes(url.pathname)) {
+	// 	return NextResponse.redirect(new URL("/login", request.url));
+	// }
+
+	// Restrict access to /dashboard based on role
+	if (
+		url.pathname.includes("/dashboard") &&
+		role !== "contributor" &&
+		role !== "admin"
+	) {
+		return NextResponse.redirect(new URL("/", request.url));
 	}
 
 	return NextResponse.next();
