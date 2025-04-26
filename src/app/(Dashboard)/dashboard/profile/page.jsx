@@ -1,4 +1,4 @@
-import Profile from "@/lib/views/profile/Index";
+import Profile from "@/lib/views/dashboard/profile/Index";
 
 const ProfilePage = () => {
 	return <Profile />;
