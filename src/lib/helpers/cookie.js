@@ -12,7 +12,6 @@ export const setCookie = (cookieName, value) => {
 	const expirationDate = new Date();
 	expirationDate.setFullYear(expirationDate.getFullYear() + 1);
 
-	// await cookies.set(cookieName, payload, { path: '/', domain: cookieNames.domain })
 	return cookies.set(cookieName, value, {
 		expires: expirationDate,
 		path: "/",

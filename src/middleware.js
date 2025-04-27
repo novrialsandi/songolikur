@@ -35,6 +35,7 @@ export function middleware(request) {
 	// Restrict access to /dashboard based on role
 	if (
 		url.pathname.includes("/dashboard") &&
+		!token.value &&
 		role !== "contributor" &&
 		role !== "admin"
 	) {
