@@ -72,9 +72,17 @@ const QuillEditor = ({ onChange }) => {
 
 		loadQuill();
 
+		// Cleanup function
 		return () => {
-			if (quill) {
+			// Check if quill exists and has a destroy method
+			if (quill && typeof quill.destroy === "function") {
 				quill.destroy();
+			}
+
+			// Additional cleanup to remove event listeners
+			if (quill && quill.root) {
+				quill.root.removeEventListener("drop", handleDropImage);
+				quill.root.removeEventListener("paste", handlePasteImage);
 			}
 		};
 	}, [isLoaded, onChange]);
@@ -161,8 +169,10 @@ const QuillEditor = ({ onChange }) => {
 
 	// Insert uploaded image into editor
 	const insertToEditor = (url) => {
-		const range = quill.getSelection();
-		quill.insertEmbed(range.index, "image", url);
+		if (quill) {
+			const range = quill.getSelection() || { index: 0 };
+			quill.insertEmbed(range.index, "image", url);
+		}
 	};
 
 	return (

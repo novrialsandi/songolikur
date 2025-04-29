@@ -1,7 +1,7 @@
-import DashboardLayout from "@/lib/views/dashboard/Index";
+import Dashboard from "@/lib/views/dashboard/Index";
 
 const DashboardPage = () => {
-	return <DashboardLayout />;
+	return <Dashboard />;
 };
 
 export default DashboardPage;

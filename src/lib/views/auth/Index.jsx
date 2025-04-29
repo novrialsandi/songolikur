@@ -49,7 +49,11 @@ const Login = () => {
 					setCookie("cid", req.data.user);
 					setErrorMsg("");
 
-					router.replace("/");
+					if (req.data.user.role === "user") {
+						router.replace("/");
+					} else {
+						router.replace("/dashboard");
+					}
 				}
 			} else if (!isLogin) {
 				// const req = await fetchApi.post("/auth/register", {
