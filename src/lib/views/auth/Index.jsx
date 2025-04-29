@@ -44,8 +44,8 @@ const Login = () => {
 					password: userAuth.password,
 				});
 
-				if (req.status === 201) {
-					setCookie("sid", req.data.access_token);
+				if (req.status === 200) {
+					setCookie("sid", req.data.token);
 					setCookie("cid", req.data.user);
 					setErrorMsg("");
 
