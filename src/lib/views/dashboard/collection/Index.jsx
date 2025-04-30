@@ -17,7 +17,7 @@ const Collections = () => {
 		const req = await fetchApi.post("/collection", newCollection);
 
 		if (req.status === 201) {
-			router.replace(`/dashboard/collection/${req.data.collection_uuid}`);
+			router.push(`/dashboard/collection/${req.data.collection_uuid}`);
 		}
 	};
 	return (

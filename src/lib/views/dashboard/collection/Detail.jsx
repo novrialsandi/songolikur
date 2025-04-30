@@ -5,11 +5,11 @@ import { useParams } from "next/navigation";
 import fetchApi from "@/lib/api/fetchApi";
 
 const CollectionDetail = () => {
+	const { uuid } = useParams();
 	const [collection, setCollection] = useState({
 		title: "Loading...",
 		content: "",
 	});
-	const { uuid } = useParams();
 
 	const getDetail = async () => {
 		try {
@@ -48,6 +48,7 @@ const CollectionDetail = () => {
 				{/* Quill Editor Container */}
 				<div className="mb-4 border rounded-lg">
 					<QuillEditor
+						uuid={uuid}
 						onChange={(value) => {
 							setCollection((prev) => ({ ...prev, content: value }));
 						}}
@@ -66,10 +67,11 @@ const CollectionDetail = () => {
 
 			<div className="bg-white rounded-lg shadow-lg p-6">
 				<h2 className="text-xl font-semibold mb-4">Preview</h2>
+
 				<div
 					className="prose max-w-none p-4 border rounded-lg min-h-32"
-					dangerouslySetInnerHTML={{ __html: collection.content || "" }}
-				></div>
+					dangerouslySetInnerHTML={{ __html: collection.content }}
+				/>
 			</div>
 		</div>
 	);
