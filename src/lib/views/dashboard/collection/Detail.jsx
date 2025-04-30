@@ -30,10 +30,9 @@ const CollectionDetail = () => {
 
 	const handleSave = async () => {
 		try {
-			const req = await fetchApi.put(`/collection/${uuid}`, collection);
+			const req = await fetchApi.patch(`/collection/${uuid}`, collection);
 			if (req.status === 200) {
-				console.log("Content saved successfully");
-				// You might want to add some user feedback here
+				setCollection(req.data);
 			}
 		} catch (error) {
 			console.error("Failed to save content:", error);
@@ -63,15 +62,6 @@ const CollectionDetail = () => {
 						Save Content
 					</button>
 				</div>
-			</div>
-
-			<div className="bg-white rounded-lg shadow-lg p-6">
-				<h2 className="text-xl font-semibold mb-4">Preview</h2>
-
-				<div
-					className="prose max-w-none p-4 border rounded-lg min-h-32"
-					dangerouslySetInnerHTML={{ __html: collection.content }}
-				/>
 			</div>
 		</div>
 	);
