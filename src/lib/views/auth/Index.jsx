@@ -91,32 +91,18 @@ const Login = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex flex-col md:flex-row overflow-hidden">
-			{/* Left side - Brand section */}
-			<div
-				style={{
-					background: "linear-gradient(to top, #021B79, #02298A, #0575E6)",
-				}}
-				className="w-full md:w-1/2 lg:w-3/5 min-h-[30vh] md:h-screen relative text-white flex flex-col justify-center items-center p-6"
-			>
-				<div className="absolute left-0 bottom-0 translate-y-1/2 -translate-x-1/3 size-[300px] md:size-[400px] lg:size-[557px] border border-[#0575E6] rounded-full opacity-50"></div>
-				<div className="absolute left-0 bottom-0 translate-y-2/5 -translate-x-1/2 size-[300px] md:size-[400px] lg:size-[557px] border border-[#0575E6] rounded-full opacity-50"></div>
-				<div className="flex flex-col justify-between gap-6 z-10">
-					<div className="text-center md:text-left">
-						<div className="font-bold text-3xl md:text-[40px]">GoFinance</div>
-						<div className="text-base md:text-lg">
-							Lorem ipsoum dolor sit amet
-						</div>
-					</div>
+		<div className="flex min-h-screen w-full items-center justify-center">
+			<div className="flex w-[455px] flex-col justify-around rounded-xl border px-8 py-10">
+				{/* <div className="flex w-full flex-col items-center gap-4">
+					<img
+						src="/rent-car.png"
+						alt=""
+						className="aspect-square size-[60px]"
+					/>
 
-					<Button className="w-[135px] rounded-full text-sm mx-auto md:mx-0">
-						Read More
-					</Button>
-				</div>
-			</div>
+				
+				</div> */}
 
-			{/* Right side - Form section */}
-			<div className="w-full md:w-1/2 lg:w-2/5 text-[#333333] bg-white flex flex-col justify-center items-center p-6 md:p-8 min-h-[60vh] md:h-screen">
 				<AnimatePresence mode="wait">
 					{isLogin ? (
 						<motion.div
@@ -126,13 +112,15 @@ const Login = () => {
 							animate="animate"
 							exit="exit"
 							transition={{ duration: 0.4 }}
-							className="w-full max-w-[307px] gap-6 md:gap-8 flex flex-col justify-between"
+							className="w-full gap-6 md:gap-8 flex flex-col justify-between"
 						>
 							<div className="text-center md:text-left">
-								<div className="font-bold text-2xl md:text-[26px]">
+								<div className="font-bold text-center text-2xl md:text-[26px]">
 									Hello Again!
 								</div>
-								<div className="text-base md:text-lg">Welcome Back</div>
+								<div className="text-base text-center md:text-lg">
+									Welcome Back
+								</div>
 							</div>
 							<div className="flex flex-col items-center gap-4">
 								<TextInput
@@ -175,10 +163,7 @@ const Login = () => {
 										Login
 									</Button>
 								</div>
-								<div className="text-sm text-[#333333] text-center w-full">
-									<div className="text-sm text-[#333333] cursor-pointer mb-2">
-										Forget Password
-									</div>
+								{/* <div className="text-sm text-[#333333] text-center w-full">
 									Don't have an account?{" "}
 									<span
 										className="text-blue-600 cursor-pointer font-semibold"
@@ -189,7 +174,7 @@ const Login = () => {
 									>
 										Sign Up
 									</span>
-								</div>
+								</div> */}
 							</div>
 						</motion.div>
 					) : (
@@ -200,13 +185,15 @@ const Login = () => {
 							animate="animate"
 							exit="exit"
 							transition={{ duration: 0.4 }}
-							className="w-full max-w-[307px] gap-6 md:gap-8 flex flex-col justify-between"
+							className="w-full gap-6 md:gap-8 flex flex-col justify-between"
 						>
 							<div className="text-center md:text-left">
-								<div className="font-bold text-2xl md:text-[26px]">
+								<div className="font-bold text-center text-2xl md:text-[26px]">
 									Join Us!
 								</div>
-								<div className="text-base md:text-lg">Create your account</div>
+								<div className="text-base text-center md:text-lg">
+									Create your account
+								</div>
 							</div>
 							<div className="flex flex-col items-center gap-4">
 								<TextInput
@@ -258,7 +245,7 @@ const Login = () => {
 										Register
 									</Button>
 								</div>
-								<div className="text-sm text-[#333333] text-center w-full">
+								{/* <div className="text-sm text-[#333333] text-center w-full">
 									Already have an account?{" "}
 									<span
 										className="text-blue-600 cursor-pointer font-semibold"
@@ -269,7 +256,7 @@ const Login = () => {
 									>
 										Login
 									</span>
-								</div>
+								</div> */}
 							</div>
 						</motion.div>
 					)}
