@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
@@ -9,49 +9,46 @@ import { getCookie } from "../helpers/cookie";
 import { useSessionStore } from "@/lib/stores";
 
 const Parent = ({ children }) => {
-	const { setSession } = useSessionStore();
+	const { session, setSession } = useSessionStore();
 	const pathname = usePathname();
-	const router = useRouter();
 	const [miniSidebar, setMiniSidebar] = useState(false);
 
-	const [menus] = useState({
-		Data: [
+	const menus = {
+		Menu: [
 			{
 				name: "Dashboard",
 				icon: iconSvg.dashboardSvg,
-				isNotif: false,
 				href: "/dashboard",
 			},
-			{
-				name: "User",
-				icon: iconSvg.userSvg,
-				isNotif: false,
-				href: "/dashboard/user",
-			},
+			...(session.role === "admin"
+				? [
+						{
+							name: "User",
+							icon: iconSvg.userSvg,
+							href: "/dashboard/user",
+						},
+				  ]
+				: []),
 		],
 		Collection: [
 			{
 				name: "All Collections",
 				icon: iconSvg.collectionSvg,
-				isNotif: false,
 				href: "/dashboard/collection",
 			},
 			{
 				name: "Published",
 				icon: iconSvg.publichedSvg,
-				isNotif: false,
 				href: "/dashboard/collection/published",
 			},
 			{
 				name: "Draft",
 				icon: iconSvg.draftSvg,
-				isNotif: false,
 				href: "/dashboard/collection/draft",
 			},
 			{
 				name: "Review",
 				icon: iconSvg.reviewSvg,
-				isNotif: false,
 				href: "/dashboard/collection/review",
 			},
 		],
@@ -59,19 +56,17 @@ const Parent = ({ children }) => {
 		// 	{
 		// 		name: "Report",
 		// 		icon: iconSvg.laporanSvg,
-		// 		isNotif: false,
 		// 		// href: "/dashboard/report",
 		// 	},
 		// 	{
 		// 		name: "Setting",
 		// 		icon: iconSvg.pengaturanSvg,
-		// 		isNotif: false,
 		// 		// href: "/dashboard/setting",
 		// 	},
 		// ],
-	});
+	};
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setSession(getCookie("cid"));
 	}, []);
 

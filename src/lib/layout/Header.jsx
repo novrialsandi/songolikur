@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Button from "../components/Button";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, usePathname } from "next/navigation";
 import fetchApi from "../api/fetchApi";
 
 const Header = ({ sidebarWidth, pageTitle }) => {
 	const router = useRouter();
+	const pathname = usePathname();
 	const params = useParams();
 	const [loading, setLoading] = useState(false);
 
@@ -31,7 +32,7 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 		>
 			<div className="flex h-11 items-center justify-between gap-4">
 				<div className="text-2xl font-bold">{pageTitle}</div>
-				{!params.uuid && (
+				{!params.uuid && pathname.includes("collection") && (
 					<Button
 						className="p-3 h-full rounded-md w-40"
 						onClick={createCollection}

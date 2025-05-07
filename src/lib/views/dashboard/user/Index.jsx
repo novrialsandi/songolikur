@@ -121,7 +121,7 @@ const Index = () => {
 					<Button
 						onClick={handleSave}
 						disabled={editLoading}
-						loading={editLoading}
+						isLoading={editLoading}
 						className="w-full bg-blue-500 text-white rounded-lg "
 					>
 						Save Changes
