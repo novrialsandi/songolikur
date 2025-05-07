@@ -1,18 +1,28 @@
 import { useState } from "react";
 import Button from "../components/Button";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
+import fetchApi from "../api/fetchApi";
 
 const Header = ({ sidebarWidth, pageTitle }) => {
 	const router = useRouter();
+	const params = useParams();
+	const [loading, setLoading] = useState(false);
 
 	const createCollection = async () => {
-		const req = await fetchApi.post("/collection", {
-			title: "New Project",
-			content: "",
-		});
+		try {
+			setLoading(true);
+			const req = await fetchApi.post("/collection", {
+				title: "New Project",
+				content: "",
+			});
 
-		if (req.status === 201) {
-			router.push(`/dashboard/collection/${req.data.collection_uuid}`);
+			if (req.status === 201) {
+				router.push(`/dashboard/collection/${req.data.collection_uuid}`);
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setLoading(false);
 		}
 	};
 	return (
@@ -21,9 +31,16 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 		>
 			<div className="flex h-11 items-center justify-between gap-4">
 				<div className="text-2xl font-bold">{pageTitle}</div>
-				<Button className="p-3 h-full rounded-md" onClick={createCollection}>
-					Create Collection
-				</Button>
+				{!params.uuid && (
+					<Button
+						className="p-3 h-full rounded-md w-40"
+						onClick={createCollection}
+						disabled={loading}
+						isLoading={loading}
+					>
+						Create Collection
+					</Button>
+				)}
 			</div>
 		</div>
 	);
