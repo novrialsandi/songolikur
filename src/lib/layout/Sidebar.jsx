@@ -131,6 +131,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 								</div>
 							</div>
 							<button
+								className="cursor-pointer"
 								onClick={() => {
 									removeCookie("sid");
 									removeCookie("cid");
