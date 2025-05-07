@@ -10,8 +10,20 @@ const Card = ({ collection }) => {
 			onClick={() =>
 				router.push(`/dashboard/collection/${collection.collection_uuid}`)
 			}
-			className="bg-white border rounded-xl  overflow-hidden"
+			className="bg-white relative border rounded-xl overflow-hidden cursor-pointer transition-shadow hover:shadow-lg"
 		>
+			{/* Status Badge */}
+			<span
+				className={`text-xs absolute right-0 top-0 font-semibold py-1 px-2 rounded ${
+					collection.status === "published"
+						? "bg-green-100 text-green-800"
+						: collection.status === "review"
+						? "bg-yellow-100 text-yellow-800"
+						: "bg-gray-100 text-gray-800"
+				}`}
+			>
+				{collection.status || "Draft"}
+			</span>
 			<Image
 				src={collection.thumbnail || "/placeholder.png"}
 				alt={collection.title}
@@ -26,7 +38,7 @@ const Card = ({ collection }) => {
 				<p className="text-sm text-gray-600 mb-2">
 					{collection.user?.name || "Unknown Author"}
 				</p>
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-2 mb-2">
 					<Image
 						src={collection.user?.avatar || "/avatar-placeholder.png"}
 						alt="User Avatar"
