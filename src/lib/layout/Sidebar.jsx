@@ -37,7 +37,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 				>
 					<div className="flex items-center gap-2 overflow-hidden">
 						<img
-							src="/rent-car.png"
+							src="/logo.png"
 							alt="logo"
 							className={` ${
 								miniSidebar ? "size-11" : "h-11 w-full"
@@ -132,9 +132,9 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 							</div>
 							<button
 								onClick={() => {
-									router.push("/login");
 									removeCookie("sid");
 									removeCookie("cid");
+									router.push("/login");
 								}}
 							>
 								{iconSvg.logoutSvg}

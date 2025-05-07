@@ -26,7 +26,7 @@ const Parent = ({ children }) => {
 				name: "User",
 				icon: iconSvg.pelangganSvg,
 				isNotif: false,
-				// href: "/dashboard/user",
+				href: "/dashboard/user",
 			},
 		],
 		Collection: [
