@@ -44,8 +44,8 @@ const Login = () => {
 				});
 
 				if (req.status === 200) {
-					setCookie("sid", req.data.token);
-					setCookie("cid", req.data.user);
+					setCookie("sid", req.data.token, "nextMonday");
+					setCookie("cid", req.data.user, "nextMonday");
 					setErrorMsg("");
 
 					if (req.data.user.role === "user") {

@@ -18,13 +18,13 @@ const Parent = ({ children }) => {
 		Data: [
 			{
 				name: "Dashboard",
-				icon: iconSvg.dasborSvg,
+				icon: iconSvg.dashboardSvg,
 				isNotif: false,
 				href: "/dashboard",
 			},
 			{
 				name: "User",
-				icon: iconSvg.pelangganSvg,
+				icon: iconSvg.userSvg,
 				isNotif: false,
 				href: "/dashboard/user",
 			},
@@ -32,25 +32,25 @@ const Parent = ({ children }) => {
 		Collection: [
 			{
 				name: "All Collections",
-				icon: iconSvg.laporanSvg,
+				icon: iconSvg.collectionSvg,
 				isNotif: false,
 				href: "/dashboard/collection",
 			},
 			{
 				name: "Published",
-				icon: iconSvg.laporanSvg,
+				icon: iconSvg.publichedSvg,
 				isNotif: false,
 				href: "/dashboard/collection/published",
 			},
 			{
 				name: "Draft",
-				icon: iconSvg.laporanSvg,
+				icon: iconSvg.draftSvg,
 				isNotif: false,
 				href: "/dashboard/collection/draft",
 			},
 			{
 				name: "Review",
-				icon: iconSvg.laporanSvg,
+				icon: iconSvg.reviewSvg,
 				isNotif: false,
 				href: "/dashboard/collection/review",
 			},

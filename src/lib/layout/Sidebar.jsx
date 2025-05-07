@@ -116,7 +116,11 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						miniSidebar ? "justify-center py-6" : "gap-2 p-6"
 					}`}
 				>
-					<img src={session.avatar} alt="" className="size-11 flex-none" />
+					<img
+						src={session.avatar || "/avatar.jpeg"}
+						alt=""
+						className="size-11 object-cover flex-none rounded-full"
+					/>
 					{!miniSidebar && (
 						<div className="flex w-full justify-between">
 							<div className="">

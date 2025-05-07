@@ -66,9 +66,9 @@ const Index = () => {
 									>
 										{attr === "" ? (
 											<img
-												src={user.avatar}
+												src={user.avatar || "/avatar.jpeg"}
 												alt="avatar"
-												className="size-8 rounded-full"
+												className="size-8 object-cover rounded-full"
 											/>
 										) : attr === " " ? (
 											<>{iconSvg.menuSvg} </>

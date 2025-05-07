@@ -25,7 +25,7 @@ const Card = ({ collection }) => {
 				{collection.status || "Draft"}
 			</span>
 			<Image
-				src={collection.thumbnail || "/placeholder.png"}
+				src={collection.thumbnail || "/placeholder.jpeg"}
 				alt={collection.title}
 				width={400}
 				height={200}
@@ -40,11 +40,11 @@ const Card = ({ collection }) => {
 				</p>
 				<div className="flex items-center gap-2 mb-2">
 					<Image
-						src={collection.user?.avatar || "/avatar-placeholder.png"}
+						src={collection.user?.avatar || "/avatar.jpeg"}
 						alt="User Avatar"
 						width={32}
 						height={32}
-						className="w-8 h-8 rounded-full"
+						className="w-8 h-8 object-cover rounded-full"
 					/>
 					<span className="text-xs text-gray-500">
 						{new Date(collection.publishedAt).toLocaleDateString() || "Draft"}
