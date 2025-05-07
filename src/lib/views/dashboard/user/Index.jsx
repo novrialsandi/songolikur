@@ -12,7 +12,6 @@ const Index = () => {
 
 	const getUsers = async () => {
 		try {
-			setLoading(true);
 			const res = await fetchApi.get("/user");
 			if (res.status === 200) {
 				setUsers(res.data.user);

@@ -8,7 +8,7 @@ const Collections = () => {
 	const [collections, setCollections] = useState([]);
 	const [loading, setLoading] = useState(true);
 
-	const getCollections = async (status = "", category = "") => {
+	const getCollections = async (status = "review", category = "") => {
 		try {
 			const params = {};
 			if (status) params.status = status;

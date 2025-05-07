@@ -37,16 +37,22 @@ const Parent = ({ children }) => {
 				href: "/dashboard/collection",
 			},
 			{
+				name: "Published",
+				icon: iconSvg.laporanSvg,
+				isNotif: false,
+				href: "/dashboard/collection/published",
+			},
+			{
 				name: "Draft",
 				icon: iconSvg.laporanSvg,
 				isNotif: false,
-				// href: "/dashboard/collection/draft",
+				href: "/dashboard/collection/draft",
 			},
 			{
 				name: "Review",
 				icon: iconSvg.laporanSvg,
 				isNotif: false,
-				// href: "/dashboard/collection/review",
+				href: "/dashboard/collection/review",
 			},
 		],
 		// Preference: [
