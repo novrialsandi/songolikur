@@ -65,12 +65,12 @@ const Dropdown = ({
 	return (
 		<div
 			ref={wrapperRef}
-			className="relative bg-white border border-black/10 active:border focus:border p-4 rounded-full  flex w-full flex-col gap-2"
+			className="relative bg-white border border-black/10 active:border focus:border  rounded-lg  flex w-full flex-col gap-2"
 		>
 			{label && <span className="">{label}</span>}
 			<button
 				disabled={disabled}
-				className={`${btnToggleClass}`}
+				className={`${btnToggleClass} p-2`}
 				placeholder={placeholder}
 				onClick={(e) => {
 					e.stopPropagation();
@@ -107,16 +107,16 @@ const Dropdown = ({
 			</button>
 			{type === "multi" && multipleSelectedItems.length > 0 && (
 				<div className="flex space-x-2">
-					{multipleSelectedItems.map((item) => (
-						<div className="inline-flex items-center gap-2  px-2 py-0.5 ">
+					{multipleSelectedItems.map((item, index) => (
+						<div
+							key={index}
+							className="inline-flex items-center gap-2  px-2 py-0.5 "
+						>
 							<span>{item.label}</span>
 						</div>
 					))}
 				</div>
 			)}
-			{/* <p className="text-caption/4-light tracking-wider text-text/light">
-				{hint}
-			</p> */}
 
 			{isOpen && (
 				<div
@@ -124,7 +124,7 @@ const Dropdown = ({
 						popupPosition === "right" ? "right-0" : "left-0"
 					}`}
 					style={{
-						top: `65px`,
+						top: `44px`,
 						...popupStyle,
 					}}
 				>
@@ -132,13 +132,13 @@ const Dropdown = ({
 						className={`no-scrollbar bg-white relative w-full overflow-y-scroll rounded-lg`}
 						onClick={() => setIsOpen(!isOpen)}
 					>
-						<div className="no-scrollbar flex h-full  flex-col gap-2 overflow-y-scroll text-text/light dark:text-text/light">
+						<div className="no-scrollbar flex h-full  flex-col  overflow-y-scroll text-text/light dark:text-text/light">
 							{items && items.length ? (
-								items.map((item) => {
+								items.map((item, index) => {
 									return (
 										<button
 											className="flex gap-2 p-2 hover:bg-black/10"
-											key={item.id}
+											key={index}
 											onClick={() => onSelectItem(item)}
 										>
 											{item.label}
