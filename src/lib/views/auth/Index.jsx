@@ -11,7 +11,6 @@ import { setCookie } from "@/lib/helpers/cookie";
 import fetchApi from "@/lib/api/fetchApi";
 
 const Login = () => {
-	const { setSession } = useSessionStore();
 	const router = useRouter();
 	const [isLogin, setIsLogin] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);

@@ -1,10 +1,13 @@
 import { useRouter, usePathname } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { iconSvg } from "../Icons/icon";
+import { removeCookie } from "../helpers/cookie";
+import { useSessionStore } from "../stores";
 
 const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 	const pathname = usePathname();
 	const router = useRouter();
+	const { session } = useSessionStore();
 
 	const handleMenu = (category, index) => {
 		router.push(menus[category][index].href);
@@ -70,7 +73,9 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 										<li
 											onClick={() => handleMenu(category, index)}
 											className={`mx-4 mb-2 flex cursor-pointer items-center rounded-lg px-4 py-2  ${
-												isMenuActive(item) ? "bg-[#62666e]" : ""
+												isMenuActive(item)
+													? "border border-[#62666e]"
+													: "border border-transparent"
 											}`}
 										>
 											<div
@@ -111,21 +116,29 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						miniSidebar ? "justify-center py-6" : "gap-2 p-6"
 					}`}
 				>
-					<img src="/avatar.png" alt="" className="size-11 flex-none" />
+					<img src={session.avatar} alt="" className="size-11 flex-none" />
 					{!miniSidebar && (
 						<div className="flex w-full justify-between">
 							<div className="">
 								<div className="flex items-center gap-1">
 									<div>
-										<div className="whitespace-nowrap">name</div>
+										<div className="whitespace-nowrap">{session.name}</div>
 										{iconSvg.verifSvg}
 									</div>
 								</div>
 								<div className="whitespace-nowrap text-[13px] text-[#C3C9D1]">
-									admin
+									{session.role}
 								</div>
 							</div>
-							<button>{iconSvg.logoutSvg}</button>
+							<button
+								onClick={() => {
+									router.push("/login");
+									removeCookie("sid");
+									removeCookie("cid");
+								}}
+							>
+								{iconSvg.logoutSvg}
+							</button>
 						</div>
 					)}
 				</div>

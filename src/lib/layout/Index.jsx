@@ -5,8 +5,11 @@ import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { iconSvg } from "../Icons/icon";
+import { getCookie } from "../helpers/cookie";
+import { useSessionStore } from "@/lib/stores";
 
 const Parent = ({ children }) => {
+	const { setSession } = useSessionStore();
 	const pathname = usePathname();
 	const router = useRouter();
 	const [miniSidebar, setMiniSidebar] = useState(false);
@@ -46,21 +49,25 @@ const Parent = ({ children }) => {
 				// href: "/dashboard/collection/review",
 			},
 		],
-		Preference: [
-			{
-				name: "Report",
-				icon: iconSvg.laporanSvg,
-				isNotif: false,
-				// href: "/dashboard/report",
-			},
-			{
-				name: "Setting",
-				icon: iconSvg.pengaturanSvg,
-				isNotif: false,
-				// href: "/dashboard/setting",
-			},
-		],
+		// Preference: [
+		// 	{
+		// 		name: "Report",
+		// 		icon: iconSvg.laporanSvg,
+		// 		isNotif: false,
+		// 		// href: "/dashboard/report",
+		// 	},
+		// 	{
+		// 		name: "Setting",
+		// 		icon: iconSvg.pengaturanSvg,
+		// 		isNotif: false,
+		// 		// href: "/dashboard/setting",
+		// 	},
+		// ],
 	});
+
+	useEffect(() => {
+		setSession(getCookie("cid"));
+	}, []);
 
 	const handleMiniSidebar = (isMini) => {
 		setMiniSidebar(isMini);
@@ -86,8 +93,6 @@ const Parent = ({ children }) => {
 		return { name: "Dashboard", subMenu: null };
 	};
 
-	const pageDetails = getCurrentPageDetails();
-
 	return (
 		<>
 			<div className="flex overflow-hidden">
@@ -103,10 +108,10 @@ const Parent = ({ children }) => {
 				>
 					<Header
 						sidebarWidth={miniSidebar ? "left-20" : "left-[271px]"}
-						pageTitle={pageDetails.name}
-						parentTitle={pageDetails.parent?.name}
-						parentHref={pageDetails.parent?.href}
-						subMenu={pageDetails.subMenu}
+						pageTitle={getCurrentPageDetails().name}
+						parentTitle={getCurrentPageDetails().parent?.name}
+						parentHref={getCurrentPageDetails().parent?.href}
+						subMenu={getCurrentPageDetails().subMenu}
 					/>
 					{children}
 				</div>
