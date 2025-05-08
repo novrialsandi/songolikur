@@ -11,6 +11,7 @@ import { setCookie } from "@/lib/helpers/cookie";
 import fetchApi from "@/lib/api/fetchApi";
 
 const Login = () => {
+	const { setSession } = useSessionStore();
 	const router = useRouter();
 	const [isLogin, setIsLogin] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +45,7 @@ const Login = () => {
 				});
 
 				if (req.status === 200) {
+					setSession(req.data.user);
 					setCookie("sid", req.data.token, "nextMonday");
 					setCookie("cid", req.data.user, "nextMonday");
 					setErrorMsg("");
