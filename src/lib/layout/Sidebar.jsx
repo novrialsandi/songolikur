@@ -20,6 +20,14 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 		bio: "",
 	});
 
+	const [modalPassword, setModalPassword] = useState(false);
+
+	const [passwordData, setPasswordData] = useState({
+		oldPassword: "",
+		newPassword: "",
+		confirmPassword: "",
+	});
+
 	const handleMenu = (category, index) => {
 		router.push(menus[category][index].href);
 	};
@@ -32,6 +40,56 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 		return (
 			pathname === item.href || (item.subMenu && pathname === item.subMenu.href)
 		);
+	};
+
+	const editPassword = async () => {
+		try {
+			if (
+				!passwordData.oldPassword ||
+				!passwordData.newPassword ||
+				!passwordData.confirmPassword
+			) {
+				console.error("Please fill in all password fields.");
+				return;
+			}
+
+			if (passwordData.newPassword.length < 8) {
+				console.error("New password must be at least 8 characters.");
+				return;
+			}
+
+			if (passwordData.newPassword !== passwordData.confirmPassword) {
+				console.error("New password and confirmation password do not match.");
+				return;
+			}
+
+			setEditLoading(true);
+
+			const res = await fetchApi.patch("/auth/password", {
+				oldPassword: passwordData.oldPassword,
+				newPassword: passwordData.newPassword,
+			});
+
+			if (res.status === 200) {
+				router.push("/login");
+				removeCookie("sid");
+				removeCookie("cid");
+
+				setModalProfile(false);
+				setModalPassword(false);
+				setPasswordData({
+					oldPassword: "",
+					newPassword: "",
+					confirmPassword: "",
+				});
+			} else {
+				console.error("Password update failed with status:", res.status);
+			}
+		} catch (error) {
+			console.error("Error updating password:", error);
+		} finally {
+			setEditLoading(false);
+		}
 	};
 
 	const editProfile = async () => {
@@ -115,77 +173,152 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 		}));
 	};
 
+	const handlePasswordChange = (e) => {
+		const { name, value } = e.target;
+		setPasswordData((prevData) => ({ ...prevData, [name]: value }));
+	};
+
 	return (
 		<>
+			<Modal
+				preventClose
+				visible={modalPassword}
+				onClose={() => {
+					setModalProfile(false);
+					setModalPassword(false);
+				}}
+				className={"p-6"}
+			>
+				<div className="space-y-4">
+					<>
+						<div className="text-2xl font-semibold">Change Password</div>
+						<TextInput
+							label="Old Password:"
+							name="oldPassword"
+							type="password"
+							placeholder="Enter old password"
+							value={passwordData.oldPassword}
+							onChange={handlePasswordChange}
+							className="w-full"
+						/>
+						<TextInput
+							label="New Password:"
+							name="newPassword"
+							type="password"
+							placeholder="Enter new password"
+							value={passwordData.newPassword}
+							onChange={handlePasswordChange}
+							className="w-full"
+						/>
+						<TextInput
+							label="Renter Password:"
+							name="confirmPassword"
+							type="password"
+							placeholder="Renter new password"
+							value={passwordData.confirmPassword}
+							onChange={handlePasswordChange}
+							className="w-full"
+						/>
+						<div
+							className="text-gray-500 text-sm cursor-pointer"
+							onClick={() => {
+								setModalPassword(false);
+								setModalProfile(true);
+							}}
+						>
+							Back to Profile
+						</div>
+						<Button
+							onClick={editPassword}
+							disabled={editLoading}
+							isLoading={editLoading}
+							className="w-full bg-blue-500 text-white rounded-lg"
+						>
+							Update Password
+						</Button>
+					</>
+				</div>
+			</Modal>
+
 			<Modal
 				preventClose
 				visible={modalProfile}
 				onClose={() => {
 					setModalProfile(false);
+					setModalPassword(false);
 				}}
 				className={"p-6"}
 			>
 				<div className="space-y-4">
-					<div className="text-2xl font-semibold">Edit Profile</div>
-					<div className="relative flex flex-col items-center gap-4">
-						<img
-							src={session?.avatar || "/avatar.jpeg"}
-							alt="avatar"
-							className="w-24 h-24 rounded-full object-cover  transition-opacity duration-300 hover:opacity-70"
-						/>
-						{/* Edit Icon (Visible only on hover) */}
-						<div className="absolute  inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100 pointer-events-none">
-							<div
-								className="bg-black/60 w-24 h-24 flex cursor-pointer items-center justify-center rounded-full p-2 pointer-events-auto"
-								onClick={selectLocalImage}
-							>
-								{iconSvg.edit}
+					<>
+						<div className="text-2xl font-semibold">Edit Profile</div>
+						<div className="relative flex flex-col items-center gap-4">
+							<img
+								src={session?.avatar || "/avatar.jpeg"}
+								alt="avatar"
+								className="w-24 h-24 rounded-full object-cover transition-opacity duration-300 hover:opacity-70"
+							/>
+							<div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100 pointer-events-none">
+								<div
+									className="bg-black/60 w-24 h-24 flex cursor-pointer items-center justify-center rounded-full p-2 pointer-events-auto"
+									onClick={selectLocalImage}
+								>
+									{iconSvg.edit}
+								</div>
 							</div>
 						</div>
-					</div>
+						<TextInput
+							label="Name:"
+							name="name"
+							placeholder="Full Name"
+							value={session.name}
+							onChange={inputData}
+							className="w-full"
+						/>
+						<TextInput
+							label="Bio:"
+							name="bio"
+							placeholder="Bio"
+							value={session.bio}
+							onChange={inputData}
+							className="w-full"
+						/>
+						<TextInput
+							isDisabled={true}
+							label="Username:"
+							name="username"
+							placeholder="Username"
+							value={session.username}
+							className="w-full"
+						/>
+						<TextInput
+							isDisabled={true}
+							label="Email:"
+							name="email"
+							type="email"
+							placeholder="Full email"
+							value={session.email}
+							className="w-full"
+						/>
 
-					<TextInput
-						label="Name:"
-						name="name"
-						placeholder="Full Name"
-						value={session.name}
-						onChange={inputData}
-						className="w-full"
-					/>
-					<TextInput
-						label="Bio:"
-						name="bio"
-						placeholder="Bio"
-						value={session.bio}
-						onChange={inputData}
-						className="w-full"
-					/>
-					<TextInput
-						isDisabled={true}
-						label="Username:"
-						name="username"
-						placeholder="Username"
-						value={session.username}
-						className="w-full"
-					/>
-					<TextInput
-						isDisabled={true}
-						label="Email:"
-						name="email"
-						type="email"
-						placeholder="Full email"
-						value={session.email}
-						className="w-full"
-					/>
-
-					<Button
-						onClick={editProfile}
-						disabled={editLoading}
-						isLoading={editLoading}
-						className="w-full bg-blue-500 text-white rounded-lg "
-					>
-						Save Changes
-					</Button>
+						<div
+							className="text-blue-400 text-sm cursor-pointer"
+							onClick={() => {
+								setModalPassword(true);
+								setModalProfile(false);
+							}}
+						>
+							Edit password
+						</div>
+						<Button
+							onClick={editProfile}
+							disabled={editLoading}
+							isLoading={editLoading}
+							className="w-full bg-blue-500 text-white rounded-lg"
+						>
+							Save Changes
+						</Button>
+					</>
 				</div>
 			</Modal>
 
