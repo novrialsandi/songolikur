@@ -102,7 +102,7 @@ const TextInput = ({
 					onBlur={onBlur}
 					onFocus={onFocus}
 					onChange={handleChange}
-					className={`flex w-full items-center rounded-full border border-[#eeeeee] outline-0 focus:border-active focus:ring-0 hover:border-[#333333] focus:border-primary ${className} ${
+					className={`flex w-full items-center rounded-md border border-[#eeeeee] outline-0 focus:border-active focus:ring-0 hover:border-[#333333] focus:border-primary ${className} ${
 						errorMsg ? "border-error text-error" : ""
 					} ${sizeDataClass[size]} ${hasIconLeft ? "pl-14" : "pl-4"} ${
 						hasIconRight || isPasswordField ? "pr-10" : "pr-4"

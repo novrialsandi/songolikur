@@ -7,11 +7,12 @@ import Modal from "@/lib/components/Modal";
 import Dropdown from "@/lib/components/Dropdown";
 import Button from "@/lib/components/Button";
 import ToggleButton from "@/lib/components/Toogle";
+import { useUsersStore } from "@/lib/stores";
 
 const attributes = ["", "name", "username", "email", "role", "Active", " "];
 
 const Index = () => {
-	const [users, setUsers] = useState([]);
+	const { users, setUsers } = useUsersStore();
 	const [loading, setLoading] = useState(true);
 	const [editLoading, setEditLoading] = useState(false);
 	const [modalEdit, setModalEdit] = useState(false);

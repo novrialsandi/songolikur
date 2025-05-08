@@ -21,3 +21,14 @@ export const useSessionStore = create((set) => ({
 					: sessionDataOrUpdater,
 		})),
 }));
+
+export const useUsersStore = create((set) => ({
+	users: [],
+	setUsers: (usersDataOrUpdater) =>
+		set((state) => ({
+			users:
+				typeof usersDataOrUpdater === "function"
+					? usersDataOrUpdater(state.users)
+					: usersDataOrUpdater,
+		})),
+}));
