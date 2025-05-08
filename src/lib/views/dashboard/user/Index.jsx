@@ -92,17 +92,7 @@ const Index = () => {
 						<label className="text-sm font-medium">Role:</label>
 						<Dropdown
 							items={dropDownItems}
-							defaultValue={
-								selectedUser
-									? (
-											dropDownItems.find(
-												(item) => item.value === selectedUser.role
-											) || {
-												label: "User",
-											}
-									  ).label
-									: "User"
-							}
+							defaultValue={selectedUser?.role}
 							onStateChange={(e) =>
 								setSelectedUser((prev) => ({ ...prev, role: e }))
 							}

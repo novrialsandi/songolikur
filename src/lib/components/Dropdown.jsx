@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import Button from "./Button";
 import { iconSvg } from "../Icons/icon";
 
 const Dropdown = ({
 	label = "",
-	popupTopPosition = 90, // should be changeable based on the height of the whole page
+	popupTopPosition = 90,
 	popupPosition = "left",
 	disabled = false,
 	popupZIndexClass = "z-10",
@@ -25,30 +24,22 @@ const Dropdown = ({
 	const [isOpen, setIsOpen] = useState(false);
 	const wrapperRef = useRef(null);
 
-	const onSelectItem = useCallback(
-		(item) => {
-			switch (type) {
-				case "single":
-					setSingleSelectedItem(item.label);
-					onStateChange(item.value);
-					break;
-				case "multi":
-					setMultipleSelectedItems((prevItems) => [...prevItems, item]);
-					onStateChange([...multipleSelectedItems, item]);
-					break;
-				default:
-					break;
+	// Initialize default values
+	useEffect(() => {
+		if (type === "single" && defaultValue) {
+			const selectedItem = items.find((item) => item.value === defaultValue);
+			if (selectedItem) {
+				setSingleSelectedItem(selectedItem.label);
 			}
-		},
-		[
-			type,
-			multipleSelectedItems,
-			setSingleSelectedItem,
-			setMultipleSelectedItems,
-			onStateChange,
-		]
-	);
+		} else if (type === "multi" && Array.isArray(defaultValue)) {
+			const selectedItems = items.filter((item) =>
+				defaultValue.includes(item.value)
+			);
+			setMultipleSelectedItems(selectedItems);
+		}
+	}, [defaultValue, items, type]);
 
+	// Close the dropdown when clicking outside
 	useEffect(() => {
 		const handleClickOutside = (event) => {
 			if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
@@ -62,16 +53,46 @@ const Dropdown = ({
 		};
 	}, []);
 
+	// Handle item selection
+	const onSelectItem = useCallback(
+		(item) => {
+			if (type === "single") {
+				setSingleSelectedItem(item.label);
+				onStateChange(item.value);
+				setIsOpen(false);
+			} else if (type === "multi") {
+				const isAlreadySelected = multipleSelectedItems.some(
+					(selectedItem) => selectedItem.value === item.value
+				);
+
+				const updatedItems = isAlreadySelected
+					? multipleSelectedItems.filter(
+							(selectedItem) => selectedItem.value !== item.value
+					  )
+					: [...multipleSelectedItems, item];
+
+				setMultipleSelectedItems(updatedItems);
+				onStateChange(updatedItems.map((item) => item.value));
+			}
+		},
+		[
+			multipleSelectedItems,
+			setSingleSelectedItem,
+			setMultipleSelectedItems,
+			onStateChange,
+			type,
+		]
+	);
+
 	return (
 		<div
 			ref={wrapperRef}
-			className="relative bg-white border border-black/10 active:border focus:border  rounded-lg  flex w-full flex-col gap-2"
+			className="relative bg-white border border-black/10 active:border focus:border rounded-lg flex w-full flex-col gap-2"
 		>
 			{label && <span className="">{label}</span>}
 			<button
 				disabled={disabled}
 				className={`${btnToggleClass} p-2`}
-				placeholder={placeholder}
 				onClick={(e) => {
 					e.stopPropagation();
 					setIsOpen(!isOpen);
@@ -105,12 +126,14 @@ const Dropdown = ({
 					</span>
 				</div>
 			</button>
+
+			{/* Multi-Selected Items Display */}
 			{type === "multi" && multipleSelectedItems.length > 0 && (
-				<div className="flex space-x-2">
+				<div className="flex flex-wrap gap-2 mb-2 mx-1">
 					{multipleSelectedItems.map((item, index) => (
 						<div
 							key={index}
-							className="inline-flex items-center gap-2  px-2 py-0.5 "
+							className="bg-primary text-white rounded-md px-3 py-1 text-sm flex items-center gap-2"
 						>
 							<span>{item.label}</span>
 						</div>
@@ -118,9 +141,10 @@ const Dropdown = ({
 				</div>
 			)}
 
+			{/* Dropdown Items */}
 			{isOpen && (
 				<div
-					className={`no-scrollbar absolute h-fit max-h-[210px] w-full min-w-[140px] max-w-[${maxWidth}] overflow-auto rounded-lg border border-black/10  shadow-lg ${popupZIndexClass} ${
+					className={`no-scrollbar absolute h-fit max-h-[210px] w-full min-w-[140px] max-w-[${maxWidth}] overflow-auto rounded-lg border border-black/10 shadow-lg ${popupZIndexClass} ${
 						popupPosition === "right" ? "right-0" : "left-0"
 					}`}
 					style={{
@@ -128,25 +152,34 @@ const Dropdown = ({
 						...popupStyle,
 					}}
 				>
-					<div
-						className={`no-scrollbar bg-white relative w-full overflow-y-scroll rounded-lg`}
-						onClick={() => setIsOpen(!isOpen)}
-					>
-						<div className="no-scrollbar flex h-full  flex-col  overflow-y-scroll text-text/light dark:text-text/light">
+					<div className="no-scrollbar bg-white relative w-full overflow-y-scroll rounded-lg">
+						<div className="no-scrollbar flex h-full flex-col overflow-y-scroll text-text/light dark:text-text/light">
 							{items && items.length ? (
 								items.map((item, index) => {
+									const isSelected =
+										type === "multi"
+											? multipleSelectedItems.some(
+													(selectedItem) => selectedItem.value === item.value
+											  )
+											: singleSelectedItem === item.label;
+
 									return (
 										<button
-											className="flex gap-2 p-2 hover:bg-black/10"
+											className={`flex gap-2 p-2 rounded-md hover:bg-gray-100`}
 											key={index}
 											onClick={() => onSelectItem(item)}
 										>
 											{item.label}
+											{isSelected && (
+												<span className="ml-auto text-sm text-black">
+													&#10003;
+												</span>
+											)}
 										</button>
 									);
 								})
 							) : (
-								<span>No Value to select</span>
+								<span className="p-2">No Value to select</span>
 							)}
 						</div>
 					</div>
