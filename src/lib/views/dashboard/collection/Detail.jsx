@@ -6,10 +6,7 @@ import fetchApi from "@/lib/api/fetchApi";
 
 const CollectionDetail = () => {
 	const { uuid } = useParams();
-	const [collection, setCollection] = useState({
-		title: "Loading...",
-		content: "",
-	});
+	const [collection, setCollection] = useState(null);
 
 	const getDetail = async () => {
 		try {
@@ -40,28 +37,30 @@ const CollectionDetail = () => {
 	};
 
 	return (
-		<div className="p-6 max-w-6xl mx-auto">
-			<div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-				<h2 className="text-xl font-semibold mb-4">{collection.title}</h2>
+		<div className="p-6 ">
+			<div className="flex w-full justify-between">
+				<div className="bg-white rounded-lg w-full max-w-6xl">
+					{/* Quill Editor Container */}
+					<div className="mb-4 border rounded-lg">
+						<QuillEditor
+							value={collection?.content}
+							uuid={uuid}
+							onChange={(value) => {
+								setCollection((prev) => ({ ...prev, content: value }));
+							}}
+						/>
+					</div>
 
-				{/* Quill Editor Container */}
-				<div className="mb-4 border rounded-lg">
-					<QuillEditor
-						uuid={uuid}
-						onChange={(value) => {
-							setCollection((prev) => ({ ...prev, content: value }));
-						}}
-					/>
+					<div className="flex justify-end">
+						<button
+							onClick={handleSave}
+							className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+						>
+							Save Content
+						</button>
+					</div>
 				</div>
-
-				<div className="flex justify-end">
-					<button
-						onClick={handleSave}
-						className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
-					>
-						Save Content
-					</button>
-				</div>
+				<div>halo</div>
 			</div>
 		</div>
 	);

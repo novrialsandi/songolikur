@@ -1,13 +1,12 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 import fetchApi from "../api/fetchApi";
 
-const QuillEditor = ({ onChange, uuid }) => {
+const QuillEditor = ({ onChange, uuid, value }) => {
 	const [quill, setQuill] = useState(null);
 	const editorRef = useRef(null);
 	const [pendingImages, setPendingImages] = useState([]);
 	const quillInitializedRef = useRef(false);
+	const initialContentSetRef = useRef(false);
 
 	const loadQuillLibrary = () => {
 		if (window.Quill) return Promise.resolve(window.Quill);
@@ -198,6 +197,7 @@ const QuillEditor = ({ onChange, uuid }) => {
 			if (quill && typeof quill.destroy === "function") {
 				quill.destroy();
 				quillInitializedRef.current = false;
+				initialContentSetRef.current = false;
 			}
 		};
 	}, []);
@@ -209,6 +209,25 @@ const QuillEditor = ({ onChange, uuid }) => {
 			setPendingImages([]);
 		}
 	}, [quill, pendingImages]);
+
+	// Set initial content when value prop changes or quill is initialized
+	useEffect(() => {
+		if (quill && value && !initialContentSetRef.current) {
+			quill.clipboard.dangerouslyPasteHTML(value);
+			initialContentSetRef.current = true;
+		} else if (
+			quill &&
+			value &&
+			initialContentSetRef.current &&
+			quill.root.innerHTML !== value
+		) {
+			// Only update if the content has changed externally
+			const currentContent = quill.root.innerHTML;
+			if (currentContent !== value) {
+				quill.clipboard.dangerouslyPasteHTML(value);
+			}
+		}
+	}, [quill, value]);
 
 	// Handle image selection and upload
 	const selectLocalImage = () => {
