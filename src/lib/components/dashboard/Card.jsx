@@ -89,32 +89,30 @@ const Card = ({ collection, onCollectionDelete }) => {
 				>
 					{iconSvg.delete}
 				</span>
-				<Image
+				<img
 					src={collection.thumbnail || "/placeholder.jpeg"}
 					alt={collection.title}
-					width={400}
-					height={200}
 					className="w-full h-48 object-cover"
 				/>
 				<div className="p-4">
 					<h2 className="text-lg font-semibold mb-2 truncate">
 						{collection.title}
 					</h2>
-					<p className="text-sm text-gray-600 mb-2">
-						{collection.user?.name || "Unknown Author"}
-					</p>
+
 					<div className="flex items-center gap-2 mb-2">
-						<Image
+						<img
 							src={collection.user?.avatar || "/avatar.jpeg"}
 							alt="User Avatar"
-							width={32}
-							height={32}
 							className="w-8 h-8 object-cover rounded-full"
 						/>
-						<span className="text-xs text-gray-500">
-							{new Date(collection.publishedAt).toLocaleDateString() || "Draft"}
-						</span>
+
+						<p className="text-sm text-gray-600 ">
+							{collection.user?.name || "Unknown Author"}
+						</p>
 					</div>
+					<span className="text-xs text-gray-500">
+						{new Date(collection.publishedAt).toLocaleDateString() || "Draft"}
+					</span>
 				</div>
 			</div>
 		</>

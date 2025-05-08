@@ -21,6 +21,7 @@ const TextInput = ({
 	isPasswordField = false,
 	debounceTime = null, // in milliseconds
 	isRequired = false,
+	isDisabled = false,
 	onKeyDown = () => {},
 	onChange = () => {},
 	onFocus = () => {},
@@ -71,12 +72,12 @@ const TextInput = ({
 	};
 
 	return (
-		<div className={`${isFullwidth ? "w-full" : ""} flex flex-col space-y-2`}>
+		<div className={`${isFullwidth ? "w-full" : ""} flex flex-col`}>
 			{label && (
 				<label
 					suppressHydrationWarning
 					htmlFor={id}
-					className="flex items-center "
+					className="flex items-center"
 				>
 					{label}
 					{isRequired && <span className="ml-1 font-bold text-red-400">*</span>}
@@ -102,16 +103,23 @@ const TextInput = ({
 					onBlur={onBlur}
 					onFocus={onFocus}
 					onChange={handleChange}
+					disabled={isDisabled}
 					className={`flex w-full items-center rounded-md border border-[#eeeeee] outline-0 focus:border-active focus:ring-0 hover:border-[#333333] focus:border-primary ${className} ${
 						errorMsg ? "border-error text-error" : ""
 					} ${sizeDataClass[size]} ${hasIconLeft ? "pl-14" : "pl-4"} ${
 						hasIconRight || isPasswordField ? "pr-10" : "pr-4"
+					} ${
+						isDisabled ? "bg-gray-200 cursor-not-allowed text-gray-500" : ""
 					}`}
 					required={isRequired}
 				/>
 				{isPasswordField && (
 					<div className="absolute inset-y-0 right-0 flex items-center px-6">
-						<button onClick={togglePasswordVisibility}>
+						<button
+							onClick={togglePasswordVisibility}
+							disabled={isDisabled}
+							className={`${isDisabled ? "cursor-not-allowed" : ""}`}
+						>
 							{inputType === "password"
 								? iconSvg.eyeOpenSvg
 								: iconSvg.eyeCloseSvg}
