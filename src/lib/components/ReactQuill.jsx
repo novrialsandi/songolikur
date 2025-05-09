@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
@@ -58,6 +60,29 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 		placeholder: "Start typing...",
 	});
 	const initialLoad = useRef(true);
+
+	// Function to remove base64 images from HTML content
+	const removeBase64Images = (htmlContent) => {
+		if (!htmlContent) return htmlContent;
+
+		// Create a temporary DOM element to parse the HTML
+		const tempDiv = document.createElement("div");
+		tempDiv.innerHTML = htmlContent;
+
+		// Find all image elements
+		const images = tempDiv.querySelectorAll("img");
+
+		// Check each image for base64 data
+		images.forEach((img) => {
+			const src = img.getAttribute("src");
+			if (src && src.startsWith("data:image/")) {
+				// Remove the image element completely
+				img.parentNode.removeChild(img);
+			}
+		});
+
+		return tempDiv.innerHTML;
+	};
 
 	// Insert Image(selected by user) to quill
 	const insertToEditor = (url) => {
@@ -121,17 +146,24 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 			// Register text-change event once
 			quill.on("text-change", () => {
 				const html = quill.root.innerHTML;
-				if (onChange) onChange(html);
+				// Remove any base64 images before triggering onChange
+				const cleanedHtml = removeBase64Images(html);
+				if (onChange) onChange(cleanedHtml);
 			});
 		}
 	}, [quill]);
 
 	useEffect(() => {
-		if (quill && initialLoad.current) {
-			quill.clipboard.dangerouslyPasteHTML(value);
-			initialLoad.current = false;
-		} else if (quill && value !== quill.root.innerHTML) {
-			quill.clipboard.dangerouslyPasteHTML(value);
+		if (quill) {
+			// Remove base64 images from the incoming value
+			const cleanedValue = removeBase64Images(value);
+
+			if (initialLoad.current) {
+				quill.clipboard.dangerouslyPasteHTML(cleanedValue);
+				initialLoad.current = false;
+			} else if (cleanedValue !== quill.root.innerHTML) {
+				quill.clipboard.dangerouslyPasteHTML(cleanedValue);
+			}
 		}
 	}, [quill, value]);
 
