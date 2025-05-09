@@ -65,7 +65,7 @@ const Card = ({ collection, onCollectionDelete }) => {
 				onClick={() =>
 					router.push(`/dashboard/collection/${collection.collection_uuid}`)
 				}
-				className="bg-white relative border rounded-xl overflow-hidden cursor-pointer duration-150 hover:-translate-y-1.5"
+				className="bg-white relative border border-[#cccccc] rounded-md overflow-hidden cursor-pointer duration-150 hover:-translate-y-1.5"
 			>
 				{/* Status Badge */}
 				<span
