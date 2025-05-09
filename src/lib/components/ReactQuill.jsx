@@ -172,14 +172,15 @@ const ReactQuill = ({ value, uuid, onChange }) => {
 					return src && src.startsWith("data:image");
 				};
 
-				// Go through all ops looking for images
+				// Iterate over all ops
 				for (let i = 0; i < delta.ops.length; i++) {
 					const op = delta.ops[i];
+
+					// Check for base64 image
 					if (op.insert && op.insert.image && isBase64Image(op.insert.image)) {
-						// Extract base64 data
 						const base64String = op.insert.image;
 
-						// Convert base64 to file
+						// Convert base64 to File
 						const arr = base64String.split(",");
 						const mime = arr[0].match(/:(.*?);/)[1];
 						const bstr = atob(arr[1]);
@@ -193,16 +194,25 @@ const ReactQuill = ({ value, uuid, onChange }) => {
 						// Upload the file
 						const imageUrl = await uploadImage(file);
 						if (imageUrl) {
-							// Replace the image in the editor
+							// Replace the image with a <p><img/></p> wrapper
 							const range = { index: i, length: 1 };
 							quill.deleteText(range.index, range.length);
 							quill.insertEmbed(range.index, "image", imageUrl);
+
+							// Add the <p> wrapper
+							quill.insertText(range.index, "<p>", "user");
+							quill.insertText(
+								range.index + 1 + imageUrl.length,
+								"</p>",
+								"user"
+							);
+
 							hasChanges = true;
 						}
 					}
 				}
 
-				// Call onChange if we made changes
+				// Call onChange if changes were made
 				if (hasChanges && onChange) {
 					onChange(quill.root.innerHTML);
 				}
