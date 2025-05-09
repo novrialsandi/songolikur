@@ -19,9 +19,9 @@ const Index = () => {
 	const [selectedUser, setSelectedUser] = useState(null);
 
 	const dropDownItems = [
-		{ label: "User", value: "user" },
-		{ label: "Contributor", value: "contributor" },
 		{ label: "Admin", value: "admin" },
+		{ label: "Contributor", value: "contributor" },
+		{ label: "User", value: "user" },
 	];
 
 	const getUsers = async () => {
@@ -121,13 +121,13 @@ const Index = () => {
 			</Modal>
 
 			<div className="p-6 mx-auto">
-				<table className="w-full border-collapse border border-gray-300">
+				<table className="w-full border-collapse border border-[#cccccc]">
 					<thead>
-						<tr className="bg-gray-100">
+						<tr className="bg-gray-200">
 							{attributes.map((attr) => (
 								<th
 									key={attr}
-									className={`text-left p-2 border border-gray-300 capitalize ${
+									className={`text-left p-2 border border-[#cccccc] capitalize ${
 										attr === "" ? "w-[49px]" : attr === " " ? "w-[41px]" : ""
 									}`}
 								>
@@ -141,18 +141,18 @@ const Index = () => {
 							<tr>
 								<td
 									colSpan={attributes.length}
-									className="text-center p-4 border border-gray-300"
+									className="text-center p-4 border border-[#cccccc]"
 								>
 									Loading...
 								</td>
 							</tr>
 						) : users.length > 0 ? (
 							users.map((user, index) => (
-								<tr key={index} className="odd:bg-white even:bg-gray-50">
+								<tr key={index} className="bg-white hover:bg-gray-100">
 									{attributes.map((attr) => (
 										<td
 											key={attr}
-											className={`p-2 border  border-gray-300 ${
+											className={`p-2 border  border-[#cccccc] ${
 												attr === ""
 													? "w-[49px]"
 													: attr === " "
@@ -191,7 +191,7 @@ const Index = () => {
 							<tr>
 								<td
 									colSpan={attributes.length}
-									className="text-center p-4 border border-gray-300"
+									className="text-center p-4 border border-[#cccccc]"
 								>
 									No users found
 								</td>

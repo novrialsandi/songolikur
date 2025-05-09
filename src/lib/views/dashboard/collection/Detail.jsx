@@ -135,7 +135,7 @@ const CollectionDetail = () => {
 					)}
 				</div>
 				<div className="w-full max-w-[420px]">
-					<div className="flex flex-col gap-4 border p-4 ">
+					<div className="flex flex-col gap-4 border border-[#cccccc] p-4 ">
 						{detailLoading ? (
 							<div className="text-center text-gray-500 py-8">
 								Loading details...
