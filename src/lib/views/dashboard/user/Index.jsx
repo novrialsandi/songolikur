@@ -28,7 +28,7 @@ const Index = () => {
 		try {
 			const res = await fetchApi.get("/user");
 			if (res.status === 200) {
-				setUsers(res.data.user);
+				setUsers(res.data.users);
 			}
 		} catch (error) {
 			console.error(error);
