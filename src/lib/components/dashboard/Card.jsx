@@ -63,7 +63,6 @@ const Card = ({ collection, onCollectionDelete }) => {
 				href={`/dashboard/collection/${collection.collection_uuid}`}
 				className="bg-white relative border border-[#cccccc] rounded-md overflow-hidden cursor-pointer duration-150 hover:-translate-y-1.5"
 			>
-				{/* Status Badge */}
 				<span
 					className={`text-xs absolute left-0 top-0 font-semibold py-1 px-2 rounded-br-md ${
 						collection.status === "published"
