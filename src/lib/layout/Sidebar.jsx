@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import fetchApi from "../api/fetchApi";
+import Link from "next/link";
 
 const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 	const pathname = usePathname();
@@ -27,10 +28,6 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 		newPassword: "",
 		confirmPassword: "",
 	});
-
-	const handleMenu = (category, index) => {
-		router.push(menus[category][index].href);
-	};
 
 	const toggleMiniSidebar = () => {
 		onMiniSidebar(!miniSidebar);
@@ -369,17 +366,15 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 												<div className="absolute left-0 top-1/2 h-1/2 w-1 -translate-y-1/2 transform rounded-r-full bg-primary" />
 											)}
 											<li
-												onClick={() => handleMenu(category, index)}
-												className={`mx-4 mb-2 flex cursor-pointer items-center rounded-lg px-4 py-2  ${
+												className={`mx-4 mb-2 flex cursor-pointer items-center rounded-lg px-4 py-2 ${
 													isMenuActive(item)
 														? "border border-[#62666e]"
 														: "border border-transparent"
 												}`}
 											>
-												<div
-													className={`flex w-full items-center ${
-														miniSidebar ? "justify-center" : "justify-between"
-													}`}
+												<Link
+													href={item.href}
+													className="flex w-full items-center"
 												>
 													<div
 														className={`flex items-center ${
@@ -393,11 +388,10 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 															</span>
 														)}
 													</div>
-
 													{!miniSidebar && item.isNotif && (
 														<div className="flex h-2 w-2 flex-none rounded-full bg-primary" />
 													)}
-												</div>
+												</Link>
 											</li>
 										</div>
 									))}

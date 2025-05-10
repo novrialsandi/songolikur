@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { iconSvg } from "@/lib/Icons/icon";
 import Modal from "../Modal";
 import fetchApi from "@/lib/api/fetchApi";
 import Button from "../Button";
+import Link from "next/link";
 
 const Card = ({ collection, onCollectionDelete }) => {
-	const router = useRouter();
 	const [loadingDelete, setLoadingDelete] = useState(false);
 	const [deleteModal, setDeleteModal] = useState(false);
 
@@ -61,10 +59,8 @@ const Card = ({ collection, onCollectionDelete }) => {
 				</div>
 			</Modal>
 
-			<div
-				onClick={() =>
-					router.push(`/dashboard/collection/${collection.collection_uuid}`)
-				}
+			<Link
+				href={`/dashboard/collection/${collection.collection_uuid}`}
 				className="bg-white relative border border-[#cccccc] rounded-md overflow-hidden cursor-pointer duration-150 hover:-translate-y-1.5"
 			>
 				{/* Status Badge */}
@@ -114,7 +110,7 @@ const Card = ({ collection, onCollectionDelete }) => {
 						{new Date(collection.publishedAt).toLocaleDateString() || "Draft"}
 					</span>
 				</div>
-			</div>
+			</Link>
 		</>
 	);
 };
