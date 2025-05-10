@@ -75,15 +75,18 @@ const Card = ({ collection, onCollectionDelete }) => {
 					{collection.status || "Draft"}
 				</span>
 
-				<span
+				{/* Delete Button */}
+				<button
 					onClick={(e) => {
-						e.stopPropagation();
+						e.stopPropagation(); // Prevents the Link from being triggered
+						e.preventDefault(); // Ensures no default link action occurs
 						setDeleteModal(true);
 					}}
 					className="bg-white absolute right-0 top-0 font-semibold py-1 px-2 rounded-bl-md hover:scale-110 duration-200 cursor-pointer"
 				>
 					{iconSvg.delete}
-				</span>
+				</button>
+
 				<img
 					src={collection.thumbnail || "/placeholder.jpeg"}
 					alt={collection.title}
