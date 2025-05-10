@@ -49,7 +49,8 @@ const CollectionDetail = () => {
 
 		return (
 			<div className="p-6 w-full flex justify-center">
-				<div className="prose">
+				<div className="max-w-3xl">
+					<img src={collection.thumbnail} alt="" />
 					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 				</div>
 			</div>

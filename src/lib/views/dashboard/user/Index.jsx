@@ -9,7 +9,20 @@ import Button from "@/lib/components/Button";
 import ToggleButton from "@/lib/components/Toogle";
 import { useUsersStore } from "@/lib/stores";
 
-const attributes = ["", "name", "username", "email", "role", "Active", " "];
+const attributes = [
+	"",
+	"name",
+	"username",
+	"email",
+	"role",
+	"Draft",
+	"On Review",
+	"Published",
+	"Total Collections",
+	"Average Views",
+	"Active",
+	" ",
+];
 
 const Index = () => {
 	const { users, setUsers } = useUsersStore();
@@ -176,6 +189,16 @@ const Index = () => {
 												>
 													{iconSvg.menuSvg}
 												</button>
+											) : attr === "Draft" ? (
+												<>{user.statistic.draftCount}</>
+											) : attr === "Published" ? (
+												<>{user.statistic.publishedCount}</>
+											) : attr === "On Review" ? (
+												<>{user.statistic.reviewCount}</>
+											) : attr === "Total Collections" ? (
+												<>{user.statistic.totalCollections}</>
+											) : attr === "Average Views" ? (
+												<>{user.statistic.engagements.averageViews}</>
 											) : attr === "Active" ? (
 												<>
 													{user.isActive ? iconSvg.checkSvg : iconSvg.crossSvg}
