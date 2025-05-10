@@ -42,7 +42,8 @@ const CollectionDetail = () => {
 
 	if (
 		collection.status === "published" ||
-		(collection.status === "review" && collection.editor_uuid !== session.uuid)
+		(collection.status === "review" &&
+			collection.editor_uuid !== session.user_uuid)
 	) {
 		const sanitizedContent = DOMPurify.sanitize(collection.content);
 
