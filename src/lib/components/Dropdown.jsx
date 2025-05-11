@@ -144,7 +144,7 @@ const Dropdown = ({
 			{/* Dropdown Items */}
 			{isOpen && (
 				<div
-					className={`no-scrollbar absolute h-fit max-h-[210px] w-full min-w-[140px] max-w-[${maxWidth}] overflow-auto rounded-lg border border-black/10 shadow-lg ${popupZIndexClass} ${
+					className={` absolute h-fit max-h-[121px] w-full min-w-[140px] max-w-[${maxWidth}] overflow-auto rounded-lg border border-black/10 shadow-lg ${popupZIndexClass} ${
 						popupPosition === "right" ? "right-0" : "left-0"
 					}`}
 					style={{
