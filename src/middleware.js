@@ -37,6 +37,7 @@ export function middleware(request) {
 		url.pathname.includes("/dashboard") &&
 		!token.value &&
 		role !== "contributor" &&
+		role !== "editor" &&
 		role !== "admin"
 	) {
 		return NextResponse.redirect(new URL("/", request.url));

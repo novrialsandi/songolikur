@@ -432,6 +432,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 									onClick={() => {
 										removeCookie("sid");
 										removeCookie("cid");
+										setSession({});
 										router.push("/login");
 									}}
 								>

@@ -34,6 +34,7 @@ const Index = () => {
 	const dropDownItems = [
 		{ label: "Admin", value: "admin" },
 		{ label: "Contributor", value: "contributor" },
+		{ label: "Editor", value: "editor" },
 		{ label: "User", value: "user" },
 	];
 
