@@ -51,9 +51,9 @@ const Login = () => {
 					setErrorMsg("");
 
 					if (req.data.user.role === "user") {
-						router.replace("/");
+						router.push("/");
 					} else {
-						router.replace("/dashboard");
+						router.push("/dashboard");
 					}
 				}
 			} else if (!isLogin) {
@@ -65,7 +65,7 @@ const Login = () => {
 				// if (req.status === 201) {
 				// 	setCookie("cid", req.data.user);
 				// 	setErrorMsg("");
-				// 	router.replace("/");
+				// 	router.push("/");
 				// }
 			}
 		} catch (error) {
