@@ -88,7 +88,7 @@ const Card = ({ collection, onCollectionDelete }) => {
 				</button>
 
 				<img
-					src={collection.thumbnail || "/placeholder.jpeg"}
+					src={collection.thumbnail || "/placeholder.webp"}
 					alt={collection.title}
 					className="w-full h-48 object-cover"
 				/>
@@ -99,7 +99,7 @@ const Card = ({ collection, onCollectionDelete }) => {
 
 					<div className="flex items-center gap-2 mb-2">
 						<img
-							src={collection.user?.avatar || "/avatar.jpeg"}
+							src={collection.user?.avatar || "/avatar.png"}
 							alt="User Avatar"
 							className="w-8 h-8 object-cover rounded-full"
 						/>

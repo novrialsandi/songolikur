@@ -95,7 +95,7 @@ const Index = () => {
 					<div className="text-2xl font-semibold">Edit User</div>
 					<div className="flex flex-col items-center gap-4">
 						<img
-							src={selectedUser?.avatar || "/avatar.jpeg"}
+							src={selectedUser?.avatar || "/avatar.png"}
 							alt="avatar"
 							className="w-24 h-24 rounded-full object-cover"
 						/>
@@ -176,7 +176,7 @@ const Index = () => {
 										>
 											{attr === "" ? (
 												<img
-													src={user.avatar || "/avatar.jpeg"}
+													src={user.avatar || "/avatar.png"}
 													alt="avatar"
 													className="size-8 object-cover rounded-full"
 												/>

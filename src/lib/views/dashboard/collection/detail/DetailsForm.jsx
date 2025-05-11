@@ -103,7 +103,7 @@ const DetailsForm = ({
 					<div>Thumbnail:</div>
 					<div className="relative">
 						<img
-							src={collection?.thumbnail || "/placeholder.jpeg"}
+							src={collection?.thumbnail || "/placeholder.webp"}
 							alt="thumbnail"
 							className="rounded-md"
 						/>

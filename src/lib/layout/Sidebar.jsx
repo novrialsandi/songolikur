@@ -251,7 +251,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						<div className="text-2xl font-semibold">Edit Profile</div>
 						<div className="relative flex flex-col items-center gap-4">
 							<img
-								src={session?.avatar || "/avatar.jpeg"}
+								src={session?.avatar || "/avatar.png"}
 								alt="avatar"
 								className="w-24 h-24 rounded-full object-cover transition-opacity duration-300 hover:opacity-70"
 							/>
@@ -409,7 +409,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						}`}
 					>
 						<img
-							src={session.avatar || "/avatar.jpeg"}
+							src={session.avatar || "/avatar.png"}
 							alt=""
 							className="size-11 object-cover cursor-pointer flex-none rounded-full"
 							onClick={() => setModalProfile(true)}
