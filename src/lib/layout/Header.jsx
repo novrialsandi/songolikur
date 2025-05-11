@@ -58,9 +58,23 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 
 			if (req.status === 201) {
 				setUsers((prevUsers) => {
-					const updatedUsers = [...prevUsers, req.data.user];
+					const newUser = {
+						...req.data.user,
+						statistic: {
+							draftCount: 0,
+							publishedCount: 0,
+							reviewCount: 0,
+							totalCollections: 0,
+							engagements: {
+								views: 0,
+								likes: 0,
+								dislikes: 0,
+								averageViews: 0,
+							},
+						},
+					};
 
-					updatedUsers.sort((a, b) => {
+					const updatedUsers = [...prevUsers, newUser].sort((a, b) => {
 						if (a.role === b.role) {
 							return a.name.localeCompare(b.name);
 						}
