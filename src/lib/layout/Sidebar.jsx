@@ -366,7 +366,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 												<div className="absolute left-0 top-1/2 h-1/2 w-1 -translate-y-1/2 transform rounded-r-full bg-primary" />
 											)}
 											<li
-												className={`mx-4 mb-2 flex cursor-pointer items-center rounded-lg px-4 py-2 ${
+												className={`mx-4 mb-2 flex cursor-pointer items-center rounded-lg ${
 													isMenuActive(item)
 														? "border border-[#62666e]"
 														: "border border-transparent"
@@ -374,7 +374,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 											>
 												<Link
 													href={item.href}
-													className="flex w-full items-center"
+													className="flex w-full items-center px-3 py-2 "
 												>
 													<div
 														className={`flex items-center ${
