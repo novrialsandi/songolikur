@@ -43,6 +43,15 @@ export function middleware(request) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
 
+	// Restrict access to /dashboard/user based on role
+	if (
+		url.pathname.includes("/dashboard/user") &&
+		!token.value &&
+		role !== "admin"
+	) {
+		return NextResponse.redirect(new URL("/dashboard", request.url));
+	}
+
 	return NextResponse.next();
 }
 
