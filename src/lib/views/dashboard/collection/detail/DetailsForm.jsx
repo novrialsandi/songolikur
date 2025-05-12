@@ -1,11 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import fetchApi from "@/lib/api/fetchApi";
 import TextInput from "@/lib/components/TextInput";
+import TextArea from "@/lib/components/TextArea";
 import ToggleButton from "@/lib/components/Toogle";
 import Dropdown from "@/lib/components/Dropdown";
 import Button from "@/lib/components/Button";
 import { iconSvg } from "@/lib/Icons/icon";
+import { useSessionStore } from "@/lib/stores";
+import { listCategories, listTags } from "@/lib/constant";
+import Modal from "@/lib/components/Modal";
 
 const DetailsForm = ({
 	collection,
@@ -14,36 +18,13 @@ const DetailsForm = ({
 	setLoading,
 	uuid,
 }) => {
-	const listCategories = [
-		{ label: "Article", value: "articles" },
-		{ label: "News", value: "news" },
-	];
+	const { session } = useSessionStore();
+	const [collabulator, setCollabulator] = useState([]);
 
-	const listTags = [
-		{ label: "Business", value: "business" },
-		{ label: "Crime", value: "crime" },
-		{ label: "Culture", value: "culture" },
-		{ label: "Economy", value: "economy" },
-		{ label: "Education", value: "education" },
-		{ label: "Entertainment", value: "entertainment" },
-		{ label: "Environment", value: "environment" },
-		{ label: "Fashion", value: "fashion" },
-		{ label: "Food", value: "food" },
-		{ label: "Football", value: "football" },
-		{ label: "Gaming", value: "gaming" },
-		{ label: "Health", value: "health" },
-		{ label: "Lifestyle", value: "lifestyle" },
-		{ label: "Movies", value: "movies" },
-		{ label: "Music", value: "music" },
-		{ label: "Opinion", value: "opinion" },
-		{ label: "Politics", value: "politics" },
-		{ label: "Science", value: "science" },
-		{ label: "Social", value: "social" },
-		{ label: "Sports", value: "sports" },
-		{ label: "Technology", value: "technology" },
-		{ label: "Travel", value: "travel" },
-		{ label: "Weather", value: "weather" },
-	];
+	const isAdmin = session.role === "admin";
+	const isOwner = session.user_uuid === collection.user_uuid;
+	const isCollabulator = session.user_uuid === collection.collaboration_uuid;
+	const isEditor = session.user_uuid === collection.editor_uuid;
 
 	const handleSave = async () => {
 		try {
@@ -95,28 +76,43 @@ const DetailsForm = ({
 		input.click();
 	};
 
+	const getCollaborator = async () => {
+		try {
+			const res = await fetchApi("/user/collaborator");
+
+			if (res.status === 200) {
+				setCollabulator(res.data.collaborator);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getCollaborator();
+	}, []);
+
 	return (
 		<div className="border border-[#cccccc] p-4 space-y-2 max-h-[calc(100vh-140px)]">
 			<div className="text-2xl">Detail Collection:</div>
-			<div className="flex flex-col gap-4 max-h-[calc(100vh-208px)] overflow-y-auto no-scrollbar">
-				<div>
-					<div>Thumbnail:</div>
-					<div className="relative">
-						<img
-							src={collection?.thumbnail || "/placeholder.webp"}
-							alt="thumbnail"
-							className="rounded-md"
-						/>
-						<div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100 pointer-events-none">
-							<div
-								className="bg-black/60 w-full h-full flex cursor-pointer items-center justify-center rounded-md p-2 pointer-events-auto"
-								onClick={selectLocalImage}
-							>
-								{iconSvg.edit}
-							</div>
+			<div>
+				<div className="relative">
+					<img
+						src={collection?.thumbnail || "/placeholder.webp"}
+						alt="thumbnail"
+						className="rounded-md"
+					/>
+					<div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100 pointer-events-none">
+						<div
+							className="bg-black/60 w-full h-full flex cursor-pointer items-center justify-center rounded-md p-2 pointer-events-auto"
+							onClick={selectLocalImage}
+						>
+							{iconSvg.edit}
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className="flex flex-col gap-4 max-h-[calc(100vh-208px)] overflow-y-auto no-scrollbar">
 				<div>
 					<div>Title:</div>
 					<TextInput
@@ -151,6 +147,18 @@ const DetailsForm = ({
 					/>
 				</div>
 				<div>
+					<div>SEO:</div>
+					<TextArea
+						value={collection.seo || ""}
+						onChange={(e) => {
+							setCollection((prev) => ({
+								...prev,
+								seo: e.target.value,
+							}));
+						}}
+					/>
+				</div>
+				{/* <div>
 					<div>Anonymous:</div>
 					<ToggleButton
 						isActive={collection.isAnonim}
@@ -161,7 +169,7 @@ const DetailsForm = ({
 							}));
 						}}
 					/>
-				</div>
+				</div> */}
 				<Button
 					onClick={handleSave}
 					className="px-4 py-2 rounded-md"

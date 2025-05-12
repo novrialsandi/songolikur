@@ -1,0 +1,30 @@
+export const listCategories = [
+	{ label: "Article", value: "articles" },
+	{ label: "News", value: "news" },
+];
+
+export const listTags = [
+	{ label: "Business", value: "business" },
+	{ label: "Crime", value: "crime" },
+	{ label: "Culture", value: "culture" },
+	{ label: "Economy", value: "economy" },
+	{ label: "Education", value: "education" },
+	{ label: "Entertainment", value: "entertainment" },
+	{ label: "Environment", value: "environment" },
+	{ label: "Fashion", value: "fashion" },
+	{ label: "Food", value: "food" },
+	{ label: "Football", value: "football" },
+	{ label: "Gaming", value: "gaming" },
+	{ label: "Health", value: "health" },
+	{ label: "Lifestyle", value: "lifestyle" },
+	{ label: "Movies", value: "movies" },
+	{ label: "Music", value: "music" },
+	{ label: "Opinion", value: "opinion" },
+	{ label: "Politics", value: "politics" },
+	{ label: "Science", value: "science" },
+	{ label: "Social", value: "social" },
+	{ label: "Sports", value: "sports" },
+	{ label: "Technology", value: "technology" },
+	{ label: "Travel", value: "travel" },
+	{ label: "Weather", value: "weather" },
+];
