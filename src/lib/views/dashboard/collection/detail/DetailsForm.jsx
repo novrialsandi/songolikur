@@ -96,9 +96,9 @@ const DetailsForm = ({
 	};
 
 	return (
-		<div className="w-full max-w-[420px]">
-			<div className="flex flex-col gap-4 border border-[#cccccc] p-4">
-				<div className="text-2xl">Detail Collection:</div>
+		<div className="border border-[#cccccc] p-4 space-y-2 max-h-[calc(100vh-140px)]">
+			<div className="text-2xl">Detail Collection:</div>
+			<div className="flex flex-col gap-4 max-h-[calc(100vh-208px)] overflow-y-auto no-scrollbar">
 				<div>
 					<div>Thumbnail:</div>
 					<div className="relative">

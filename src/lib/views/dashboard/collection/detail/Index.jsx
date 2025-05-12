@@ -58,8 +58,8 @@ const CollectionDetail = () => {
 	}
 
 	return (
-		<div className="p-6" style={{ height: "calc(100vh - 92px)" }}>
-			<div className="flex w-full justify-center gap-6">
+		<div className="p-6">
+			<div className="flex relative w-full justify-center gap-6 h-[calc(100vh-140px)]">
 				<ReactQuill
 					value={collection?.content || ""}
 					uuid={uuid}
@@ -68,13 +68,17 @@ const CollectionDetail = () => {
 					}
 				/>
 
-				<DetailsForm
-					collection={collection}
-					setCollection={setCollection}
-					loading={loading}
-					setLoading={setLoading}
-					uuid={uuid}
-				/>
+				<div className="relative w-full max-w-[420px]">
+					<div className="fixed bg-white w-full max-w-[420px]">
+						<DetailsForm
+							collection={collection}
+							setCollection={setCollection}
+							loading={loading}
+							setLoading={setLoading}
+							uuid={uuid}
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
