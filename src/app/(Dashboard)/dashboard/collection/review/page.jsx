@@ -1,7 +1,7 @@
 import Review from "@/lib/views/dashboard/collection/review/Index";
 
 export const metadata = {
-	title: "Songolikur - Review",
+	title: "Review - Songolikur",
 	description: "Text Builder",
 	// metadataBase: new URL("https://www.songolikur.id"),
 	// openGraph: {

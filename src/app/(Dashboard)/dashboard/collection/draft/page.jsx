@@ -1,7 +1,7 @@
 import Draft from "@/lib/views/dashboard/collection/draft/Index";
 
 export const metadata = {
-	title: "Songolikur - Draft",
+	title: "Draft - Songolikur",
 	description: "Text Builder",
 	// metadataBase: new URL("https://www.songolikur.id"),
 	// openGraph: {

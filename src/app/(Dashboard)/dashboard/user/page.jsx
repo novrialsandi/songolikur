@@ -1,7 +1,7 @@
 import User from "@/lib/views/dashboard/user/Index";
 
 export const metadata = {
-	title: "Songolikur - User",
+	title: "Users - Songolikur",
 	description: "Text Builder",
 	// metadataBase: new URL("https://www.songolikur.id"),
 	// openGraph: {

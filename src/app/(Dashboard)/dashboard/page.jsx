@@ -1,7 +1,7 @@
 import Dashboard from "@/lib/views/dashboard/Index";
 
 export const metadata = {
-	title: "Songolikur - Dashboard",
+	title: "Dashboard - Songolikur",
 	description: "Text Builder",
 	// metadataBase: new URL("https://www.songolikur.id"),
 	// openGraph: {
