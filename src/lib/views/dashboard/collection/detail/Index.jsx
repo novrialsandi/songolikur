@@ -1,13 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import fetchApi from "@/lib/api/fetchApi";
 import ReactQuill from "@/lib/components/ReactQuill";
 import DetailsForm from "./DetailsForm";
 import { useSessionStore, useCollectionSelectedStore } from "@/lib/stores";
 import DOMPurify from "dompurify";
+import Button from "@/lib/components/Button";
 
 const CollectionDetail = () => {
+	const router = useRouter();
 	const { uuid } = useParams();
 	const { session } = useSessionStore();
 	const { setCollectionSelected } = useCollectionSelectedStore();
@@ -28,6 +30,26 @@ const CollectionDetail = () => {
 			console.error("Failed to fetch collection:", error);
 		} finally {
 			setDetailLoading(false);
+		}
+	};
+
+	const handleStatus = async (status) => {
+		try {
+			setLoading(true);
+
+			const res = await fetchApi.patch(`/collection/status/${uuid}`, {
+				status: status,
+				editor_uuid: "",
+				review_note: status,
+				scheduleAt: null,
+			});
+			if (res.status === 200) {
+				router.push(`/dashboard/collection/${status}`);
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -55,12 +77,26 @@ const CollectionDetail = () => {
 		const sanitizedContent = DOMPurify.sanitize(collection.content);
 
 		return (
-			<div className="p-6 w-full flex justify-center">
-				<div className="max-w-3xl">
-					<img src={collection.thumbnail} alt="" />
-					<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+			<>
+				<div className="p-6 w-full flex justify-center">
+					<div className="max-w-3xl">
+						<img src={collection.thumbnail} alt="" />
+						<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+					</div>
 				</div>
-			</div>
+				<div className="w-full flex justify-center mb-4">
+					<Button
+						onClick={() => {
+							handleStatus("draft");
+						}}
+						disabled={loading}
+						isLoading={loading}
+						className="px-4 py-2 rounded-md "
+					>
+						Send to Draft
+					</Button>
+				</div>
+			</>
 		);
 	}
 
