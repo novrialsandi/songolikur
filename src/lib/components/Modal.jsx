@@ -107,7 +107,7 @@ const Modal = ({
 			{visible && (
 				<motion.div
 					key="modal-overlay"
-					className={`fixed inset-0 z-[10] flex min-h-screen bg-black/80 p-4 ${getModalPosition()}`}
+					className={`fixed inset-0 z-10 flex min-h-screen bg-black/80 p-4 ${getModalPosition()}`}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}

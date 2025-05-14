@@ -76,7 +76,7 @@ const CollectionDetail = () => {
 				/>
 
 				<div className="relative w-full max-w-[420px]">
-					<div className="fixed bg-white w-full max-w-[420px]">
+					<div className=" bg-white w-full max-w-[420px]">
 						<DetailsForm
 							collection={collection}
 							setCollection={setCollection}
