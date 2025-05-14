@@ -164,7 +164,7 @@ const DetailsForm = ({
 					<div className="flex flex-col items-center gap-4">
 						<Dropdown
 							items={editor}
-							defaultValue={collection.editor_uuid}
+							// defaultValue={collection.editor_uuid}
 							onStateChange={(e) =>
 								setUpdateStatus((prev) => ({
 									...prev,
