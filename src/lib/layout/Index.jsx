@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { usePathname, useParams } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { useSessionStore } from "@/lib/stores";
+import { useCollectionSelectedStore, useSessionStore } from "@/lib/stores";
 
 const Parent = ({ children, menus, cookieData }) => {
 	const { setSession } = useSessionStore();
+	const { collectionSelected } = useCollectionSelectedStore();
+
 	const pathname = usePathname();
 	const [miniSidebar, setMiniSidebar] = useState(false);
 
@@ -23,7 +25,7 @@ const Parent = ({ children, menus, cookieData }) => {
 		const uuidPattern = /^\/dashboard\/collection\/\d+$/;
 
 		if (uuidPattern.test(pathname)) {
-			return { name: "Text Editor", subMenu: null };
+			return { name: collectionSelected, subMenu: null };
 		}
 
 		for (const category in menus) {

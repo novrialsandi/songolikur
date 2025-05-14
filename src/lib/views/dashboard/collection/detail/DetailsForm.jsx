@@ -20,7 +20,7 @@ const DetailsForm = ({
 }) => {
 	const { session } = useSessionStore();
 	const [collabulator, setCollabulator] = useState([]);
-	// const [isCollab, setIsCollab] = useState(false);
+	const [isCollab, setIsCollab] = useState(false);
 
 	const isAdmin = session.role === "admin";
 	const isOwner = session.user_uuid === collection.user_uuid;
@@ -82,7 +82,12 @@ const DetailsForm = ({
 			const res = await fetchApi("/user/collaborator");
 
 			if (res.status === 200) {
-				setCollabulator(res.data.collaborator);
+				const formattedData = res.data.collaborator.map((item) => ({
+					value: item.user_uuid,
+					label: item.name,
+				}));
+
+				setCollabulator(formattedData);
 			}
 		} catch (error) {
 			console.log(error);
@@ -91,6 +96,10 @@ const DetailsForm = ({
 
 	useEffect(() => {
 		getCollaborator();
+
+		if (collection.collaboration_uuid) {
+			setIsCollab(true);
+		}
 	}, []);
 
 	return (
@@ -113,7 +122,7 @@ const DetailsForm = ({
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-col gap-4 max-h-[calc(100vh-208px)] overflow-y-auto no-scrollbar">
+			<div className="flex flex-col gap-4 max-h-[calc(100vh-422px)] overflow-y-auto no-scrollbar">
 				<div>
 					<div>Title:</div>
 					<TextInput
@@ -159,20 +168,44 @@ const DetailsForm = ({
 						}}
 					/>
 				</div>
-				{/* <div>
+				<div>
 					<div>Collaboration:</div>
 					<div className="flex flex-col gap-2">
-						{isCollab && (
+						{isOwner ? (
 							<>
-								<Dropdown items={collection} />
+								{(isCollab || collection.collaboration_uuid) && (
+									<>
+										<Dropdown
+											items={collabulator}
+											defaultValue={collection.collaboration_uuid}
+											onStateChange={(e) =>
+												setCollection((prev) => ({
+													...prev,
+													collaboration_uuid: e,
+												}))
+											}
+										/>
+									</>
+								)}
+								<ToggleButton
+									isActive={isCollab}
+									onChange={(newValue) => {
+										setIsCollab(newValue);
+
+										setCollection((prev) => ({
+											...prev,
+											collaboration_uuid: newValue
+												? prev.collaboration_uuid
+												: null,
+										}));
+									}}
+								/>
 							</>
+						) : (
+							<div className="font-bold">{collection.user.name}</div>
 						)}
-						<ToggleButton
-							isActive={isCollab}
-							onChange={(newValue) => setIsCollab(newValue)}
-						/>
 					</div>
-				</div> */}
+				</div>
 				{/* <div>
 					<div>Anonymous:</div>
 					<ToggleButton
@@ -187,7 +220,7 @@ const DetailsForm = ({
 				</div> */}
 				<Button
 					onClick={handleSave}
-					className="px-4 py-2 rounded-md"
+					className="px-4 py-2 mb-4 rounded-md"
 					disabled={loading}
 					isLoading={loading}
 				>

@@ -1,16 +1,5 @@
 import { create } from "zustand";
 
-export const useTodoStore = create((set) => ({
-	todos: [],
-	setTodos: (todosDataOrUpdater) =>
-		set((state) => ({
-			todos:
-				typeof todosDataOrUpdater === "function"
-					? todosDataOrUpdater(state.todos)
-					: todosDataOrUpdater,
-		})),
-}));
-
 export const useSessionStore = create((set) => ({
 	session: {},
 	setSession: (sessionDataOrUpdater) =>
@@ -30,5 +19,16 @@ export const useUsersStore = create((set) => ({
 				typeof usersDataOrUpdater === "function"
 					? usersDataOrUpdater(state.users)
 					: usersDataOrUpdater,
+		})),
+}));
+
+export const useCollectionSelectedStore = create((set) => ({
+	collectionSelected: "",
+	setCollectionSelected: (collectionSelectedDataOrUpdater) =>
+		set((state) => ({
+			collectionSelected:
+				typeof collectionSelectedDataOrUpdater === "function"
+					? collectionSelectedDataOrUpdater(state.collectionSelected)
+					: collectionSelectedDataOrUpdater,
 		})),
 }));

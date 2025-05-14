@@ -4,12 +4,14 @@ import { useParams } from "next/navigation";
 import fetchApi from "@/lib/api/fetchApi";
 import ReactQuill from "@/lib/components/ReactQuill";
 import DetailsForm from "./DetailsForm";
-import { useSessionStore } from "@/lib/stores";
+import { useSessionStore, useCollectionSelectedStore } from "@/lib/stores";
 import DOMPurify from "dompurify";
 
 const CollectionDetail = () => {
 	const { uuid } = useParams();
 	const { session } = useSessionStore();
+	const { setCollectionSelected } = useCollectionSelectedStore();
+
 	const [collection, setCollection] = useState({});
 	const [loading, setLoading] = useState(false);
 	const [detailLoading, setDetailLoading] = useState(true);
@@ -20,6 +22,7 @@ const CollectionDetail = () => {
 			const req = await fetchApi.get(`/collection/${uuid}`);
 			if (req.status === 200) {
 				setCollection(req.data);
+				setCollectionSelected(req.data.title);
 			}
 		} catch (error) {
 			console.error("Failed to fetch collection:", error);
@@ -32,6 +35,10 @@ const CollectionDetail = () => {
 		if (uuid) {
 			getDetail();
 		}
+
+		return () => {
+			setCollectionSelected("");
+		};
 	}, [uuid]);
 
 	if (detailLoading) {
