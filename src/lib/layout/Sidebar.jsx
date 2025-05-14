@@ -330,14 +330,12 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 							miniSidebar ? "justify-center py-6" : "justify-between p-6"
 						}`}
 					>
-						<div className="flex items-center gap-2 overflow-hidden">
-							<img
-								src="/logo.png"
-								alt="logo"
-								className={` ${
-									miniSidebar ? "size-11" : "h-11 w-full"
-								}  flex-none`}
-							/>
+						<div className="flex items-center w-full justify-center gap-2 overflow-hidden">
+							{miniSidebar ? (
+								<div className="size-11">{iconSvg.logoMarkSvg}</div>
+							) : (
+								<div className="h-11 ">{iconSvg.logoTypeSvg}</div>
+							)}
 						</div>
 						<button
 							className={`absolute flex flex-none bg-white items-center justify-center rounded-lg transition-all duration-300 ${

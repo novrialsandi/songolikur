@@ -20,6 +20,7 @@ const DetailsForm = ({
 }) => {
 	const { session } = useSessionStore();
 	const [collabulator, setCollabulator] = useState([]);
+	// const [isCollab, setIsCollab] = useState(false);
 
 	const isAdmin = session.role === "admin";
 	const isOwner = session.user_uuid === collection.user_uuid;
@@ -158,6 +159,20 @@ const DetailsForm = ({
 						}}
 					/>
 				</div>
+				{/* <div>
+					<div>Collaboration:</div>
+					<div className="flex flex-col gap-2">
+						{isCollab && (
+							<>
+								<Dropdown items={collection} />
+							</>
+						)}
+						<ToggleButton
+							isActive={isCollab}
+							onChange={(newValue) => setIsCollab(newValue)}
+						/>
+					</div>
+				</div> */}
 				{/* <div>
 					<div>Anonymous:</div>
 					<ToggleButton
