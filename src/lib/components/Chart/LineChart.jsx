@@ -3,29 +3,29 @@ import { iconSvg } from "@/lib/Icons/icon";
 import { AreaChart, ResponsiveContainer, Tooltip, Area } from "recharts";
 
 const LineChart = ({
-	data = [
-		{ name: "Jan", value: 1000 },
-		{ name: "Feb", value: 1200 },
-		{ name: "Mar", value: 1100 },
-		{ name: "Apr", value: 1300 },
-		{ name: "May", value: 1200 },
-		{ name: "Jun", value: 1400 },
-		{ name: "Jul", value: 1800 },
-		{ name: "Aug", value: 2000 },
-		{ name: "Sep", value: 2200 },
-		{ name: "Oct", value: 2400 },
-	],
+	// data = [
+	// 	{ name: "Jan", value: 1000 },
+	// 	{ name: "Feb", value: 1200 },
+	// 	{ name: "Mar", value: 1100 },
+	// 	{ name: "Apr", value: 1300 },
+	// 	{ name: "May", value: 1200 },
+	// 	{ name: "Jun", value: 1400 },
+	// 	{ name: "Jul", value: 1800 },
+	// 	{ name: "Aug", value: 2000 },
+	// 	{ name: "Sep", value: 2200 },
+	// 	{ name: "Oct", value: 2400 },
+	// ],
 	title,
 	value,
 	hasIcon,
 }) => {
 	return (
-		<div className="flex h-32 flex-col justify-between rounded-lg border border-[#cccccc] p-4">
-			<div className="flex items-center justify-between">
-				<div className="">{title}</div>
-				{hasIcon}
+		<div className="flex h-28 flex-col justify-between rounded-lg border border-[#cccccc] p-4">
+			<div className="flex flex-col items-center justify-between h-full text-center">
+				<div className="font-bold">{title}</div>
+				<div className="text-4xl">{value}</div>
 			</div>
-			<div className="flex items-end justify-between gap-8">
+			{/* <div className="flex items-end justify-between gap-8">
 				<div className="flex flex-col gap-2">
 					<div className="">{value}</div>
 					<div className="text-[#16B364]">
@@ -46,7 +46,7 @@ const LineChart = ({
 								</linearGradient>
 							</defs>
 
-							{/* <Tooltip
+							<Tooltip
 								contentStyle={{
 									background: "#2B2F38",
 									border: "none",
@@ -55,7 +55,7 @@ const LineChart = ({
 								itemStyle={{ color: "#fff" }}
 								formatter={(value) => [`${value} Transaksi`, ""]}
 								labelFormatter={() => ""}
-							/> */}
+							/>
 							<Area
 								type="monotone"
 								dataKey="value"
@@ -66,7 +66,7 @@ const LineChart = ({
 						</AreaChart>
 					</ResponsiveContainer>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };

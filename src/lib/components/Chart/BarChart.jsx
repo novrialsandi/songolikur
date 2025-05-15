@@ -24,7 +24,7 @@ const BarChartComponent = () => {
 	return (
 		<>
 			<div className="mb-4 flex items-center justify-between">
-				<h2 className=" font-bold">Views</h2>
+				<h2 className=" font-bold">Total Views</h2>
 				{/* <div className="flex gap-2">lihat detail {iconSvg.arrowLightSvg}</div> */}
 			</div>
 			<ResponsiveContainer width="100%" height={300}>
