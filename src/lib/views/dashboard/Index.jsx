@@ -7,6 +7,7 @@ import BarChart from "@/lib/components/Chart/BarChart";
 import Skeleton from "@/lib/components/Skeleton";
 import { iconSvg } from "@/lib/Icons/icon";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 const container = {
 	hidden: { opacity: 1, scale: 0 },
@@ -30,17 +31,42 @@ const item = {
 
 const Dashboard = () => {
 	const [engagements, setEngagement] = useState({});
+	const [monthlyEngagements, setMonthlyEngagements] = useState([]);
 
-	const getEngagements = async () => {
+	const getEngagements = async (
+		startDate = "",
+		endDate = "",
+		userFilter = ""
+	) => {
 		try {
-			const res = await fetchApi.get("/engagement");
+			const params = {};
+			if (startDate) params.startDate = startDate;
+			if (endDate) params.endDate = endDate;
+			if (userFilter) params.userFilter = userFilter;
+
+			// Jalankan kedua request secara paralel
+			const [res, resMonthly] = await Promise.all([
+				fetchApi.get("/engagement", { params }),
+				fetchApi.get("/engagement/monthly", { params }),
+			]);
+
 			if (res.status === 200) {
 				setEngagement(res.data);
+			}
+
+			if (resMonthly.status === 200) {
+				setMonthlyEngagements(
+					resMonthly.data.views.map((item) => ({
+						...item,
+						name: moment(item.month).format("MMM YYYY"),
+					}))
+				);
 			}
 		} catch (error) {
 			console.error(error);
 		}
 	};
+	console.log(monthlyEngagements);
 
 	useEffect(() => {
 		getEngagements();
@@ -69,7 +95,7 @@ const Dashboard = () => {
 				className="flex flex-col justify-between rounded-lg border border-[#cccccc] p-4"
 				variants={item}
 			>
-				<BarChart />
+				<BarChart data={monthlyEngagements} />
 			</motion.div>
 		</motion.div>
 	);
