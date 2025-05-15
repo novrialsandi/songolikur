@@ -16,6 +16,7 @@ const LineChart = ({
 		{ name: "Oct", value: 2400 },
 	],
 	title,
+	value,
 	hasIcon,
 }) => {
 	return (
@@ -26,7 +27,7 @@ const LineChart = ({
 			</div>
 			<div className="flex items-end justify-between gap-8">
 				<div className="flex flex-col gap-2">
-					<div className="">2,420</div>
+					<div className="">{value}</div>
 					<div className="text-[#16B364]">
 						<div className="flex">
 							<span className="flex items-center gap-1 rounded-xl border border-[#16B364] px-1">
@@ -47,13 +48,13 @@ const LineChart = ({
 
 							{/* <Tooltip
 								contentStyle={{
-									background: '#2B2F38',
-									border: 'none',
-									borderRadius: '8px'
+									background: "#2B2F38",
+									border: "none",
+									borderRadius: "8px",
 								}}
-								itemStyle={{ color: '#fff' }}
-								formatter={(value) => [`${value} Transaksi`, '']}
-								labelFormatter={() => ''}
+								itemStyle={{ color: "#fff" }}
+								formatter={(value) => [`${value} Transaksi`, ""]}
+								labelFormatter={() => ""}
 							/> */}
 							<Area
 								type="monotone"

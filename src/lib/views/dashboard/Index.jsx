@@ -29,7 +29,7 @@ const item = {
 };
 
 const Dashboard = () => {
-	const [statistics, setStatistics] = useState(null);
+	const [statistics, setStatistics] = useState({});
 
 	const getStatistics = async () => {
 		try {
@@ -54,39 +54,23 @@ const Dashboard = () => {
 			animate="visible"
 		>
 			<motion.div className="flex gap-4">
-				{/* {statistics} */}
-				<motion.div className="w-full" variants={item}>
-					{/* {isLoadingStatistics ? (
-						<Skeleton />
-					) : ( */}
-					<LineChart title={"Total Collections"} />
-					{/* )} */}
-				</motion.div>
-				<motion.div className="w-full" variants={item}>
-					<LineChart title={"Total Views"} />
-				</motion.div>
-				<motion.div className="w-full" variants={item}>
-					<LineChart title={"Average Views"} />
-				</motion.div>
+				{Object.entries(statistics).map(([key, value]) => (
+					<motion.div key={key} className="w-full" variants={item}>
+						<LineChart
+							title={key
+								.replace(/([A-Z])/g, " $1")
+								.replace(/^./, (str) => str.toUpperCase())}
+							value={value}
+						/>
+					</motion.div>
+				))}
 			</motion.div>
-			{/* <motion.div
-				className="flex flex-col justify-between rounded-lg border border-color/border/component-border bg-color/background/component-card p-4"
-				variants={item}
-			>
-				{isLoadingOrders ? <Skeleton /> : <BarChartComponent />}
-			</motion.div>
-
 			<motion.div
-				className="rounded-lg border border-color/border/component-border bg-color/background/component-card p-4"
+				className="flex flex-col justify-between rounded-lg border border-[#cccccc] p-4"
 				variants={item}
 			>
-				<div className="flex items-center justify-between">
-					<Menu />
-					<SearchInput option={customers} />
-				</div>
-
-				<Table data={table} columns={columns()} />
-			</motion.div> */}
+				<BarChart />
+			</motion.div>
 		</motion.div>
 	);
 };
