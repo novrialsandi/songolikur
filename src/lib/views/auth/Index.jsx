@@ -71,7 +71,7 @@ const Login = () => {
 		} catch (error) {
 			setErrorMsg(error.response.data.message);
 
-			console.log(error);
+			console.error(error);
 		} finally {
 			setIsLoading(false);
 		}

@@ -40,7 +40,7 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 				router.push(`/dashboard/collection/${req.data.collection_uuid}`);
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		} finally {
 			setLoading(false);
 		}
@@ -86,7 +86,7 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 			}
 		} catch (error) {
 			setErrorMsg(error.response.data.message);
-			console.log(error);
+			console.error(error);
 		} finally {
 			setLoading(false);
 			setCreateModal(false);

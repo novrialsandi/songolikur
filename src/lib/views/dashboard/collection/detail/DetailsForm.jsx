@@ -101,7 +101,7 @@ const DetailsForm = ({
 				setCollabulator(formattedData);
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 	const getEditor = async () => {
@@ -117,7 +117,7 @@ const DetailsForm = ({
 				setEditor(formattedData);
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
@@ -134,7 +134,7 @@ const DetailsForm = ({
 				router.push(`/dashboard/collection/${status}`);
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		} finally {
 			setLoading(false);
 		}

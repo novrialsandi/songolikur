@@ -111,7 +111,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 				}
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		} finally {
 			setEditLoading(false);
 			setModalProfile(false);
