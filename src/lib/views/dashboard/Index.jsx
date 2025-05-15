@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import fetchApi from "@/lib/api/fetchApi";
-import LineChart from "@/lib/components/Statistic/LineChart";
-import BarChart from "@/lib/components/Statistic/BarChart";
+import LineChart from "@/lib/components/Chart/LineChart";
+import BarChart from "@/lib/components/Chart/BarChart";
 import Skeleton from "@/lib/components/Skeleton";
 import { iconSvg } from "@/lib/Icons/icon";
 import { useEffect, useState } from "react";
@@ -29,13 +29,13 @@ const item = {
 };
 
 const Dashboard = () => {
-	const [statistics, setStatistics] = useState({});
+	const [engagements, setEngagement] = useState({});
 
-	const getStatistics = async () => {
+	const getEngagements = async () => {
 		try {
-			const res = await fetchApi.get("/statistics");
+			const res = await fetchApi.get("/engagement");
 			if (res.status === 200) {
-				setStatistics(res.data);
+				setEngagement(res.data);
 			}
 		} catch (error) {
 			console.error(error);
@@ -43,7 +43,7 @@ const Dashboard = () => {
 	};
 
 	useEffect(() => {
-		getStatistics();
+		getEngagements();
 	}, []);
 
 	return (
@@ -54,7 +54,7 @@ const Dashboard = () => {
 			animate="visible"
 		>
 			<motion.div className="flex gap-4">
-				{Object.entries(statistics).map(([key, value]) => (
+				{Object.entries(engagements).map(([key, value]) => (
 					<motion.div key={key} className="w-full" variants={item}>
 						<LineChart
 							title={key

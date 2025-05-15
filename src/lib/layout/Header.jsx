@@ -60,7 +60,7 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 				setUsers((prevUsers) => {
 					const newUser = {
 						...req.data.user,
-						statistic: {
+						engagement: {
 							draftCount: 0,
 							publishedCount: 0,
 							reviewCount: 0,

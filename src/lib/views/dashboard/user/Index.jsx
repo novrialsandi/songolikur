@@ -191,15 +191,15 @@ const Index = () => {
 													{iconSvg.menuSvg}
 												</button>
 											) : attr === "Draft" ? (
-												<>{user.statistic.draftCount}</>
+												<>{user.engagement.draftCount}</>
 											) : attr === "Published" ? (
-												<>{user.statistic.publishedCount}</>
+												<>{user.engagement.publishedCount}</>
 											) : attr === "On Review" ? (
-												<>{user.statistic.reviewCount}</>
+												<>{user.engagement.reviewCount}</>
 											) : attr === "Total Collections" ? (
-												<>{user.statistic.totalCollections}</>
+												<>{user.engagement.totalCollections}</>
 											) : attr === "Average Views" ? (
-												<>{user.statistic.engagements.averageViews}</>
+												<>{user.engagement.engagements.averageViews}</>
 											) : attr === "Active" ? (
 												<>
 													{user.isActive ? iconSvg.checkSvg : iconSvg.crossSvg}
