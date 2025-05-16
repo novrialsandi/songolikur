@@ -7,6 +7,7 @@ import DetailsForm from "./DetailsForm";
 import { useSessionStore, useCollectionSelectedStore } from "@/lib/stores";
 import DOMPurify from "dompurify";
 import Button from "@/lib/components/Button";
+import { toast } from "react-toastify";
 
 const CollectionDetail = () => {
 	const router = useRouter();
@@ -44,10 +45,15 @@ const CollectionDetail = () => {
 				scheduleAt: null,
 			});
 			if (res.status === 200) {
+				toast.success(`Collection status updated to "${status}" successfully`);
 				router.push(`/dashboard/collection/${status}`);
+			} else {
+				console.error("Status update failed with status:", res.status);
+				toast.error("Failed to update collection status. Please try again.");
 			}
 		} catch (error) {
 			console.error(error);
+			toast.error("An error occurred while updating the status.");
 		} finally {
 			setLoading(false);
 		}

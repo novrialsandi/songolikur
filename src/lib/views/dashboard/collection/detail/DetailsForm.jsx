@@ -11,6 +11,7 @@ import { useSessionStore } from "@/lib/stores";
 import { listCategories, listTags } from "@/lib/constant";
 import Modal from "@/lib/components/Modal";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const DetailsForm = ({
 	collection,
@@ -42,11 +43,17 @@ const DetailsForm = ({
 		try {
 			setLoading(true);
 			const req = await fetchApi.patch(`/collection/${uuid}`, collection);
+
 			if (req.status === 200) {
 				setCollection(req.data);
+				toast.success("Collection saved successfully");
+			} else {
+				console.error("Save failed with status:", req.status);
+				toast.error("Failed to save collection. Please try again.");
 			}
 		} catch (error) {
 			console.error("Failed to save content:", error);
+			toast.error("An error occurred while saving the collection.");
 		} finally {
 			setLoading(false);
 		}
@@ -62,14 +69,18 @@ const DetailsForm = ({
 				`/collection/upload/thumbnail/${uuid}`,
 				formData
 			);
+
 			if (req.status === 200) {
-				const res = req.data.thumbnail;
-				setCollection((prev) => ({ ...prev, thumbnail: res }));
+				const updatedThumbnail = req.data.thumbnail;
+				setCollection((prev) => ({ ...prev, thumbnail: updatedThumbnail }));
+				toast.success("Thumbnail uploaded successfully");
 			} else {
 				console.error("Upload failed with status:", req.status);
+				toast.error("Failed to upload thumbnail. Please try again.");
 			}
 		} catch (error) {
 			console.error("Upload failed:", error);
+			toast.error("An error occurred while uploading the thumbnail.");
 		} finally {
 			setLoading(false);
 		}
@@ -104,6 +115,7 @@ const DetailsForm = ({
 			console.error(error);
 		}
 	};
+
 	const getEditor = async () => {
 		try {
 			const res = await fetchApi("/user/editor");
@@ -131,10 +143,15 @@ const DetailsForm = ({
 				review_note: status,
 			});
 			if (res.status === 200) {
+				toast.success(`Collection status updated to "${status}" successfully`);
 				router.push(`/dashboard/collection/${status}`);
+			} else {
+				console.error("Status update failed with status:", res.status);
+				toast.error("Failed to update collection status. Please try again.");
 			}
 		} catch (error) {
 			console.error(error);
+			toast.error("An error occurred while updating the status.");
 		} finally {
 			setLoading(false);
 		}

@@ -9,6 +9,7 @@ import { useSessionStore } from "@/lib/stores";
 import { motion, AnimatePresence } from "framer-motion";
 import { setCookie } from "@/lib/helpers/cookie";
 import fetchApi from "@/lib/api/fetchApi";
+import { toast } from "react-toastify";
 
 const Login = () => {
 	const { setSession } = useSessionStore();
@@ -55,6 +56,8 @@ const Login = () => {
 					} else {
 						router.push("/dashboard");
 					}
+
+					toast.success("Login successfully");
 				}
 			} else if (!isLogin) {
 				// const req = await fetchApi.post("/auth/register", {

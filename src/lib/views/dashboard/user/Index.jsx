@@ -8,6 +8,7 @@ import Dropdown from "@/lib/components/Dropdown";
 import Button from "@/lib/components/Button";
 import ToggleButton from "@/lib/components/Toogle";
 import { useUsersStore } from "@/lib/stores";
+import { toast } from "react-toastify";
 
 const attributes = [
 	"",
@@ -66,9 +67,11 @@ const Index = () => {
 							: user
 					)
 				);
+				toast.success("User updated successfully");
 			}
 		} catch (error) {
 			console.error(error);
+			toast.error("Failed to update user. Please try again.");
 		} finally {
 			setEditLoading(false);
 			setModalEdit(false);

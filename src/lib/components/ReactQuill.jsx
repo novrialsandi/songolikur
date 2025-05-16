@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import fetchApi from "../api/fetchApi";
+import { toast } from "react-toastify";
 
 const ReactQuill = ({ value = "", uuid, onChange }) => {
 	// Define toolbar options with all available formatting features
@@ -102,10 +103,12 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 			if (res.status === 201 && res.data?.content) {
 				insertToEditor(res.data.content);
 			} else {
-				console.error("Upload failed with status:", res.status);
+				console.error("Upload failed with status:", req.status);
+				toast.error("Failed to upload content image. Please try again.");
 			}
 		} catch (error) {
 			console.error("Upload failed:", error);
+			toast.error("An error occurred while uploading the content.");
 		}
 	};
 
@@ -130,7 +133,7 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 			quill.root.addEventListener("paste", (e) => {
 				if (e.clipboardData.types.includes("Files")) {
 					e.preventDefault();
-					alert(
+					toast.warn(
 						"Please use the image upload button to insert images. It helps keep our server not burning 🔥🔥🔥"
 					);
 				}
@@ -138,7 +141,7 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 
 			quill.root.addEventListener("drop", (e) => {
 				e.preventDefault();
-				alert(
+				toast.warn(
 					"Please use the image upload button to insert images. It helps keep our server not burning 🔥🔥🔥"
 				);
 			});

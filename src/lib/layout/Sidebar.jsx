@@ -8,6 +8,7 @@ import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import fetchApi from "../api/fetchApi";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 	const pathname = usePathname();
@@ -46,17 +47,18 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 				!passwordData.newPassword ||
 				!passwordData.confirmPassword
 			) {
-				console.error("Please fill in all password fields.");
+				toast.error("Please fill in all password fields.");
 				return;
 			}
 
 			if (passwordData.newPassword.length < 8) {
-				console.error("New password must be at least 8 characters.");
+				toast.error("New password must be at least 8 characters.");
 				return;
 			}
 
 			if (passwordData.newPassword !== passwordData.confirmPassword) {
-				console.error("New password and confirmation password do not match.");
+				toast.error("New password and confirmation password do not match.");
+
 				return;
 			}
 
@@ -79,11 +81,14 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 					newPassword: "",
 					confirmPassword: "",
 				});
+				toast.success("Password updated successfully");
 			} else {
 				console.error("Password update failed with status:", res.status);
+				toast.error("Failed to update profile. Please try again.");
 			}
 		} catch (error) {
 			console.error("Error updating password:", error);
+			toast.error("An error occurred while updating the password.");
 		} finally {
 			setEditLoading(false);
 		}
@@ -109,9 +114,11 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						)
 					);
 				}
+				toast.success("Profile updated successfully");
 			}
 		} catch (error) {
 			console.error(error);
+			toast.error("An error occurred while updating the profile.");
 		} finally {
 			setEditLoading(false);
 			setModalProfile(false);
@@ -138,11 +145,14 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						)
 					);
 				}
+				toast.success("Avatar uploaded successfully");
 			} else {
 				console.error("Upload failed with status:", req.status);
+				toast.error("Failed to upload avatar. Please try again.");
 			}
 		} catch (error) {
 			console.error("Upload failed:", error);
+			toast.error("An error occurred while uploading avatar.");
 		} finally {
 			setEditLoading(false);
 		}
@@ -431,6 +441,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 										removeCookie("sid");
 										removeCookie("cid");
 										setSession({});
+										toast.success("Logout successfully");
 										router.push("/login");
 									}}
 								>

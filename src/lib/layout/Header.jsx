@@ -5,6 +5,7 @@ import fetchApi from "../api/fetchApi";
 import { useSessionStore, useUsersStore } from "../stores";
 import Modal from "../components/Modal";
 import TextInput from "../components/TextInput";
+import { toast } from "react-toastify";
 
 const Header = ({ sidebarWidth, pageTitle }) => {
 	const { setUsers } = useUsersStore();
@@ -38,9 +39,11 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 
 			if (req.status === 201) {
 				router.push(`/dashboard/collection/${req.data.collection_uuid}`);
+				toast.success("Collection Created");
 			}
 		} catch (error) {
 			console.error(error);
+			toast.error("Failed to create collection. Please try again.");
 		} finally {
 			setLoading(false);
 		}
@@ -83,10 +86,12 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 
 					return updatedUsers;
 				});
+				toast.success("User Created");
 			}
 		} catch (error) {
 			setErrorMsg(error.response.data.message);
 			console.error(error);
+			toast.error("Failed to create user. Please try again.");
 		} finally {
 			setLoading(false);
 			setCreateModal(false);

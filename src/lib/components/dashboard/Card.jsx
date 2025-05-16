@@ -4,6 +4,7 @@ import Modal from "../Modal";
 import fetchApi from "@/lib/api/fetchApi";
 import Button from "../Button";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const Card = ({ collection, onCollectionDelete }) => {
 	const [loadingDelete, setLoadingDelete] = useState(false);
@@ -17,9 +18,11 @@ const Card = ({ collection, onCollectionDelete }) => {
 			);
 			if (res.status === 200) {
 				onCollectionDelete(collection.collection_uuid);
+				toast.success("Collection deleted successfully");
 			}
 		} catch (error) {
 			console.error(error);
+			toast.error("Failed to delete collection. Please try again.");
 		} finally {
 			setDeleteModal(false);
 			setLoadingDelete(false);
