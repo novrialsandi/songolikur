@@ -16,11 +16,11 @@ const attributes = [
 	"username",
 	"email",
 	"role",
-	"Draft",
-	"On Review",
-	"Published",
-	"Total Collections",
-	"Average Views",
+	// "Draft",
+	// "On Review",
+	// "Published",
+	// "Total Collections",
+	// "Average Views",
 	"Active",
 	" ",
 ];
@@ -193,17 +193,17 @@ const Index = () => {
 												>
 													{iconSvg.menuSvg}
 												</button>
-											) : attr === "Draft" ? (
-												<>{user.engagement.draftCount}</>
-											) : attr === "Published" ? (
-												<>{user.engagement.publishedCount}</>
-											) : attr === "On Review" ? (
-												<>{user.engagement.reviewCount}</>
-											) : attr === "Total Collections" ? (
-												<>{user.engagement.totalCollections}</>
-											) : attr === "Average Views" ? (
-												<>{user.engagement.engagements.averageViews}</>
-											) : attr === "Active" ? (
+											) : // ) : attr === "Draft" ? (
+											// 	<>{user.engagement.draftCount}</>
+											// ) : attr === "Published" ? (
+											// 	<>{user.engagement.publishedCount}</>
+											// ) : attr === "On Review" ? (
+											// 	<>{user.engagement.reviewCount}</>
+											// ) : attr === "Total Collections" ? (
+											// 	<>{user.engagement.totalCollections}</>
+											// ) : attr === "Average Views" ? (
+											// 	<>{user.engagement.engagements.averageViews}</>
+											attr === "Active" ? (
 												<>
 													{user.isActive ? iconSvg.checkSvg : iconSvg.crossSvg}
 												</>

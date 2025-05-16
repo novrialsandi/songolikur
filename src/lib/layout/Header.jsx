@@ -63,18 +63,18 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 				setUsers((prevUsers) => {
 					const newUser = {
 						...req.data.user,
-						engagement: {
-							draftCount: 0,
-							publishedCount: 0,
-							reviewCount: 0,
-							totalCollections: 0,
-							engagements: {
-								views: 0,
-								likes: 0,
-								dislikes: 0,
-								averageViews: 0,
-							},
-						},
+						// engagement: {
+						// 	draftCount: 0,
+						// 	publishedCount: 0,
+						// 	reviewCount: 0,
+						// 	totalCollections: 0,
+						// 	engagements: {
+						// 		views: 0,
+						// 		likes: 0,
+						// 		dislikes: 0,
+						// 		averageViews: 0,
+						// 	},
+						// },
 					};
 
 					const updatedUsers = [...prevUsers, newUser].sort((a, b) => {
