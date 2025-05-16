@@ -1,0 +1,102 @@
+"use client";
+
+import React from "react";
+import fetchApi from "@/lib/api/fetchApi";
+import { useState, useEffect } from "react";
+import { listTags, listCategories } from "@/lib/constant";
+import Dropdown from "@/lib/components/Dropdown";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+
+const Collections = () => {
+	const [collections, setCollections] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [selectedTags, setSelectedTags] = useState([]);
+	const [selectedCategory, setSelectedCategory] = useState("");
+	const router = useRouter();
+	const searchParams = useSearchParams();
+
+	// Function to get collection data from API
+	const getCollection = async (category = "", tags = "") => {
+		try {
+			const params = {};
+			if (category) params.category = category;
+			if (tags.length > 0) params.tags = tags.join(",");
+
+			const res = await fetchApi.get("/collection/public", { params });
+			if (res.status === 200) {
+				setCollections(res.data);
+			}
+		} catch (error) {
+			console.error("Error fetching collections:", error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	// Update URL query parameters
+	const updateQuery = (category, tags) => {
+		const params = new URLSearchParams();
+		if (category) params.set("category", category);
+		if (tags.length > 0) params.set("tags", tags.join(","));
+		router.push(`/read?${params.toString()}`);
+	};
+
+	// Use effect to set default values from URL
+	useEffect(() => {
+		const category = searchParams.get("category") || "";
+		const tags = searchParams.get("tags")?.split(",") || [];
+
+		setSelectedCategory(category);
+		setSelectedTags(tags);
+		getCollection(category, tags);
+	}, [searchParams]);
+
+	return (
+		<>
+			<div className="space-y-2">
+				<Dropdown
+					items={listTags}
+					type="multi"
+					placeholder="Select Tags"
+					defaultValue={selectedTags.length > 0 ? selectedTags : ""} // Set default value from URL
+					onStateChange={(tags) => {
+						setSelectedTags(tags);
+						updateQuery(selectedCategory, tags);
+					}}
+				/>
+				<div className="flex gap-2">
+					{listCategories.map((category, index) => (
+						<div
+							key={index}
+							className={`text-center w-20 border rounded-md cursor-pointer ${
+								selectedCategory === category.value ? "bg-gray-200" : ""
+							}`}
+							onClick={() => {
+								const newCategory =
+									selectedCategory === category.value ? "" : category.value;
+								setSelectedCategory(newCategory);
+								updateQuery(newCategory, selectedTags);
+							}}
+						>
+							<div className="p-1">{category.label}</div>
+						</div>
+					))}
+				</div>
+			</div>
+			<div>
+				{loading ? (
+					<div>Loading...</div>
+				) : (
+					collections.map((val, index) => (
+						<Link key={index} href={`/read/${val.slug}`}>
+							<div>{val.title}</div>
+						</Link>
+					))
+				)}
+			</div>
+		</>
+	);
+};
+
+export default Collections;

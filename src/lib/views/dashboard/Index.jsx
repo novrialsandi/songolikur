@@ -66,7 +66,6 @@ const Dashboard = () => {
 			console.error(error);
 		}
 	};
-	console.log(monthlyEngagements);
 
 	useEffect(() => {
 		getEngagements();
