@@ -240,18 +240,6 @@ const DetailsForm = ({
 						/>
 					</div>
 					<div>
-						<div>Title:</div>
-						<TextInput
-							value={collection.title}
-							onChange={(e) => {
-								setCollection((prev) => ({
-									...prev,
-									title: e.target.value,
-								}));
-							}}
-						/>
-					</div>
-					<div>
 						<div>Category:</div>
 						<Dropdown
 							items={listCategories}
