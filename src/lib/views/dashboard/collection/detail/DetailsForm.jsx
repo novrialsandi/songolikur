@@ -306,9 +306,15 @@ const DetailsForm = ({
 									/>
 								</>
 							) : (
-								<div className="font-bold">
-									{collection.user.name} ft. {collection.collaboration.name}
-								</div>
+								<>
+									{collection.collaboration?.name ? (
+										<div className="font-bold">
+											{collection.user.name} ft. {collection.collaboration.name}
+										</div>
+									) : (
+										<div className="font-bold">-</div>
+									)}
+								</>
 							)}
 						</div>
 					</div>
@@ -330,7 +336,7 @@ const DetailsForm = ({
 					>
 						Request Review
 					</Button>
-				) : collection.status === "review" && isEditor ? (
+				) : collection.status === "review" && (isEditor || isAdmin) ? (
 					<>
 						<Button
 							onClick={() => {
