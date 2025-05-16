@@ -1,5 +1,6 @@
 import React from "react";
 import fetchApi from "@/lib/api/fetchApi";
+import SlugComponent from "@/lib/views/public/read/slug/Index";
 
 async function getSlugData(slug) {
 	try {
@@ -55,9 +56,9 @@ const SlugPage = async ({ params }) => {
 	}
 
 	return (
-		<div>
-			<h1>{data.title}</h1>
-		</div>
+		<>
+			<SlugComponent data={data} slug={slug} />
+		</>
 	);
 };
 
