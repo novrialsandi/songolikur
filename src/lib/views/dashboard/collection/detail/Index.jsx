@@ -76,10 +76,10 @@ const CollectionDetail = () => {
 	}
 
 	if (
-		session.role !== "admin" &&
-		(collection.status === "published" ||
-			(collection.status === "review" &&
-				collection.editor_uuid !== session.user_uuid))
+		collection.status === "published" ||
+		(collection.status === "review" &&
+			collection.editor_uuid !== session.user_uuid &&
+			session.role === "admin")
 	) {
 		const sanitizedContent = DOMPurify.sanitize(collection.content);
 
