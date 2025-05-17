@@ -77,9 +77,9 @@ const CollectionDetail = () => {
 
 	if (
 		collection.status === "published" ||
-		(collection.status === "review" &&
-			collection.editor_uuid !== session.user_uuid &&
-			session.role === "admin")
+		(session.role !== "admin" &&
+			collection.status === "review" &&
+			collection.editor_uuid !== session.user_uuid)
 	) {
 		const sanitizedContent = DOMPurify.sanitize(collection.content);
 
