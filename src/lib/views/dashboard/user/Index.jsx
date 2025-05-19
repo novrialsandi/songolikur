@@ -130,7 +130,7 @@ const Index = () => {
 						onClick={handleSave}
 						disabled={editLoading}
 						isLoading={editLoading}
-						className="w-full bg-blue-500 text-white rounded-lg "
+						className="w-full bg-blue-500 text-secondary rounded-lg "
 					>
 						Save Changes
 					</Button>
@@ -165,7 +165,7 @@ const Index = () => {
 							</tr>
 						) : users.length > 0 ? (
 							users.map((user, index) => (
-								<tr key={index} className="bg-white hover:bg-gray-100">
+								<tr key={index} className="bg-secondary hover:bg-gray-100">
 									{attributes.map((attr) => (
 										<td
 											key={attr}

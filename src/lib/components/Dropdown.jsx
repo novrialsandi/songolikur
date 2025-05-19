@@ -87,7 +87,7 @@ const Dropdown = ({
 	return (
 		<div
 			ref={wrapperRef}
-			className="relative bg-white border border-black/10 active:border focus:border rounded-lg flex w-full flex-col gap-2"
+			className="relative bg-secondary border border-black/10 active:border focus:border rounded-lg flex w-full flex-col gap-2"
 		>
 			{label && <span className="">{label}</span>}
 			<button
@@ -133,7 +133,7 @@ const Dropdown = ({
 					{multipleSelectedItems.map((item, index) => (
 						<div
 							key={index}
-							className="bg-primary text-white rounded-md px-3 py-1 text-sm flex items-center gap-2"
+							className="bg-primary text-secondary rounded-md px-3 py-1 text-sm flex items-center gap-2"
 						>
 							<span>{item.label}</span>
 						</div>
@@ -152,7 +152,7 @@ const Dropdown = ({
 						...popupStyle,
 					}}
 				>
-					<div className="no-scrollbar bg-white relative w-full overflow-y-scroll rounded-lg">
+					<div className="no-scrollbar bg-secondary relative w-full overflow-y-scroll rounded-lg">
 						<div className="no-scrollbar flex h-full flex-col overflow-y-scroll text-text/light dark:text-text/light">
 							{items && items.length ? (
 								items.map((item, index) => {

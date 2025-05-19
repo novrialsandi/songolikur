@@ -239,7 +239,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 							onClick={editPassword}
 							disabled={editLoading}
 							isLoading={editLoading}
-							className="w-full bg-blue-500 text-white rounded-lg"
+							className="w-full bg-blue-500 text-secondary rounded-lg"
 						>
 							Update Password
 						</Button>
@@ -321,7 +321,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 							onClick={editProfile}
 							disabled={editLoading}
 							isLoading={editLoading}
-							className="w-full bg-blue-500 text-white rounded-lg"
+							className="w-full bg-blue-500 text-secondary rounded-lg"
 						>
 							Save Changes
 						</Button>
@@ -330,7 +330,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 			</Modal>
 
 			<div
-				className={`fixed bg-white left-0 top-0 z-[2] flex h-screen max-h-screen flex-col justify-between border-r transition-all duration-300 ${
+				className={`fixed left-0 top-0 z-[2] flex h-screen max-h-screen flex-col justify-between border-r transition-all duration-300 ${
 					miniSidebar ? "w-20" : "w-[271px]"
 				}`}
 			>
@@ -348,7 +348,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 							)}
 						</div>
 						<button
-							className={`absolute flex flex-none bg-white items-center justify-center rounded-lg transition-all duration-300 ${
+							className={`absolute flex flex-none bg-secondary items-center justify-center rounded-lg transition-all duration-300 ${
 								miniSidebar ? "right-[-12px] rotate-0" : "-right-3 rotate-180"
 							}`}
 							onClick={toggleMiniSidebar}
@@ -357,7 +357,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						</button>
 					</div>
 
-					<div className="mx-2 border-b border-[#4C5563]" />
+					<div className="mx-2 border-b " />
 
 					<div className="flex-none overflow-hidden overflow-y-auto">
 						{Object.entries(menus).map(([category, items]) => (
@@ -409,7 +409,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 					</div>
 				</div>
 				<div className="flex-none overflow-hidden">
-					<div className="mx-2 border-b border-[#4C5563]" />
+					<div className="mx-2 border-b" />
 
 					<div
 						className={`relative flex items-center ${

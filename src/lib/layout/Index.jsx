@@ -41,7 +41,7 @@ const Parent = ({ children, menus, cookieData }) => {
 
 	return (
 		<>
-			<div className="flex overflow-hidden">
+			<div className="flex overflow-hidden bg-secondary">
 				<Sidebar
 					onMiniSidebar={handleMiniSidebar}
 					menus={menus}

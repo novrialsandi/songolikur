@@ -39,12 +39,15 @@ const LandingPage = async () => {
 			{cookieData ? (
 				<Link
 					href="/dashboard"
-					className="p-2 bg-primary text-white rounded-md"
+					className="p-2 bg-primary text-secondary rounded-md"
 				>
 					Go to Dashboard
 				</Link>
 			) : (
-				<Link href="/login" className="p-2 bg-primary text-white rounded-md">
+				<Link
+					href="/login"
+					className="p-2 bg-primary text-secondary rounded-md"
+				>
 					Login
 				</Link>
 			)}

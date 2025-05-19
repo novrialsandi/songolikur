@@ -2,7 +2,23 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-	--color-primary: #0575e6;
+	--color-primary: #2c2b29;
+	--color-secondary: #fbf9f0;
+	--color-accent-primary: #005bac;
+	--color-accent-secondary: #ffc100;
+}
+
+@layer base {
+	*,
+	*::before,
+	*::after {
+		border-color: #2c2b29;
+	}
+}
+
+body {
+	background-color: #fbf9f0;
+	color: #2c2b29;
 }
 
 /* Chrome, Safari, Edge, Opera */

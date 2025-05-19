@@ -175,7 +175,7 @@ const Header = ({ sidebarWidth, pageTitle }) => {
 			</Modal>
 
 			<div
-				className={`fixed top-0 z-[1] ${sidebarWidth} bg-white right-0 flex flex-col justify-between border-b p-6 transition-all duration-300`}
+				className={`fixed top-0 z-[1] ${sidebarWidth} right-0 flex flex-col justify-between border-b p-6 transition-all duration-300`}
 			>
 				<div className="flex h-11 items-center justify-between gap-4">
 					<div className="text-2xl font-bold">{pageTitle}</div>
