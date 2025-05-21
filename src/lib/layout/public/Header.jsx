@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/lib/components/Button";
+import Divider from "@/lib/components/Divider";
 import TextInput from "@/lib/components/TextInput";
 import { iconSvg } from "@/lib/Icons/icon";
 import moment from "moment";
@@ -25,6 +26,7 @@ const HeaderPublic = () => {
 			href: "/",
 		},
 	];
+
 	return (
 		<div className=" top-0 bg-white flex flex-col gap-6">
 			<div className="flex justify-between h-[105px]">
@@ -54,7 +56,7 @@ const HeaderPublic = () => {
 						</Button>
 					</div>
 					<TextInput
-						width="w-52"
+						width="w-48"
 						placeholder="Search Article"
 						debounceTime={2000}
 						hasIconLeft={iconSvg.search}
@@ -62,11 +64,8 @@ const HeaderPublic = () => {
 					/>
 				</div>
 			</div>
-			<div className="w-full flex items-center gap-4">
-				<div className="w-full border-t border-[#E0E1E4]"></div>
-				<div className="min-h-2 min-w-2 bg-[#E0E1E4] rotate-45 border border-[#E0E1E4]"></div>
-				<div className="w-full border-t border-[#E0E1E4]"></div>
-			</div>
+
+			<Divider />
 		</div>
 	);
 };

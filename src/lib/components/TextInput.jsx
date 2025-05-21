@@ -85,7 +85,11 @@ const TextInput = ({
 			)}
 			<div className={`relative ${label ? "mt-1" : ""}`}>
 				{hasIconLeft && (
-					<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 pl-6">
+					<div
+						className={`pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 ${
+							size === "small" ? "" : "pl-6"
+						} `}
+					>
 						{hasIconLeft}
 					</div>
 				)}
@@ -104,11 +108,11 @@ const TextInput = ({
 					onFocus={onFocus}
 					onChange={handleChange}
 					disabled={isDisabled}
-					className={`flex w-full items-center rounded-md border border-[#eeeeee] outline-0 focus:border-active focus:ring-0 hover:border-[#333333] focus:border-primary ${className} ${
+					className={`flex w-full items-center rounded-md border border-[#CDD5DF] outline-0 focus:border-active focus:ring-0 hover:border-[#333333] focus:border-primary ${className} ${
 						errorMsg ? "border-error text-error" : ""
-					} ${sizeDataClass[size]} ${hasIconLeft ? "pl-14" : "pl-4"} ${
-						hasIconRight || isPasswordField ? "pr-10" : "pr-4"
-					} ${
+					} ${sizeDataClass[size]} ${
+						hasIconLeft ? (size === "small" ? "pl-10" : "pl-14") : "pl-4"
+					} ${hasIconRight || isPasswordField ? "pr-10" : "pr-4"} ${
 						isDisabled ? "bg-gray-200 cursor-not-allowed text-gray-500" : ""
 					}`}
 					required={isRequired}

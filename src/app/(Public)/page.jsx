@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
+import LandingContent from "@/lib/views/public/Index";
 
 export const metadata = {
 	title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
@@ -35,23 +36,26 @@ const LandingPage = async () => {
 	const cookieData = cid ? JSON.parse(cid.value) : null;
 
 	return (
-		<div className="w-full h-screen flex justify-center items-center">
-			{cookieData ? (
-				<Link
-					href="/dashboard"
-					className="p-2 bg-primary text-secondary rounded-md"
-				>
-					Go to Dashboard
-				</Link>
-			) : (
-				<Link
-					href="/login"
-					className="p-2 bg-primary text-secondary rounded-md"
-				>
-					Login
-				</Link>
-			)}
-		</div>
+		<>
+			<LandingContent />
+			{/* <div className="w-full h-screen flex justify-center items-center">
+				{cookieData ? (
+					<Link
+						href="/dashboard"
+						className="p-2 bg-primary text-secondary rounded-md"
+					>
+						Go to Dashboard
+					</Link>
+				) : (
+					<Link
+						href="/login"
+						className="p-2 bg-primary text-secondary rounded-md"
+					>
+						Login
+					</Link>
+				)}
+			</div> */}
+		</>
 	);
 };
 

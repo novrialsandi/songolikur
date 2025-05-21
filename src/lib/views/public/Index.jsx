@@ -1,7 +1,12 @@
 import React from "react";
+import Hero from "./Hero";
 
 const Index = () => {
-	return <div>Index</div>;
+	return (
+		<>
+			<Hero />
+		</>
+	);
 };
 
 export default Index;
