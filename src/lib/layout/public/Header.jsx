@@ -32,7 +32,7 @@ const HeaderPublic = () => {
 			<div className="flex justify-between h-[105px]">
 				<div className="w-1/3 flex flex-col items-start justify-between max-w-60">
 					<div className="text-[#393C3F] text-[13px] h-8 items-center flex">
-						{moment().format("dddd, MMMM YYYY")}
+						{moment().format("dddd, MMMM Do YYYY")}
 					</div>
 					<div className="font-semibold">
 						Media To Discover Yogyakarta Culture & Football
