@@ -26,7 +26,7 @@ const HeaderPublic = () => {
 		},
 	];
 	return (
-		<div className="flex flex-col justify-between gap-6">
+		<div className=" top-0 bg-white flex flex-col gap-6">
 			<div className="flex justify-between h-[105px]">
 				<div className="w-1/3 flex flex-col items-start justify-between max-w-60">
 					<div className="text-[#393C3F] text-[13px] h-8 items-center flex">
@@ -48,10 +48,10 @@ const HeaderPublic = () => {
 				</div>
 				<div className="w-1/3 flex flex-col items-end justify-between max-w-60">
 					<div className="flex gap-4 items-center h-8">
-						{/* <div>Support us, with</div>
+						<div>Support us, with</div>
 						<Button className="rounded-md" size="small">
 							Subsribe
-						</Button> */}
+						</Button>
 					</div>
 					<TextInput
 						width="w-52"
