@@ -229,7 +229,7 @@ const DatePicker = ({ value, onChange }) => {
 						}}
 						className={`absolute ${
 							showAbove ? "bottom-12" : "top-12 "
-						} z-10 -right-56 border border-primary-darkGray bg-secondary rounded-lg p-4 w-64`}
+						} z-10 -right-56 border border-primary-darkGray bg-white rounded-lg p-4 w-64`}
 					>
 						{/* Header with month/year and navigation */}
 						<div className="relative flex justify-between mb-2">

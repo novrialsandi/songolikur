@@ -1,23 +1,23 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Open_Sans, Faculty_Glyphic } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
+const openSans = Open_Sans({
+	variable: "--font-open-sans",
 	subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+const facultyGlyphic = Faculty_Glyphic({
+	weight: "400",
+
 	subsets: ["latin"],
+	variable: "--font-faculty-glyphic",
 });
 
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-			>
+			<body className={`${facultyGlyphic.variable} antialiased`}>
 				{children}
 				<ToastContainer
 					position="top-center"

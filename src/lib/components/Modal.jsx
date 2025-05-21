@@ -116,7 +116,7 @@ const Modal = ({
 					<motion.div
 						key="modal-content"
 						ref={modalRef}
-						className={`modal-content z-10 border  ${className} relative my-8 min-w-[400px] max-w-[1200px] overflow-hidden rounded-lg bg-secondary`}
+						className={`modal-content z-10 border  ${className} relative my-8 min-w-[400px] max-w-[1200px] overflow-hidden rounded-lg bg-white`}
 						initial={getInitialPosition()}
 						animate={getAnimatePosition()}
 						exit={getExitPosition()}

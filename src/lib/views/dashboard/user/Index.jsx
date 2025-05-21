@@ -165,7 +165,7 @@ const Index = () => {
 							</tr>
 						) : users.length > 0 ? (
 							users.map((user, index) => (
-								<tr key={index} className="bg-secondary hover:bg-gray-100">
+								<tr key={index} className="bg-white hover:bg-gray-100">
 									{attributes.map((attr) => (
 										<td
 											key={attr}

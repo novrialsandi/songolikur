@@ -2,8 +2,8 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 
 export const metadata = {
-	title: "Songolikur",
-	description: "",
+	title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
+	description: "Media To Discover Yogyakarta Culture & Football",
 	// metadataBase: new URL("https://www.songolikur.id"),
 	// openGraph: {
 	// 	type: "website",

@@ -17,8 +17,9 @@
 }
 
 body {
-	background-color: #fbf9f0;
-	color: #2c2b29;
+	/* background-color: #fbf9f0; */
+	color: #2c2c2c;
+	font-size: 14px;
 }
 
 /* Chrome, Safari, Edge, Opera */

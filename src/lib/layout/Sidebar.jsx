@@ -348,7 +348,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 							)}
 						</div>
 						<button
-							className={`absolute flex flex-none bg-secondary items-center justify-center rounded-lg transition-all duration-300 ${
+							className={`absolute flex flex-none bg-white items-center justify-center rounded-lg transition-all duration-300 ${
 								miniSidebar ? "right-[-12px] rotate-0" : "-right-3 rotate-180"
 							}`}
 							onClick={toggleMiniSidebar}

@@ -64,7 +64,7 @@ const Card = ({ collection, onCollectionDelete }) => {
 
 			<Link
 				href={`/dashboard/collection/${collection.collection_uuid}`}
-				className="bg-secondary relative border border-[#cccccc] rounded-md overflow-hidden cursor-pointer duration-150 hover:-translate-y-1.5"
+				className="bg-white relative border border-[#cccccc] rounded-md overflow-hidden cursor-pointer duration-150 hover:-translate-y-1.5"
 			>
 				<span
 					className={`text-xs absolute left-0 top-0 font-semibold py-1 px-2 rounded-br-md ${
@@ -85,7 +85,7 @@ const Card = ({ collection, onCollectionDelete }) => {
 						e.preventDefault(); // Ensures no default link action occurs
 						setDeleteModal(true);
 					}}
-					className="bg-secondary absolute right-0 top-0 font-semibold py-1 px-2 rounded-bl-md hover:scale-110 duration-200 cursor-pointer"
+					className="bg-white absolute right-0 top-0 font-semibold py-1 px-2 rounded-bl-md hover:scale-110 duration-200 cursor-pointer"
 				>
 					{iconSvg.delete}
 				</button>

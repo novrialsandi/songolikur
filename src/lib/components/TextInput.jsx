@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { iconSvg } from "@/lib/Icons/icon";
 
 const TextInput = ({
-	isFullwidth = true,
+	width = "w-full",
 	name = "",
 	id = `id-${Date.now()}`,
 	className = "",
@@ -72,7 +72,7 @@ const TextInput = ({
 	};
 
 	return (
-		<div className={`${isFullwidth ? "w-full" : ""} flex flex-col`}>
+		<div className={`${width} flex flex-col`}>
 			{label && (
 				<label
 					suppressHydrationWarning
