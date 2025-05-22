@@ -88,7 +88,9 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 	// Insert Image(selected by user) to quill
 	const insertToEditor = (url) => {
 		const range = quill.getSelection();
-		quill.insertEmbed(range.index, "image", url);
+		const index = range ? range.index : quill.getLength(); // insert at cursor or end
+		quill.insertEmbed(index, "image", url);
+		quill.setSelection(index + 1); // move cursor after image
 	};
 
 	const saveToServer = async (files) => {
