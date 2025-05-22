@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
 
 	return {
 		title: `${data?.title} - Songolikur`,
-		description: data?.description || "",
+		description: data?.seo || "",
 		// metadataBase: new URL("https://www.songolikur.id"),
 		// openGraph: {
 		// 	type: "website",

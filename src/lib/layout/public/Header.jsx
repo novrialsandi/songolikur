@@ -92,7 +92,7 @@ const HeaderPublic = () => {
 						</div>
 						<TextInput
 							width="w-48"
-							placeholder="Search Article"
+							placeholder="Search Collection"
 							debounceTime={2000}
 							hasIconLeft={iconSvg.search}
 							size="small"
