@@ -99,22 +99,22 @@ const DetailsForm = ({
 		input.click();
 	};
 
-	const getCollaborator = async () => {
-		try {
-			const res = await fetchApi("/user/collaborator");
+	// const getCollaborator = async () => {
+	// 	try {
+	// 		const res = await fetchApi("/user/collaborator");
 
-			if (res.status === 200) {
-				const formattedData = res.data.collaborator.map((item) => ({
-					value: item.user_uuid,
-					label: item.name,
-				}));
+	// 		if (res.status === 200) {
+	// 			const formattedData = res.data.collaborator.map((item) => ({
+	// 				value: item.user_uuid,
+	// 				label: item.name,
+	// 			}));
 
-				setCollabulator(formattedData);
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
+	// 			setCollabulator(formattedData);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
 
 	const getEditor = async () => {
 		try {
@@ -158,7 +158,7 @@ const DetailsForm = ({
 	};
 
 	useEffect(() => {
-		getCollaborator();
+		// getCollaborator();
 		getEditor();
 
 		if (collection.collaboration_uuid) {
@@ -272,7 +272,7 @@ const DetailsForm = ({
 							}}
 						/>
 					</div>
-					<div>
+					{/* <div>
 						<div>Collaboration:</div>
 						<div className="flex flex-col gap-2">
 							{isOwner ? (
@@ -317,7 +317,7 @@ const DetailsForm = ({
 								</>
 							)}
 						</div>
-					</div>
+					</div> */}
 					<Button
 						onClick={handleSave}
 						className="px-4 py-2 rounded-md"
