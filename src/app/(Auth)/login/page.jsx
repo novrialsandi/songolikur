@@ -3,7 +3,27 @@ import Auth from "@/lib/views/auth/Index";
 
 export const metadata = {
 	title: "Login - Songolikur",
-	description: "Login to Dashboard",
+	description: "Login to Dashboard Songolikur",
+	metadataBase: new URL("https://www.songolikur.vercel.app"),
+	openGraph: {
+		type: "website",
+		url: "https://www.songolikur.vercel.app/login/",
+		title: "Login - Songolikur",
+		description: "Login to Dashboard Songolikur",
+		images: [
+			{
+				url: "/meta.png",
+				width: 1200,
+				height: 630,
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Login - Songolikur",
+		description: "Login to Dashboard Songolikur",
+		images: ["/meta.png"],
+	},
 };
 
 const AuthPage = () => {

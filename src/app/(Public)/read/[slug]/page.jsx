@@ -19,26 +19,26 @@ export async function generateMetadata({ params }) {
 	return {
 		title: `${data?.title} - Songolikur`,
 		description: data?.seo || "",
-		// metadataBase: new URL("https://www.songolikur.id"),
-		// openGraph: {
-		// 	type: "website",
-		// 	url: `https://www.songolikur.id/read/${slug}`,
-		// 	title: `${data?.title} - Songolikur`,
-		// 	description: data?.seo || "",
-		// 	images: [
-		// 		{
-		// 			url: data?.thumbnail || "/meta.png",
-		// 			width: 1200,
-		// 			height: 630,
-		// 		},
-		// 	],
-		// },
-		// twitter: {
-		// 	card: "summary_large_image",
-		// 	title: `${data?.title} - Songolikur`,
-		// 	description: data?.seo || "",
-		// 	images: [data?.thumbnail || "/meta.png"],
-		// },
+		metadataBase: new URL("https://www.songolikur.vercel.app"),
+		openGraph: {
+			type: "website",
+			url: `https://www.songolikur.vercel.app/read/${slug}`,
+			title: `${data?.title} - Songolikur`,
+			description: data?.seo || "",
+			images: [
+				{
+					url: data?.thumbnail || "/meta.png",
+					width: 1200,
+					height: 630,
+				},
+			],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: `${data?.title} - Songolikur`,
+			description: data?.seo || "",
+			images: [data?.thumbnail || "/meta.png"],
+		},
 	};
 }
 

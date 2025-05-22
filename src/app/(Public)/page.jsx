@@ -4,29 +4,27 @@ import LandingContent from "@/lib/views/public/Index";
 
 export const metadata = {
 	title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
-	description: "Media To Discover Yogyakarta Culture & Football",
-	// metadataBase: new URL("https://www.songolikur.id"),
-	// openGraph: {
-	// 	type: "website",
-	// 	url: "https://www.songolikur.id/",
-	// 	title: "Songlikur",
-	// 	description:
-	// 		"",
-	// 	images: [
-	// 		{
-	// 			url: "/meta.png",
-	// 			width: 1200,
-	// 			height: 630,
-	// 		},
-	// 	],
-	// },
-	// twitter: {
-	// 	card: "summary_large_image",
-	// 	title: "Songlikur",
-	// 	description:
-	// 		"",
-	// 	images: ["/meta.png"],
-	// },
+	description: "Discover Yogyakarta Culture & Football",
+	metadataBase: new URL("https://www.songolikur.vercel.app"),
+	openGraph: {
+		type: "website",
+		url: "https://www.songolikur.vercel.app/",
+		title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
+		description: "Discover Yogyakarta Culture & Football",
+		images: [
+			{
+				url: "/meta.png",
+				width: 1200,
+				height: 630,
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
+		description: "Discover Yogyakarta Culture & Football",
+		images: ["/meta.png"],
+	},
 };
 
 const LandingPage = async () => {
