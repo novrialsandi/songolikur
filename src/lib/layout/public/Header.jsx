@@ -56,9 +56,9 @@ const HeaderPublic = () => {
 	}, []);
 
 	return (
-		<div className="relative bg-white flex flex-col gap-6">
+		<div className=" bg-white flex flex-col gap-6">
 			<div
-				className={`transition-all duration-300 ease-in-out ${
+				className={`transition-all duration-300 md:block hidden ease-in-out ${
 					isVisible
 						? "opacity-100 translate-y-0"
 						: "opacity-0 -translate-y-full"
@@ -107,7 +107,7 @@ const HeaderPublic = () => {
 					!isVisible ? "translate-y-0" : "-translate-y-full"
 				}`}
 			>
-				<div className="flex px-28 w-full max-w-[1440px] justify-between items-center h-full gap-8">
+				<div className="flex md:px-28 px-4 w-full max-w-[1440px] justify-between items-center h-full gap-8">
 					<Link href={"/"}>{iconSvg.logoPublicSvg}</Link>
 					<div className="flex gap-8">
 						{menus.map((val, index) => (
