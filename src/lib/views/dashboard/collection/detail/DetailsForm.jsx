@@ -177,11 +177,6 @@ const DetailsForm = ({
 	// 		const res = await fetchApi.post(
 	// 			`/collection/upload/content/${uuid}`,
 	// 			formData,
-	// 			{
-	// 				headers: {
-	// 					"Content-Type": "multipart/form-data",
-	// 				},
-	// 			}
 	// 		);
 
 	// 		if (res.status === 201 && res.data?.contents) {
