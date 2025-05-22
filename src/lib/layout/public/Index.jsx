@@ -7,6 +7,7 @@ const PublicLayout = ({ children }) => {
 				<HeaderPublic />
 
 				{children}
+				{children}
 			</div>
 		</div>
 	);
