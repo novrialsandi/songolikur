@@ -103,9 +103,9 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 				formData
 			);
 
-			if (res.status === 201 && res.data?.contents) {
+			if (res.status === 201) {
 				for (const imageUrl of res.data.contents) {
-					insertToEditor(imageUrl); // insert tiap gambar
+					insertToEditor(imageUrl);
 				}
 			} else {
 				console.error("Upload failed with status:", res.status);
