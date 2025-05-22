@@ -198,6 +198,21 @@ const DetailsForm = ({
 	// 	}
 	// };
 
+	// const selectLocalImage = () => {
+	// 	const input = document.createElement("input");
+	// 	input.setAttribute("type", "file");
+	// 	input.setAttribute("accept", "image/*");
+	// 	input.setAttribute("multiple", "true");
+	// 	input.click();
+
+	// 	input.onchange = () => {
+	// 		const files = Array.from(input.files);
+	// 		if (files.length > 0) {
+	// 			saveToServer(files);
+	// 		}
+	// 	};
+	// };
+
 	return (
 		<>
 			<Modal

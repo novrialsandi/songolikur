@@ -121,11 +121,14 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 		const input = document.createElement("input");
 		input.setAttribute("type", "file");
 		input.setAttribute("accept", "image/*");
+		// input.setAttribute("multiple", "true");
 		input.click();
 
 		input.onchange = () => {
-			const file = input.files[0];
-			saveToServer(file);
+			const files = Array.from(input.files);
+			if (files.length > 0) {
+				saveToServer(files);
+			}
 		};
 	};
 
