@@ -91,19 +91,24 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 		quill.insertEmbed(range.index, "image", url);
 	};
 
-	const saveToServer = async (file) => {
+	const saveToServer = async (files) => {
 		const formData = new FormData();
-		formData.append("content", file);
+		for (const file of files) {
+			formData.append("content", file);
+		}
 
 		try {
 			const res = await fetchApi.post(
 				`/collection/upload/content/${uuid}`,
 				formData
 			);
-			if (res.status === 201 && res.data?.content) {
-				insertToEditor(res.data.content);
+
+			if (res.status === 201 && res.data?.contents) {
+				for (const imageUrl of res.data.contents) {
+					insertToEditor(imageUrl); // insert tiap gambar
+				}
 			} else {
-				console.error("Upload failed with status:", req.status);
+				console.error("Upload failed with status:", res.status);
 				toast.error("Failed to upload content image. Please try again.");
 			}
 		} catch (error) {

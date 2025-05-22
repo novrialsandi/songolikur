@@ -166,9 +166,11 @@ const DetailsForm = ({
 		}
 	}, []);
 
-	// const saveToServer = async (file) => {
+	// const saveToServer = async (files) => {
 	// 	const formData = new FormData();
-	// 	formData.append("content", file);
+	// 	for (const file of files) {
+	// 		formData.append("content", file);
+	// 	}
 	// 	formData.append("type", "carausel");
 
 	// 	try {
@@ -182,10 +184,12 @@ const DetailsForm = ({
 	// 			}
 	// 		);
 
-	// 		if (res.status === 201 && res.data?.content) {
-	// 			insertToEditor(res.data.content);
+	// 		if (res.status === 201 && res.data?.contents) {
+	// 			for (const imageUrl of res.data.contents) {
+	// 				insertToEditor(imageUrl); // insert tiap gambar
+	// 			}
 	// 		} else {
-	// 			console.error("Upload failed with status:", res.status); // fix 'req' ke 'res'
+	// 			console.error("Upload failed with status:", res.status);
 	// 			toast.error("Failed to upload content image. Please try again.");
 	// 		}
 	// 	} catch (error) {

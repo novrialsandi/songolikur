@@ -6,7 +6,7 @@ export async function generateMetadata({ params }) {
 	return {
 		title: "Detail Collection - Songolikur Dashboard",
 		description: "Collections Detail",
-		metadataBase: new URL("https://www.songolikur .id"),
+		metadataBase: new URL("https://www.songolikur.vercel.app"),
 		openGraph: {
 			type: "website",
 			url: `https://www.songolikur.vercel.app/dashboard/collection/${uuid}/`,
