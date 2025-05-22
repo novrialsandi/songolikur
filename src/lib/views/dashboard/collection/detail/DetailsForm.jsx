@@ -166,6 +166,34 @@ const DetailsForm = ({
 		}
 	}, []);
 
+	// const saveToServer = async (file) => {
+	// 	const formData = new FormData();
+	// 	formData.append("content", file);
+	// 	formData.append("type", "carausel");
+
+	// 	try {
+	// 		const res = await fetchApi.post(
+	// 			`/collection/upload/content/${uuid}`,
+	// 			formData,
+	// 			{
+	// 				headers: {
+	// 					"Content-Type": "multipart/form-data",
+	// 				},
+	// 			}
+	// 		);
+
+	// 		if (res.status === 201 && res.data?.content) {
+	// 			insertToEditor(res.data.content);
+	// 		} else {
+	// 			console.error("Upload failed with status:", res.status); // fix 'req' ke 'res'
+	// 			toast.error("Failed to upload content image. Please try again.");
+	// 		}
+	// 	} catch (error) {
+	// 		console.error("Upload failed:", error);
+	// 		toast.error("An error occurred while uploading the content.");
+	// 	}
+	// };
+
 	return (
 		<>
 			<Modal
