@@ -34,7 +34,7 @@ const TextInput = ({
 
 	const sizeDataClass = {
 		small: "h-8",
-		medium: "h-10",
+		medium: "h-12",
 		large: "h-[60px]",
 	};
 

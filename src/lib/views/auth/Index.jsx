@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { setCookie } from "@/lib/helpers/cookie";
 import fetchApi from "@/lib/api/fetchApi";
 import { toast } from "react-toastify";
+import Divider from "@/lib/components/Divider";
 
 const Login = () => {
 	const { setSession } = useSessionStore();
@@ -95,177 +96,71 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex min-h-screen w-full items-center justify-center">
-			<div className="flex w-[455px] flex-col justify-around rounded-xl border px-8 py-10">
-				{/* <div className="flex w-full flex-col items-center gap-4">
-					<img
-						src="/rent-car.png"
-						alt=""
-						className="aspect-square size-[60px]"
-					/>
+		<div className="flex max-h-screen w-full items-center justify-center">
+			<div className="flex w-1/2 justify-center">
+				<div
+					key="login"
+					variants={formVariants}
+					initial="initial"
+					animate="animate"
+					exit="exit"
+					transition={{ duration: 0.4 }}
+					className="w-full max-w-[455px] gap-6  flex flex-col items-center"
+				>
+					<div className="w-1/2 pb-4 flex justify-center">
+						<Divider />
+					</div>
+					<div className="text-center space-y-3 pb-4">
+						<div className="font-bold text-center text-4xl">
+							Login to Acount
+						</div>
+						<div className="text-base text-center text-[#62626D]">
+							Please log in to access the Songolikur Dashboard.
+						</div>
+					</div>
+					<div className="flex flex-col w-full items-center gap-4">
+						<TextInput
+							name="email"
+							type="email"
+							hasIconLeft={iconSvg.email}
+							placeholder="Email Address"
+							value={userAuth.email}
+							onChange={inputLogin}
+							onKeyDown={handleKeyDown}
+							className="w-full"
+						/>
+						<TextInput
+							isPasswordField
+							name="password"
+							type="password"
+							hasIconLeft={iconSvg.password}
+							placeholder="Password"
+							value={userAuth.password}
+							onChange={inputLogin}
+							onKeyDown={handleKeyDown}
+							className="w-full"
+						/>
+						<div className="w-full flex flex-col gap-2 pt-6">
+							{errorMsg && (
+								<p className="text-red-500 text-sm text-center">{errorMsg}</p>
+							)}
 
-				
-				</div> */}
-
-				<AnimatePresence mode="wait">
-					{isLogin ? (
-						<motion.div
-							key="login"
-							variants={formVariants}
-							initial="initial"
-							animate="animate"
-							exit="exit"
-							transition={{ duration: 0.4 }}
-							className="w-full gap-6 md:gap-8 flex flex-col justify-between"
-						>
-							<div className="text-center md:text-left">
-								<div className="font-bold text-center text-2xl md:text-[26px]">
-									Hello Again!
-								</div>
-								<div className="text-base text-center md:text-lg">
-									Welcome Back
-								</div>
-							</div>
-							<div className="flex flex-col items-center gap-4">
-								<TextInput
-									size="large"
-									name="email"
-									type="email"
-									hasIconLeft={iconSvg.email}
-									placeholder="Email Address"
-									value={userAuth.email}
-									onChange={inputLogin}
-									onKeyDown={handleKeyDown}
-									className="w-full"
-								/>
-								<TextInput
-									isPasswordField
-									size="large"
-									name="password"
-									type="password"
-									hasIconLeft={iconSvg.password}
-									placeholder="Password"
-									value={userAuth.password}
-									onChange={inputLogin}
-									onKeyDown={handleKeyDown}
-									className="w-full"
-								/>
-								<div className="w-full flex flex-col gap-2">
-									{errorMsg && (
-										<p className="text-red-500 text-sm text-center">
-											{errorMsg}
-										</p>
-									)}
-
-									<Button
-										isLoading={isLoading}
-										disabled={!isFormValid || isLoading}
-										size="large"
-										className="w-full rounded-full"
-										onClick={onAuth}
-									>
-										Login
-									</Button>
-								</div>
-								{/* <div className="text-sm text-[#333333] text-center w-full">
-									Don't have an account?{" "}
-									<span
-										className="text-blue-600 cursor-pointer font-semibold"
-										onClick={() => {
-											setIsLogin(false);
-											setErrorMsg("");
-										}}
-									>
-										Sign Up
-									</span>
-								</div> */}
-							</div>
-						</motion.div>
-					) : (
-						<motion.div
-							key="register"
-							variants={formVariants}
-							initial="initial"
-							animate="animate"
-							exit="exit"
-							transition={{ duration: 0.4 }}
-							className="w-full gap-6 md:gap-8 flex flex-col justify-between"
-						>
-							<div className="text-center md:text-left">
-								<div className="font-bold text-center text-2xl md:text-[26px]">
-									Join Us!
-								</div>
-								<div className="text-base text-center md:text-lg">
-									Create your account
-								</div>
-							</div>
-							<div className="flex flex-col items-center gap-4">
-								<TextInput
-									size="large"
-									name="name"
-									hasIconLeft={iconSvg.user}
-									placeholder="Full Name"
-									value={userAuth.name}
-									onChange={inputLogin}
-									onKeyDown={handleKeyDown}
-									className="w-full"
-								/>
-								<TextInput
-									size="large"
-									name="email"
-									type="email"
-									hasIconLeft={iconSvg.email}
-									placeholder="Email Address"
-									value={userAuth.email}
-									onChange={inputLogin}
-									onKeyDown={handleKeyDown}
-									className="w-full"
-								/>
-								<TextInput
-									isPasswordField
-									size="large"
-									name="password"
-									hasIconLeft={iconSvg.password}
-									placeholder="Password"
-									value={userAuth.password}
-									onChange={inputLogin}
-									onKeyDown={handleKeyDown}
-									className="w-full"
-								/>
-								<div className="w-full flex flex-col gap-2">
-									{errorMsg && (
-										<p className="text-red-500 text-sm text-center">
-											{errorMsg}
-										</p>
-									)}
-
-									<Button
-										isLoading={isLoading}
-										disabled={!isFormValid || isLoading}
-										size="large"
-										className="w-full rounded-full"
-										onClick={onAuth}
-									>
-										Register
-									</Button>
-								</div>
-								{/* <div className="text-sm text-[#333333] text-center w-full">
-									Already have an account?{" "}
-									<span
-										className="text-blue-600 cursor-pointer font-semibold"
-										onClick={() => {
-											setIsLogin(true);
-											setErrorMsg("");
-										}}
-									>
-										Login
-									</span>
-								</div> */}
-							</div>
-						</motion.div>
-					)}
-				</AnimatePresence>
+							<Button
+								isLoading={isLoading}
+								disabled={!isFormValid || isLoading}
+								className="w-full rounded-md"
+								onClick={onAuth}
+							>
+								Login
+							</Button>
+						</div>
+					</div>
+					<div className="w-1/2 pt-4 flex justify-center">
+						<Divider />
+					</div>{" "}
+				</div>
 			</div>
+			<img src="/login.webp" className="w-1/2 h-screen" alt="" />
 		</div>
 	);
 };
