@@ -1,20 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname, useParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { useCollectionSelectedStore, useSessionStore } from "@/lib/stores";
+import { setCookie, removeCookie } from "../helpers/cookie";
 
-const Parent = ({ children, menus, cookieData }) => {
+const Parent = ({ children, menus, cookieData, status }) => {
+	const router = useRouter();
+	const pathname = usePathname();
 	const { setSession } = useSessionStore();
 	const { collectionSelected } = useCollectionSelectedStore();
 
-	const pathname = usePathname();
 	const [miniSidebar, setMiniSidebar] = useState(false);
 
 	useEffect(() => {
-		setSession(cookieData);
+		if (status === 401 || status === 403) {
+			removeCookie("sid");
+			removeCookie("cid");
+			setSession({});
+
+			router.push("/login");
+		} else {
+			setCookie("cid", cookieData, "nextMonday");
+			setSession(cookieData);
+		}
 	}, []);
 
 	const handleMiniSidebar = (isMini) => {

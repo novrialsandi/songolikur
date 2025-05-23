@@ -4,8 +4,24 @@ import SlugComponent from "@/lib/views/public/read/slug/Index";
 
 async function getSlugData(slug) {
 	try {
-		const res = await fetchApi(`/collection/public/${slug}`);
-		return res.data;
+		const res = await fetch(
+			`${process.env.SERVICE_HOST}/api/collection/public/${slug}`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"x-secret-key": process.env.SECRET_KEY || "",
+				},
+				cache: "no-store",
+			}
+		);
+
+		if (!res.ok) {
+			return null;
+		}
+
+		const data = await res.json();
+		return data;
 	} catch (error) {
 		console.error("Error fetching slug data:", error);
 		return null;
@@ -17,14 +33,14 @@ export async function generateMetadata({ params }) {
 	const data = await getSlugData(slug);
 
 	return {
-		title: `${data?.title} - Songolikur`,
-		description: data?.seo || "",
+		title: `${data?.title || "Content Not Found"} - Songolikur`,
+		description: data?.seo || "Content Not Found",
 		metadataBase: new URL("https://www.songolikur.vercel.app"),
 		openGraph: {
 			type: "website",
 			url: `https://www.songolikur.vercel.app/read/${slug}`,
-			title: `${data?.title} - Songolikur`,
-			description: data?.seo || "",
+			title: `${data?.title || "Content Not Found"} - Songolikur`,
+			description: data?.seo || "Content Not Found",
 			images: [
 				{
 					url: data?.thumbnail || "/meta.png",
@@ -35,8 +51,8 @@ export async function generateMetadata({ params }) {
 		},
 		twitter: {
 			card: "summary_large_image",
-			title: `${data?.title} - Songolikur`,
-			description: data?.seo || "",
+			title: `${data?.title || "Content Not Found"} - Songolikur`,
+			description: data?.seo || "Content Not Found",
 			images: [data?.thumbnail || "/meta.png"],
 		},
 	};

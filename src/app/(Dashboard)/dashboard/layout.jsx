@@ -3,11 +3,35 @@ import Layout from "@/lib/layout/Index";
 import { iconSvg } from "@/lib/Icons/icon";
 import { cookies } from "next/headers";
 
-const DashboardLayout = async ({ children }) => {
-	const cookieStore = await cookies();
-	const cid = cookieStore.get("cid");
+const getMe = async () => {
+	try {
+		const cookieStore = await cookies();
+		const token = cookieStore.get("sid")?.value;
 
-	const cookieData = cid ? JSON.parse(cid.value) : null;
+		const res = await fetch(`${process.env.SERVICE_HOST}/api/user/me`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"x-secret-key": process.env.SECRET_KEY || "",
+				Authorization: token ? `Bearer ${token}` : "",
+			},
+			cache: "no-store",
+		});
+
+		if (!res.ok) {
+			return { status: res.status, user: null };
+		}
+
+		const data = await res.json();
+		return { status: 200, user: data.user };
+	} catch (error) {
+		console.error("Error fetching user data:", error);
+		return { status: 500, user: null };
+	}
+};
+
+const DashboardLayout = async ({ children }) => {
+	const { status, user } = await getMe();
 
 	const menus = {
 		menu: [
@@ -16,7 +40,7 @@ const DashboardLayout = async ({ children }) => {
 				icon: iconSvg.dashboardSvg,
 				href: "/dashboard",
 			},
-			...(cookieData?.role === "admin"
+			...(user?.role === "admin"
 				? [
 						{
 							name: "User",
@@ -64,7 +88,7 @@ const DashboardLayout = async ({ children }) => {
 
 	return (
 		<>
-			<Layout menus={menus} cookieData={cookieData}>
+			<Layout menus={menus} cookieData={user} status={status}>
 				{children}
 			</Layout>
 		</>
