@@ -6,13 +6,14 @@ import TextInput from "@/lib/components/TextInput";
 import { iconSvg } from "@/lib/Icons/icon";
 import moment from "moment";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const HeaderPublic = () => {
+	const router = useRouter();
+	const [search, setSearch] = useState("");
 	const [isVisible, setIsVisible] = useState(true);
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const pathname = usePathname();
+	// const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const menus = [
 		{
@@ -92,10 +93,22 @@ const HeaderPublic = () => {
 						</div>
 						<TextInput
 							width="w-48"
+							value={search}
 							placeholder="Search Collection"
-							debounceTime={2000}
+							// debounceTime={2000}
 							hasIconLeft={iconSvg.search}
 							size="small"
+							onChange={(e) => {
+								setSearch(e.target.value);
+							}}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") {
+									const params = new URLSearchParams(window.location.search);
+									params.set("search", search);
+
+									router.push(`/read/?${params.toString()}`);
+								}
+							}}
 						/>
 					</div>
 				</div>

@@ -17,11 +17,12 @@ const Collections = () => {
 	const searchParams = useSearchParams();
 
 	// Function to get collection data from API
-	const getCollection = async (category = "", tags = "") => {
+	const getCollection = async (category = "", tags = "", search = "") => {
 		try {
 			const params = {};
 			if (category) params.category = category;
 			if (tags.length > 0) params.tags = tags.join(",");
+			if (search) params.search = search;
 
 			const res = await fetchApi.get("/collection/public", { params });
 			if (res.status === 200) {
@@ -34,11 +35,21 @@ const Collections = () => {
 		}
 	};
 
-	// Update URL query parameters
 	const updateQuery = (category, tags) => {
-		const params = new URLSearchParams();
-		if (category) params.set("category", category);
-		if (tags.length > 0) params.set("tags", tags.join(","));
+		const params = new URLSearchParams(window.location.search); // ambil params yang sudah ada
+
+		if (category) {
+			params.set("category", category);
+		} else {
+			params.delete("category");
+		}
+
+		if (tags.length > 0) {
+			params.set("tags", tags.join(","));
+		} else {
+			params.delete("tags");
+		}
+
 		router.push(`/read?${params.toString()}`);
 	};
 
@@ -46,10 +57,11 @@ const Collections = () => {
 	useEffect(() => {
 		const category = searchParams.get("category") || "";
 		const tags = searchParams.get("tags")?.split(",") || [];
+		const search = searchParams.get("search") || "";
 
 		setSelectedCategory(category);
 		setSelectedTags(tags);
-		getCollection(category, tags);
+		getCollection(category, tags, search);
 	}, [searchParams]);
 
 	return (
