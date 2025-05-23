@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import fetchApi from "../api/fetchApi";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { compressImage } from "../utils/imageCompression";
 
 const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 	const pathname = usePathname();
@@ -127,15 +128,24 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 
 	const uploadAvatar = async (file) => {
 		setEditLoading(true);
-		const formData = new FormData();
-		formData.append("avatar", file);
 
 		try {
+			const compressedFile = await compressImage(file, {
+				maxWidthOrHeight: 720,
+				maxSizeMB: 0.5,
+				initialQuality: 1,
+			});
+
+			const formData = new FormData();
+			formData.append("avatar", compressedFile);
+
 			const req = await fetchApi.patch(`/user/upload/avatar`, formData);
+
 			if (req.status === 200) {
 				const updatedUser = req.data.user;
-				setCookie("cid", req.data.user);
-				setSession(req.data.user);
+				setCookie("cid", updatedUser);
+				setSession(updatedUser);
+
 				if (updatedUser.role === "admin") {
 					setUsers((prevUsers) =>
 						prevUsers.map((user) =>
@@ -145,6 +155,7 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						)
 					);
 				}
+
 				toast.success("Avatar uploaded successfully");
 			} else {
 				console.error("Upload failed with status:", req.status);

@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@tailwindcss/typography": "^0.5.16",
 		"axios": "^1.8.3",
+		"browser-image-compression": "^2.0.2",
 		"cookie-universal": "^2.2.2",
 		"dompurify": "^3.2.5",
 		"dotenv": "^16.4.7",
