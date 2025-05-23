@@ -26,7 +26,7 @@ const Parent = ({ children, menus, cookieData, status }) => {
 			setCookie("cid", cookieData, "nextMonday");
 			setSession(cookieData);
 		}
-	}, []);
+	}, [status]);
 
 	const handleMiniSidebar = (isMini) => {
 		setMiniSidebar(isMini);
