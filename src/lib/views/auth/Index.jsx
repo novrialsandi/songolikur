@@ -7,7 +7,7 @@ import { iconSvg } from "@/lib/Icons/icon";
 import { useRouter } from "next/navigation";
 import { useSessionStore } from "@/lib/stores";
 import { motion, AnimatePresence } from "framer-motion";
-import { setCookie } from "@/lib/helpers/cookie";
+import { setCookie, getCookie } from "@/lib/helpers/cookie";
 import fetchApi from "@/lib/api/fetchApi";
 import { toast } from "react-toastify";
 import Divider from "@/lib/components/Divider";
@@ -47,9 +47,9 @@ const Login = () => {
 				});
 
 				if (req.status === 200) {
-					setSession(req.data.user);
 					setCookie("sid", req.data.token, "nextMonday");
 					setCookie("cid", req.data.user, "nextMonday");
+					setSession(getCookie("cid"));
 					setErrorMsg("");
 
 					if (req.data.user.role === "user") {
