@@ -144,22 +144,49 @@ const HeaderPublic = () => {
 					</button>
 
 					{/* Logo */}
+					<div className="hidden md:flex gap-8 items-center">
+						<Link href="/" className="flex">
+							<div>{iconSvg.logoPublicSvg}</div>
+						</Link>
+
+						{/* Desktop Menu */}
+						<div className="gap-8 flex">
+							{menus.map((val, index) => (
+								<Link
+									href={val.href}
+									key={index}
+									className="hover:text-blue-600 transition-colors duration-200 font-medium"
+								>
+									{val.label}
+								</Link>
+							))}
+						</div>
+					</div>
+
 					<Link href="/" className="flex">
-						<div className="hidden md:flex">{iconSvg.logoPublicSvg}</div>
 						<div className="flex md:hidden">{iconSvg.logoMarkSvg}</div>
 					</Link>
 
-					{/* Desktop Menu */}
-					<div className="hidden md:flex gap-8">
-						{menus.map((val, index) => (
-							<Link
-								href={val.href}
-								key={index}
-								className="hover:text-blue-600 transition-colors duration-200 font-medium"
-							>
-								{val.label}
-							</Link>
-						))}
+					<div className="hidden md:block">
+						<TextInput
+							width="w-48"
+							value={search}
+							placeholder="Search Collection"
+							// debounceTime={2000}
+							hasIconLeft={iconSvg.search}
+							size="small"
+							onChange={(e) => {
+								setSearch(e.target.value);
+							}}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") {
+									const params = new URLSearchParams(window.location.search);
+									params.set("search", search);
+
+									router.push(`/read/?${params.toString()}`);
+								}
+							}}
+						/>
 					</div>
 				</div>
 
@@ -171,12 +198,32 @@ const HeaderPublic = () => {
 							: "opacity-0 invisible transform -translate-y-2"
 					}`}
 				>
-					<div className="px-4 py-4 space-y-3">
+					<div className="px-4 py-4 space-y-2">
+						<TextInput
+							width="w-full"
+							value={search}
+							placeholder="Search Collection"
+							// debounceTime={2000}
+							hasIconLeft={iconSvg.search}
+							size="small"
+							onChange={(e) => {
+								setSearch(e.target.value);
+							}}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") {
+									setIsMobileMenuOpen(false);
+									const params = new URLSearchParams(window.location.search);
+									params.set("search", search);
+
+									router.push(`/read/?${params.toString()}`);
+								}
+							}}
+						/>
 						{menus.map((val, index) => (
 							<Link
 								href={val.href}
 								key={index}
-								className="block py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium"
+								className="block py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium"
 								onClick={() => setIsMobileMenuOpen(false)}
 							>
 								{val.label}
