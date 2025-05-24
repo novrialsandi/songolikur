@@ -115,13 +115,16 @@ const HeaderPublic = () => {
 			</div>
 
 			<nav
-				className={`fixed top-0 left-0 flex justify-center w-full h-20 bg-[#F7F8FA] border-b border-[#E0E1E4] shadow-md transition-transform duration-300 ease-in-out z-50 ${
+				className={`fixed top-0 left-0 flex justify-center w-full md:h-20 h-16 bg-[#F7F8FA] border-b border-[#E0E1E4] shadow-md transition-transform duration-300 ease-in-out z-50 ${
 					isVisible ? "md:-translate-y-full translate-y-0" : "translate-y-0"
 				}`}
 			>
 				<div className="flex md:px-28 px-4 w-full max-w-[1440px] justify-between items-center h-full">
 					{/* Logo */}
-					<Link href="/">{iconSvg.logoPublicSvg}</Link>
+					<Link href="/" className="flex">
+						<div className="hidden md:flex">{iconSvg.logoPublicSvg}</div>
+						<div className="flex md:hidden">{iconSvg.logoMarkSvg}</div>
+					</Link>
 
 					{/* Desktop Menu */}
 					<div className="hidden md:flex gap-8">
