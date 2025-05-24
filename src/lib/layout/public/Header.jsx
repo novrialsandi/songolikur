@@ -13,7 +13,7 @@ const HeaderPublic = () => {
 	const router = useRouter();
 	const [search, setSearch] = useState("");
 	const [isVisible, setIsVisible] = useState(true);
-	// const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const menus = [
 		{
@@ -114,20 +114,67 @@ const HeaderPublic = () => {
 				</div>
 			</div>
 
-			{/* Sticky navigation bar that appears when scrolling */}
 			<nav
-				className={`fixed  top-0 left-0 flex justify-center w-full h-20 bg-[#F7F8FA] border-b-[#E0E1E4] shadow-md transition-transform duration-300 ease-in-out z-50 ${
-					!isVisible ? "translate-y-0" : "-translate-y-full"
+				className={`fixed top-0 left-0 flex justify-center w-full h-20 bg-[#F7F8FA] border-b border-[#E0E1E4] shadow-md transition-transform duration-300 ease-in-out z-50 ${
+					isVisible ? "md:-translate-y-full translate-y-0" : "translate-y-0"
 				}`}
 			>
-				<div className="flex md:px-28 px-4 w-full max-w-[1440px] justify-between items-center h-full gap-8">
-					<Link href={"/"}>{iconSvg.logoPublicSvg}</Link>
-					<div className="flex gap-8">
+				<div className="flex md:px-28 px-4 w-full max-w-[1440px] justify-between items-center h-full">
+					{/* Logo */}
+					<Link href="/">{iconSvg.logoPublicSvg}</Link>
+
+					{/* Desktop Menu */}
+					<div className="hidden md:flex gap-8">
 						{menus.map((val, index) => (
 							<Link
 								href={val.href}
 								key={index}
-								className="hover:text transition-colors duration-200"
+								className="hover:text-blue-600 transition-colors duration-200 font-medium"
+							>
+								{val.label}
+							</Link>
+						))}
+					</div>
+
+					{/* Mobile Menu Button */}
+					<button
+						className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
+						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+						aria-label="Toggle mobile menu"
+					>
+						<span
+							className={`block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ${
+								isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+							}`}
+						></span>
+						<span
+							className={`block w-6 h-0.5 bg-gray-800 transition-opacity duration-300 ${
+								isMobileMenuOpen ? "opacity-0" : ""
+							}`}
+						></span>
+						<span
+							className={`block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ${
+								isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+							}`}
+						></span>
+					</button>
+				</div>
+
+				{/* Mobile Menu Dropdown */}
+				<div
+					className={`absolute top-full left-0 w-full bg-[#F7F8FA] shadow-lg border-b border-[#E0E1E4] md:hidden transition-all duration-300 ease-in-out ${
+						isMobileMenuOpen
+							? "opacity-100 visible transform translate-y-0"
+							: "opacity-0 invisible transform -translate-y-2"
+					}`}
+				>
+					<div className="px-4 py-4 space-y-3">
+						{menus.map((val, index) => (
+							<Link
+								href={val.href}
+								key={index}
+								className="block py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium"
+								onClick={() => setIsMobileMenuOpen(false)}
 							>
 								{val.label}
 							</Link>
@@ -135,6 +182,13 @@ const HeaderPublic = () => {
 					</div>
 				</div>
 			</nav>
+
+			{isMobileMenuOpen && (
+				<div
+					className="fixed inset-0 bg-black/20 bg-opacity-25 z-40 md:hidden"
+					onClick={() => setIsMobileMenuOpen(false)}
+				></div>
+			)}
 
 			<Divider />
 		</div>
