@@ -120,25 +120,6 @@ const HeaderPublic = () => {
 				}`}
 			>
 				<div className="flex md:px-28 px-4 w-full max-w-[1440px] justify-between items-center h-full">
-					{/* Logo */}
-					<Link href="/" className="flex">
-						<div className="hidden md:flex">{iconSvg.logoPublicSvg}</div>
-						<div className="flex md:hidden">{iconSvg.logoMarkSvg}</div>
-					</Link>
-
-					{/* Desktop Menu */}
-					<div className="hidden md:flex gap-8">
-						{menus.map((val, index) => (
-							<Link
-								href={val.href}
-								key={index}
-								className="hover:text-blue-600 transition-colors duration-200 font-medium"
-							>
-								{val.label}
-							</Link>
-						))}
-					</div>
-
 					{/* Mobile Menu Button */}
 					<button
 						className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
@@ -161,6 +142,25 @@ const HeaderPublic = () => {
 							}`}
 						></span>
 					</button>
+
+					{/* Logo */}
+					<Link href="/" className="flex">
+						<div className="hidden md:flex">{iconSvg.logoPublicSvg}</div>
+						<div className="flex md:hidden">{iconSvg.logoMarkSvg}</div>
+					</Link>
+
+					{/* Desktop Menu */}
+					<div className="hidden md:flex gap-8">
+						{menus.map((val, index) => (
+							<Link
+								href={val.href}
+								key={index}
+								className="hover:text-blue-600 transition-colors duration-200 font-medium"
+							>
+								{val.label}
+							</Link>
+						))}
+					</div>
 				</div>
 
 				{/* Mobile Menu Dropdown */}
