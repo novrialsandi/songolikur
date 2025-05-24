@@ -35,10 +35,10 @@ export async function generateMetadata({ params }) {
 	return {
 		title: `${data?.title || "Content Not Found"} - Songolikur`,
 		description: data?.seo || "Content Not Found",
-		metadataBase: new URL("https://www.songolikur.vercel.app"),
+		metadataBase: new URL("https://songolikur.vercel.app"),
 		openGraph: {
 			type: "website",
-			url: `https://www.songolikur.vercel.app/read/${slug}`,
+			url: `https://songolikur.vercel.app/read/${slug}`,
 			title: `${data?.title || "Content Not Found"} - Songolikur`,
 			description: data?.seo || "Content Not Found",
 			images: [

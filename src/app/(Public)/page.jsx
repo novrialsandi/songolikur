@@ -5,10 +5,10 @@ import LandingContent from "@/lib/views/public/Index";
 export const metadata = {
 	title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
 	description: "Discover Yogyakarta Culture & Football",
-	metadataBase: new URL("https://www.songolikur.vercel.app"),
+	metadataBase: new URL("https://songolikur.vercel.app"),
 	openGraph: {
 		type: "website",
-		url: "https://www.songolikur.vercel.app/",
+		url: "https://songolikur.vercel.app/",
 		title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
 		description: "Discover Yogyakarta Culture & Football",
 		images: [

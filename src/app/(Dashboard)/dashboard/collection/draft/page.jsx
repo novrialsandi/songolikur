@@ -3,10 +3,10 @@ import Draft from "@/lib/views/dashboard/collection/draft/Index";
 export const metadata = {
 	title: "Draft - Songolikur Dashboard",
 	description: "Collections Draft",
-	metadataBase: new URL("https://www.songolikur.vercel.app"),
+	metadataBase: new URL("https://songolikur.vercel.app"),
 	openGraph: {
 		type: "website",
-		url: "https://www.songolikur.vercel.app/dashboard/collection/draft/",
+		url: "https://songolikur.vercel.app/dashboard/collection/draft/",
 		title: "Draft - Songolikur Dashboard",
 		description: "Collections Draft",
 		images: [

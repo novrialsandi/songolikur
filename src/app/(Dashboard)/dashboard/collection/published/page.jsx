@@ -3,10 +3,10 @@ import Published from "@/lib/views/dashboard/collection/published/Index";
 export const metadata = {
 	title: "Published - Songolikur Dashboard",
 	description: "Collections Published",
-	metadataBase: new URL("https://www.songolikur.vercel.app"),
+	metadataBase: new URL("https://songolikur.vercel.app"),
 	openGraph: {
 		type: "website",
-		url: "https://www.songolikur.vercel.app/dashboard/collection/published/",
+		url: "https://songolikur.vercel.app/dashboard/collection/published/",
 		title: "Published - Songolikur Dashboard",
 		description: "Collections Published",
 		images: [
