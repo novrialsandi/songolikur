@@ -1,23 +1,17 @@
-import { Open_Sans, Faculty_Glyphic } from "next/font/google";
 import "./globals.css";
+import { Faculty_Glyphic } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
-const openSans = Open_Sans({
-	variable: "--font-open-sans",
-	subsets: ["latin"],
-});
-
 const facultyGlyphic = Faculty_Glyphic({
-	weight: "400",
-
 	subsets: ["latin"],
-	variable: "--font-faculty-glyphic",
+	weight: "400",
+	display: "swap",
 });
 
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			<body className={`${facultyGlyphic.variable} antialiased`}>
+			<body className={`${facultyGlyphic.className} antialiased`}>
 				{children}
 				<ToastContainer
 					position="top-center"
