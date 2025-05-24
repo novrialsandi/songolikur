@@ -19,6 +19,7 @@ const Collections = () => {
 	// Function to get collection data from API
 	const getCollection = async (category = "", tags = "", search = "") => {
 		try {
+			setLoading(true);
 			const params = {};
 			if (category) params.category = category;
 			if (tags.length > 0) params.tags = tags.join(",");
