@@ -92,6 +92,7 @@ const HeaderPublic = () => {
 							</Button>
 						</div>
 						<TextInput
+							type="search"
 							width="w-48"
 							value={search}
 							placeholder="Search Collection"
@@ -169,6 +170,7 @@ const HeaderPublic = () => {
 
 					<div className="hidden md:block">
 						<TextInput
+							type="search"
 							width="w-48"
 							value={search}
 							placeholder="Search Collection"
@@ -200,6 +202,7 @@ const HeaderPublic = () => {
 				>
 					<div className="px-4 py-4 space-y-2">
 						<TextInput
+							type="search"
 							width="w-full"
 							value={search}
 							placeholder="Search Collection"

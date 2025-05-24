@@ -11,7 +11,7 @@ const TextInput = ({
 	type = "text",
 	placeholder = "Type here ...",
 	pattern = "",
-	value: initialValue = "",
+	value: propValue = "", // ✅ Rename back to propValue untuk clarity
 	errorMsg = "",
 	label = "",
 	size = "medium", // small, medium, large
@@ -27,7 +27,7 @@ const TextInput = ({
 	onFocus = () => {},
 	onBlur = () => {},
 }) => {
-	const [value, setValue] = useState(initialValue);
+	const [value, setValue] = useState(propValue);
 	const [inputType, setInputType] = useState(type);
 	const fieldRef = useRef(null);
 	const timerRef = useRef(null);
@@ -37,6 +37,11 @@ const TextInput = ({
 		medium: "h-12",
 		large: "h-[60px]",
 	};
+
+	// ✅ ADD: Sync internal state dengan prop value
+	useEffect(() => {
+		setValue(propValue);
+	}, [propValue]);
 
 	useEffect(() => {
 		return () => {

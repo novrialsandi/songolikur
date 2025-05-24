@@ -453,7 +453,10 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 										removeCookie("cid");
 										setSession({});
 										toast.success("Logout successfully");
-										router.push("/login");
+
+										setTimeout(() => {
+											window.location.href = "/login";
+										}, 200);
 									}}
 								>
 									{iconSvg.logoutSvg}

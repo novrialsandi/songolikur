@@ -21,7 +21,9 @@ const Parent = ({ children, menus, cookieData, status }) => {
 			removeCookie("cid");
 			setSession({});
 
-			router.push("/login");
+			setTimeout(() => {
+				window.location.href = "/login";
+			}, 200);
 		} else {
 			setCookie("cid", cookieData, "nextMonday");
 			setSession(cookieData);

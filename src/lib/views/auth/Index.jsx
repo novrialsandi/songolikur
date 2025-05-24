@@ -53,9 +53,13 @@ const Login = () => {
 					setErrorMsg("");
 
 					if (req.data.user.role === "user") {
-						router.push("/");
+						setTimeout(() => {
+							window.location.href = "/";
+						}, 200);
 					} else {
-						router.push("/dashboard");
+						setTimeout(() => {
+							window.location.href = "/dashboard";
+						}, 200);
 					}
 
 					toast.success("Login successfully");
