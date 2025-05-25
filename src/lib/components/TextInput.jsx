@@ -113,6 +113,7 @@ const TextInput = ({
 					onFocus={onFocus}
 					onChange={handleChange}
 					disabled={isDisabled}
+					style={{ fontSize: "16px" }}
 					className={`flex w-full items-center rounded-md border border-[#CDD5DF] outline-0 focus:border-active focus:ring-0 hover:border-[#333333] focus:border-primary ${className} ${
 						errorMsg ? "border-error text-error" : ""
 					} ${sizeDataClass[size]} ${
