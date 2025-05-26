@@ -95,7 +95,7 @@ const HeaderPublic = () => {
 							type="search"
 							width="w-48"
 							value={search}
-							placeholder="Search Collection"
+							placeholder="Search"
 							// debounceTime={2000}
 							hasIconLeft={iconSvg.search}
 							size="small"
@@ -173,7 +173,7 @@ const HeaderPublic = () => {
 							type="search"
 							width="w-48"
 							value={search}
-							placeholder="Search Collection"
+							placeholder="Search"
 							// debounceTime={2000}
 							hasIconLeft={iconSvg.search}
 							size="small"
@@ -205,7 +205,7 @@ const HeaderPublic = () => {
 							type="search"
 							width="w-full"
 							value={search}
-							placeholder="Search Collection"
+							placeholder="Search"
 							// debounceTime={2000}
 							hasIconLeft={iconSvg.search}
 							size="small"
