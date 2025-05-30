@@ -40,7 +40,7 @@ const SlugComponent = ({ data, slug }) => {
 	}, [slug]);
 
 	return (
-		<div className="p-6 w-full flex flex-col items-center justify-center gap-6">
+		<div className="w-full flex flex-col items-center justify-center gap-6">
 			{data.thumbnail && (
 				<img
 					src={data.thumbnail}
