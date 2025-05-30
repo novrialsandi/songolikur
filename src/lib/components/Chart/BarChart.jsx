@@ -11,7 +11,7 @@ import {
 
 const BarChartComponent = ({ data }) => {
 	return (
-		<>
+		<div className="flex flex-col justify-between rounded-lg border border-[#cccccc] p-4">
 			<div className="mb-4 flex items-center justify-between">
 				<h2 className="font-bold">Total Views</h2>
 			</div>
@@ -41,7 +41,7 @@ const BarChartComponent = ({ data }) => {
 					/>
 				</BarChart>
 			</ResponsiveContainer>
-		</>
+		</div>
 	);
 };
 

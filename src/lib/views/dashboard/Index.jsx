@@ -90,10 +90,7 @@ const Dashboard = () => {
 					</motion.div>
 				))}
 			</motion.div>
-			<motion.div
-				className="flex flex-col justify-between rounded-lg border border-[#cccccc] p-4"
-				variants={item}
-			>
+			<motion.div variants={item}>
 				<BarChart data={monthlyEngagements} />
 			</motion.div>
 		</motion.div>
