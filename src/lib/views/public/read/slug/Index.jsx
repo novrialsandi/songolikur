@@ -6,10 +6,10 @@ import DOMPurify from "dompurify";
 import { getCookie, setCookie } from "@/lib/helpers/cookie";
 
 const SlugComponent = ({ data, slug }) => {
-	const sanitizedContent =
-		typeof window !== "undefined"
-			? DOMPurify.sanitize(data.content)
-			: data.content;
+	// const sanitizedContent =
+	// 	typeof window !== "undefined"
+	// 		? DOMPurify.sanitize(data.content)
+	// 		: data.content;
 
 	const hitViews = async () => {
 		try {
@@ -63,7 +63,7 @@ const SlugComponent = ({ data, slug }) => {
 					</div>
 				</div>
 
-				<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+				<div dangerouslySetInnerHTML={{ __html: data.content }} />
 			</div>
 		</div>
 	);
