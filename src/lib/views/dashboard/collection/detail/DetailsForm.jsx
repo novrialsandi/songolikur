@@ -78,8 +78,8 @@ const DetailsForm = ({
 
 		try {
 			const compressedFile = await compressImage(file, {
-				maxWidthOrHeight: 1080,
-				maxSizeMB: 0.5,
+				maxWidthOrHeight: 1440,
+				maxSizeMB: 0.8,
 				initialQuality: 1,
 			});
 
