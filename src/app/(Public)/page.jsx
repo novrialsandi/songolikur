@@ -1,5 +1,7 @@
 import LandingContent from "@/lib/views/public/Index";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
 	title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
 	description: "Discover Yogyakarta Culture & Football",
@@ -40,6 +42,7 @@ const getData = async () => {
 		);
 
 		if (!res.ok) {
+			console.error(`API request failed with status: ${res.status}`);
 			return null;
 		}
 
@@ -55,9 +58,12 @@ const getData = async () => {
 const LandingPage = async () => {
 	const data = await getData();
 
+	// Ensure we pass a valid structure even if API fails
+	const collections = data || { collections: [] };
+
 	return (
 		<>
-			<LandingContent collections={data} />
+			<LandingContent collections={collections} />
 		</>
 	);
 };
