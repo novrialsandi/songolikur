@@ -7,6 +7,8 @@ import { listTags, listCategories } from "@/lib/constant";
 import Dropdown from "@/lib/components/Dropdown";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { transformURL } from "@/lib/utils/transformURL";
+import ArticleCard from "@/lib/components/ArticleCard";
 
 const Collections = () => {
 	const [collections, setCollections] = useState([]);
@@ -26,8 +28,23 @@ const Collections = () => {
 			if (search) params.search = search;
 
 			const res = await fetchApi.get("/collection/public", { params });
+
 			if (res.status === 200) {
-				setCollections(res.data);
+				const transformedData = res.data.map((item) => {
+					if (item.thumbnail && typeof item.thumbnail === "string") {
+						item.thumbnail = transformURL(item.thumbnail);
+					}
+
+					if (item.user?.avatar && typeof item.user.avatar === "string") {
+						item.user.avatar = transformURL(item.user.avatar);
+					}
+
+					return item;
+				});
+
+				console.log(transformedData);
+
+				setCollections(transformedData);
 			}
 		} catch (error) {
 			console.error("Error fetching collections:", error);
@@ -102,9 +119,7 @@ const Collections = () => {
 					<div>Loading...</div>
 				) : (
 					collections.map((val, index) => (
-						<Link key={index} href={`/read/${val.slug}`}>
-							<div>{val.title}</div>
-						</Link>
+						<ArticleCard key={index} item={val} />
 					))
 				)}
 			</div>
