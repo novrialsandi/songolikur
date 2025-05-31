@@ -5,7 +5,7 @@ import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import fetchApi from "../api/fetchApi";
 import { toast } from "react-toastify";
-import { compressImage } from "../utils/imageCompression";
+import { compressImage } from "@/lib/utils/imageCompression";
 
 const ReactQuill = ({ value = "", uuid, onChange }) => {
 	// Define toolbar options with all available formatting features

@@ -9,7 +9,7 @@ import Button from "../components/Button";
 import fetchApi from "../api/fetchApi";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { compressImage } from "../utils/imageCompression";
+import { compressImage } from "@/lib/utils/imageCompression";
 
 const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 	const pathname = usePathname();

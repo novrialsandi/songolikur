@@ -12,7 +12,7 @@ import { listCategories, listTags } from "@/lib/constant";
 import Modal from "@/lib/components/Modal";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { compressImage } from "../utils/imageCompression";
+import { compressImage } from "@/lib/utils/imageCompression";
 
 const DetailsForm = ({
 	collection,
