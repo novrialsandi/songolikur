@@ -9,6 +9,7 @@ import Button from "@/lib/components/Button";
 import ToggleButton from "@/lib/components/Toogle";
 import { useUsersStore } from "@/lib/stores";
 import { toast } from "react-toastify";
+import { transformURL } from "@/lib/utils/transformURL";
 
 const attributes = [
 	"",
@@ -43,7 +44,14 @@ const Index = () => {
 		try {
 			const res = await fetchApi.get("/user");
 			if (res.status === 200) {
-				setUsers(res.data.users);
+				const transformedUsers = res.data.users.map((user) => {
+					if (user.avatar && typeof user.avatar === "string") {
+						user.avatar = transformURL(user.avatar);
+					}
+					return user;
+				});
+
+				setUsers(transformedUsers);
 			}
 		} catch (error) {
 			console.error(error);

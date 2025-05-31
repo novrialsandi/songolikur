@@ -42,8 +42,6 @@ const Collections = () => {
 					return item;
 				});
 
-				console.log(transformedData);
-
 				setCollections(transformedData);
 			}
 		} catch (error) {

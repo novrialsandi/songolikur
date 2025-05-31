@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import fetchApi from "@/lib/api/fetchApi";
 import LineChart from "@/lib/components/Chart/LineChart";
 import BarChart from "@/lib/components/Chart/BarChart";
-import Skeleton from "@/lib/components/Skeleton";
-import { iconSvg } from "@/lib/Icons/icon";
 import { useEffect, useState } from "react";
 import moment from "moment";
 
