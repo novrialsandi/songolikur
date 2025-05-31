@@ -68,7 +68,7 @@ const getData = async () => {
 };
 
 const LandingPage = async () => {
-	const data = await getData();
+	const { data } = await getData();
 
 	// Ensure we pass a valid structure even if API fails
 	const collections = data || { collections: [] };

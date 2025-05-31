@@ -17,6 +17,11 @@ const Collections = () => {
 	const [selectedCategory, setSelectedCategory] = useState("");
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const [pagination, setPagination] = useState({
+		total: 1,
+		page: 1,
+		limit: 10,
+	});
 
 	// Function to get collection data from API
 	const getCollection = async (category = "", tags = "", search = "") => {
@@ -29,8 +34,10 @@ const Collections = () => {
 
 			const res = await fetchApi.get("/collection/public", { params });
 
+			const { data, pagination } = res.data;
+
 			if (res.status === 200) {
-				const transformedData = res.data.map((item) => {
+				const transformedData = data.map((item) => {
 					if (item.thumbnail && typeof item.thumbnail === "string") {
 						item.thumbnail = transformURL(item.thumbnail);
 					}
@@ -43,6 +50,7 @@ const Collections = () => {
 				});
 
 				setCollections(transformedData);
+				setPagination(pagination);
 			}
 		} catch (error) {
 			console.error("Error fetching collections:", error);
