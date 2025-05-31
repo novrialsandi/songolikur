@@ -2,8 +2,11 @@
 
 import fetchApi from "@/lib/api/fetchApi";
 import { useEffect } from "react";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 import { getCookie, setCookie } from "@/lib/helpers/cookie";
+import Divider from "@/lib/components/Divider";
+import Diamond from "@/lib/components/Diamond";
+import moment from "moment";
 
 const SlugComponent = ({ data, slug }) => {
 	// const sanitizedContent =
@@ -44,14 +47,25 @@ const SlugComponent = ({ data, slug }) => {
 			{data.thumbnail && (
 				<img
 					src={data.thumbnail}
-					className="w-full"
+					className="w-full rounded-2xl aspect-thumbnail object-cover"
 					alt={data.title || "Article thumbnail"}
 				/>
 			)}
-			<div className="max-w-3xl space-y-6">
-				<div className="text-center text-3xl">{data.title}</div>
+			<div className="max-w-[740px] space-y-4 flex flex-col items-center">
+				<div className="flex w-full justify-between text-[13px] font-sans uppercase text-[#62626D]">
+					<div className="flex gap-4 items-center">
+						<div>{data.category}</div>
+						<Diamond />
+						<div>{data.tag[0]}</div>
+					</div>
+					<div>{moment(data.publishedAt).format(" MMMM DD, YYYY")}</div>
+				</div>
+				<div className="text-center text-4xl">{data.title}</div>
 
-				<div className="flex justify-center items-center gap-4">
+				<div className="w-1/4 flex">
+					<Divider />
+				</div>
+				<div className="flex justify-center font-sans items-center gap-4">
 					<img
 						className="size-8 rounded-full"
 						src={data.user.avatar || "/avatar.png"}
@@ -59,11 +73,14 @@ const SlugComponent = ({ data, slug }) => {
 					/>
 					<div>
 						<div>{data.user.name}</div>
-						<div className="text-xs">ini title</div>
+						<div className="text-xs">Journalis</div>
 					</div>
 				</div>
 
-				<div dangerouslySetInnerHTML={{ __html: data.content }} />
+				<div
+					className="font-sans pt-6"
+					dangerouslySetInnerHTML={{ __html: data.content }}
+				/>
 			</div>
 		</div>
 	);

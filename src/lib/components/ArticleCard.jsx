@@ -2,9 +2,9 @@ import Link from "next/link";
 import React from "react";
 import Diamond from "./Diamond";
 
-const ArticleCard = ({ item }) => {
+const ArticleCard = ({ item, main }) => {
 	return (
-		<div className="flex flex-col gap-2">
+		<div className={`flex flex-col ${main ? "gap-4" : "gap-2"}`}>
 			<Link
 				href={`/read/${item.slug}`}
 				className="group overflow-hidden rounded-md"
@@ -27,6 +27,10 @@ const ArticleCard = ({ item }) => {
 					{item.title}
 				</div>
 			</Link>
+
+			{main && (
+				<div className="font-sans text-[13px] text-[#393C3F]">{item.seo}</div>
+			)}
 
 			<div className="text-[12px] flex gap-2 items-center text-border-01">
 				<img

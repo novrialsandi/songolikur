@@ -181,7 +181,7 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 	}, [quill, value]);
 
 	return (
-		<div className="editor-container h-[calc(100vh-208px)] w-full max-w-3xl">
+		<div className="editor-container h-[calc(100vh-208px)] w-full max-w-[740px]">
 			<div ref={quillRef} />
 		</div>
 	);
