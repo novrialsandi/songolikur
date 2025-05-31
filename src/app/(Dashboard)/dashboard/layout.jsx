@@ -3,6 +3,8 @@ import Layout from "@/lib/layout/Index";
 import { iconSvg } from "@/lib/Icons/icon";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const getMe = async () => {
 	try {
 		const cookieStore = await cookies();
@@ -51,11 +53,6 @@ const DashboardLayout = async ({ children }) => {
 				: []),
 		],
 		collection: [
-			// {
-			// 	name: "All Collections",
-			// 	icon: iconSvg.collectionSvg,
-			// 	href: "/dashboard/collection",
-			// },
 			{
 				name: "Published",
 				icon: iconSvg.publichedSvg,
@@ -72,18 +69,6 @@ const DashboardLayout = async ({ children }) => {
 				href: "/dashboard/collection/review",
 			},
 		],
-		// preference: [
-		// 	{
-		// 		name: "Report",
-		// 		icon: iconSvg.laporanSvg,
-		// 		// href: "/dashboard/report",
-		// 	},
-		// 	{
-		// 		name: "Setting",
-		// 		icon: iconSvg.pengaturanSvg,
-		// 		// href: "/dashboard/setting",
-		// 	},
-		// ],
 	};
 
 	return (
