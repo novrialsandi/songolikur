@@ -2,16 +2,19 @@ import { NextResponse } from "next/server";
 
 export function middleware(request) {
 	const url = request.nextUrl.clone();
-
 	const token = request.cookies.get("sid") || "";
 
-	const userCookie = request.cookies.get("cid") || "";
-
+	const userCookie = request.cookies.get("cid");
 	let role = "user";
 
 	if (userCookie?.value) {
-		const userData = JSON.parse(userCookie.value);
-		role = userData.role || "user";
+		try {
+			const userData = JSON.parse(userCookie.value);
+			role = userData.role || "user";
+		} catch (err) {
+			console.error("Failed to parse user cookie:", err);
+			role = "user"; // fallback jika cookie corrupt atau invalid
+		}
 	}
 
 	// List of public routes that don't require authentication
@@ -23,22 +26,20 @@ export function middleware(request) {
 	}
 
 	// Redirect authenticated users away from public routes
-	if (token.value && publicRoutes.includes(url.pathname)) {
+	if (token?.value && publicRoutes.includes(url.pathname)) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
 
 	// Redirect unauthenticated users to the login page
-	// if (!token.value && !publicRoutes.includes(url.pathname)) {
+	// if (!token?.value && !publicRoutes.includes(url.pathname)) {
 	// 	return NextResponse.redirect(new URL("/login", request.url));
 	// }
 
 	// Restrict access to /dashboard based on role
 	if (
 		url.pathname.includes("/dashboard") &&
-		!token.value &&
-		role !== "contributor" &&
-		role !== "editor" &&
-		role !== "admin"
+		!token?.value &&
+		!["contributor", "editor", "admin"].includes(role)
 	) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
@@ -46,7 +47,7 @@ export function middleware(request) {
 	// Restrict access to /dashboard/user based on role
 	if (
 		url.pathname.includes("/dashboard/user") &&
-		!token.value &&
+		!token?.value &&
 		role !== "admin"
 	) {
 		return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -56,14 +57,5 @@ export function middleware(request) {
 }
 
 export const config = {
-	matcher: [
-		/*
-		 * Match all request paths except for the ones starting with:
-		 * - api (API routes)
-		 * - _next/static (static files)
-		 * - _next/image (image optimization files)
-		 * - favicon.ico (favicon file)
-		 */
-		"/((?!api|_next/static|_next/image|favicon.ico).*)",
-	],
+	matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
