@@ -12,6 +12,7 @@ import { listCategories, listTags } from "@/lib/constant";
 import Modal from "@/lib/components/Modal";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { compressImage } from "../utils/imageCompression";
 
 const DetailsForm = ({
 	collection,
@@ -61,10 +62,17 @@ const DetailsForm = ({
 
 	const uploadThumbnail = async (file) => {
 		setLoading(true);
-		const formData = new FormData();
-		formData.append("thumbnail", file);
 
 		try {
+			const compressedFile = await compressImage(file, {
+				maxWidthOrHeight: 1080,
+				maxSizeMB: 0.5,
+				initialQuality: 1,
+			});
+
+			const formData = new FormData();
+			formData.append("thumbnail", compressedFile);
+
 			const req = await fetchApi.patch(
 				`/collection/upload/thumbnail/${uuid}`,
 				formData

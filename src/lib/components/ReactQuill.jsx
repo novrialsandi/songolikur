@@ -5,6 +5,7 @@ import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import fetchApi from "../api/fetchApi";
 import { toast } from "react-toastify";
+import { compressImage } from "../utils/imageCompression";
 
 const ReactQuill = ({ value = "", uuid, onChange }) => {
 	// Define toolbar options with all available formatting features
@@ -96,7 +97,13 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 	const saveToServer = async (files) => {
 		const formData = new FormData();
 		for (const file of files) {
-			formData.append("content", file);
+			const compressedFile = await compressImage(file, {
+				maxWidthOrHeight: 1080,
+				maxSizeMB: 0.5,
+				initialQuality: 1,
+			});
+
+			formData.append("content", compressedFile);
 		}
 
 		try {

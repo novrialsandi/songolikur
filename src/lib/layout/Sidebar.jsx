@@ -130,13 +130,14 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 		setEditLoading(true);
 
 		try {
+			const formData = new FormData();
+
 			const compressedFile = await compressImage(file, {
 				maxWidthOrHeight: 720,
 				maxSizeMB: 0.5,
 				initialQuality: 1,
 			});
 
-			const formData = new FormData();
 			formData.append("avatar", compressedFile);
 
 			const req = await fetchApi.patch(`/user/upload/avatar`, formData);
