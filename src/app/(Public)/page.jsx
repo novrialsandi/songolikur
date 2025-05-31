@@ -47,7 +47,7 @@ const getData = async () => {
 			return null;
 		}
 
-		const data = await res.json();
+		const { data } = await res.json();
 
 		if (Array.isArray(data)) {
 			data.forEach((item) => {
@@ -68,9 +68,8 @@ const getData = async () => {
 };
 
 const LandingPage = async () => {
-	const { data } = await getData();
+	const data = await getData();
 
-	// Ensure we pass a valid structure even if API fails
 	const collections = data || { collections: [] };
 
 	return (
