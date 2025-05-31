@@ -43,7 +43,7 @@ const SlugComponent = ({ data, slug }) => {
 		<div className="w-full flex flex-col items-center justify-center gap-6">
 			{data.thumbnail && (
 				<img
-					src={data.thumbnail}
+					src={`${data.thumbnail}?v=2` || "/thumbnail.png"}
 					className="w-full"
 					alt={data.title || "Article thumbnail"}
 				/>
@@ -54,7 +54,7 @@ const SlugComponent = ({ data, slug }) => {
 				<div className="flex justify-center items-center gap-4">
 					<img
 						className="size-8 rounded-full"
-						src={data.user.avatar || "/avatar.png"}
+						src={`${data.user.avatar}?v=2` || "/avatar.png"}
 						alt=""
 					/>
 					<div>
