@@ -89,7 +89,7 @@ const Collections = () => {
 	}, [searchParams]);
 
 	return (
-		<>
+		<div className="space-y-4">
 			<div className="space-y-2">
 				<Dropdown
 					items={listTags}
@@ -129,7 +129,7 @@ const Collections = () => {
 					))
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
 
