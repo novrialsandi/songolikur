@@ -6,6 +6,7 @@ import "quill/dist/quill.snow.css";
 import fetchApi from "../api/fetchApi";
 import { toast } from "react-toastify";
 import { compressImage } from "@/lib/utils/imageCompression";
+import { replaceImageURLsInContent } from "../utils/transformURL";
 
 const ReactQuill = ({ value = "", uuid, onChange }) => {
 	// Define toolbar options with all available formatting features
@@ -142,48 +143,65 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 	};
 
 	useEffect(() => {
-		if (quill) {
-			// Set up toolbar handler once
-			quill.getModule("toolbar").addHandler("image", selectLocalImage);
+		if (!quill) return;
 
-			// Prevent copy-paste and drop image
-			quill.root.addEventListener("paste", (e) => {
-				if (e.clipboardData.types.includes("Files")) {
-					e.preventDefault();
-					toast.warn(
-						"Please use the image upload button to insert images. It helps keep our server not burning 🔥🔥🔥"
-					);
-				}
-			});
+		const toolbar = quill.getModule("toolbar");
+		if (toolbar) {
+			toolbar.addHandler("image", selectLocalImage);
+		}
 
-			quill.root.addEventListener("drop", (e) => {
+		const handlePaste = (e) => {
+			if (e.clipboardData?.types.includes("Files")) {
 				e.preventDefault();
 				toast.warn(
 					"Please use the image upload button to insert images. It helps keep our server not burning 🔥🔥🔥"
 				);
-			});
+			}
+		};
 
-			// Register text-change event once
-			quill.on("text-change", () => {
-				const html = quill.root.innerHTML;
-				// Remove any base64 images before triggering onChange
-				const cleanedHtml = removeBase64Images(html);
-				if (onChange) onChange(cleanedHtml);
-			});
-		}
-	}, [quill]);
+		const handleDrop = (e) => {
+			e.preventDefault();
+			toast.warn(
+				"Please use the image upload button to insert images. It helps keep our server not burning 🔥🔥🔥"
+			);
+		};
+
+		quill.root.addEventListener("paste", handlePaste);
+		quill.root.addEventListener("drop", handleDrop);
+
+		const handleTextChange = () => {
+			let html = quill.root.innerHTML;
+
+			// Replace URLs inside the content
+			html = replaceImageURLsInContent(html);
+
+			// Remove base64 images
+			const cleanedHtml = removeBase64Images(html);
+
+			if (onChange) onChange(cleanedHtml);
+		};
+
+		quill.on("text-change", handleTextChange);
+
+		return () => {
+			quill.root.removeEventListener("paste", handlePaste);
+			quill.root.removeEventListener("drop", handleDrop);
+			quill.off("text-change", handleTextChange);
+		};
+	}, [quill, onChange]);
 
 	useEffect(() => {
-		if (quill) {
-			// Remove base64 images from the incoming value
-			const cleanedValue = removeBase64Images(value);
+		if (!quill) return;
 
-			if (initialLoad.current) {
-				quill.clipboard.dangerouslyPasteHTML(cleanedValue);
-				initialLoad.current = false;
-			} else if (cleanedValue !== quill.root.innerHTML) {
-				quill.clipboard.dangerouslyPasteHTML(cleanedValue);
-			}
+		// Clean base64 images and replace URLs before pasting content
+		let cleanedValue = removeBase64Images(value);
+		cleanedValue = replaceImageURLsInContent(cleanedValue);
+
+		if (initialLoad.current) {
+			quill.clipboard.dangerouslyPasteHTML(cleanedValue);
+			initialLoad.current = false;
+		} else if (cleanedValue !== quill.root.innerHTML) {
+			quill.clipboard.dangerouslyPasteHTML(cleanedValue);
 		}
 	}, [quill, value]);
 

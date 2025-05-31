@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import fetchApi from "@/lib/api/fetchApi";
 import TextInput from "@/lib/components/TextInput";
 import TextArea from "@/lib/components/TextArea";
-import ToggleButton from "@/lib/components/Toogle";
+// import ToggleButton from "@/lib/components/Toogle";
 import Dropdown from "@/lib/components/Dropdown";
 import Button from "@/lib/components/Button";
 import { iconSvg } from "@/lib/Icons/icon";
@@ -13,6 +13,11 @@ import Modal from "@/lib/components/Modal";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { compressImage } from "@/lib/utils/imageCompression";
+import {
+	transformURL,
+	reverseTransformURL,
+	ReverseReplaceImageURLsInContent,
+} from "@/lib/utils/transformURL";
 
 const DetailsForm = ({
 	collection,
@@ -24,7 +29,7 @@ const DetailsForm = ({
 	const router = useRouter();
 
 	const { session } = useSessionStore();
-	const [collabulator, setCollabulator] = useState([]);
+	// const [collabulator, setCollabulator] = useState([]);
 	const [editor, setEditor] = useState([]);
 	const [isCollab, setIsCollab] = useState(false);
 	const [modalStatus, setModalStatus] = useState(false);
@@ -43,10 +48,18 @@ const DetailsForm = ({
 	const handleSave = async () => {
 		try {
 			setLoading(true);
-			const req = await fetchApi.patch(`/collection/${uuid}`, collection);
+
+			// Clone collection and reverse image URLs in the content
+			const updatedData = {
+				...collection,
+				content: ReverseReplaceImageURLsInContent(collection.content),
+				thumbnail: reverseTransformURL(collection.thumbnail),
+			};
+
+			const req = await fetchApi.patch(`/collection/${uuid}`, updatedData);
 
 			if (req.status === 200) {
-				setCollection(req.data);
+				setCollection(updatedData); // local update
 				toast.success("Collection saved successfully");
 			} else {
 				console.error("Save failed with status:", req.status);
@@ -79,7 +92,7 @@ const DetailsForm = ({
 			);
 
 			if (req.status === 200) {
-				const updatedThumbnail = req.data.thumbnail;
+				const updatedThumbnail = transformURL(req.data.thumbnail);
 				setCollection((prev) => ({ ...prev, thumbnail: updatedThumbnail }));
 				toast.success("Thumbnail uploaded successfully");
 			} else {
@@ -265,7 +278,7 @@ const DetailsForm = ({
 							<img
 								src={collection?.thumbnail || "/placeholder.webp"}
 								alt="thumbnail"
-								className="rounded-md"
+								className="rounded-md aspect-thumbnail object-cover"
 							/>
 							<div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100 pointer-events-none">
 								<div
