@@ -13,7 +13,7 @@ const Divider = ({
 		<div
 			className={clsx(
 				"flex items-center gap-6",
-				isHorizontal ? "w-full flex-row" : "h-full flex-col",
+				isHorizontal ? "w-full flex-row" : " flex-col",
 				className
 			)}
 		>

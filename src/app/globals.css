@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
 @plugin "@tailwindcss/typography";
 
 @theme {
@@ -6,6 +8,8 @@
 	--color-secondary: #fbf9f0;
 	--color-accent-primary: #005bac;
 	--color-accent-secondary: #ffc100;
+	--font-sans: "Open Sans", ui-sans-serif, system-ui;
+	--aspect-thumbnail: 2 / 1;
 }
 
 @layer base {
@@ -13,6 +17,24 @@
 	*::before,
 	*::after {
 		border-color: #2c2b29;
+	}
+}
+
+@layer utilities {
+	.text-border {
+		-webkit-text-stroke: 0.4px #2c2b29;
+	}
+	.text-border-01 {
+		-webkit-text-stroke: 0.1px #2c2b29;
+	}
+	.text-border-02 {
+		-webkit-text-stroke: 0.2px #2c2b29;
+	}
+	.text-border-05 {
+		-webkit-text-stroke: 0.5px #2c2b29;
+	}
+	.text-border-1 {
+		-webkit-text-stroke: 1px #2c2b29;
 	}
 }
 

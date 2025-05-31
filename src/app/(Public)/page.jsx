@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { cookies } from "next/headers";
 import LandingContent from "@/lib/views/public/Index";
 
 export const metadata = {
@@ -27,32 +25,39 @@ export const metadata = {
 	},
 };
 
-const LandingPage = async () => {
-	const cookieStore = await cookies();
-	const cid = cookieStore.get("cid");
+const getData = async () => {
+	try {
+		const res = await fetch(
+			`${process.env.SERVICE_HOST}/api/collection/public`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"x-secret-key": process.env.SECRET_KEY || "",
+				},
+				cache: "no-store",
+			}
+		);
 
-	const cookieData = cid ? JSON.parse(cid.value) : null;
+		if (!res.ok) {
+			return null;
+		}
+
+		const data = await res.json();
+
+		return data;
+	} catch (error) {
+		console.error("Error fetching slug data:", error);
+		return null;
+	}
+};
+
+const LandingPage = async () => {
+	const data = await getData();
 
 	return (
 		<>
-			<LandingContent />
-			{/* <div className="w-full h-screen flex justify-center items-center">
-				{cookieData ? (
-					<Link
-						href="/dashboard"
-						className="p-2 bg-primary text-secondary rounded-md"
-					>
-						Go to Dashboard
-					</Link>
-				) : (
-					<Link
-						href="/login"
-						className="p-2 bg-primary text-secondary rounded-md"
-					>
-						Login
-					</Link>
-				)}
-			</div> */}
+			<LandingContent collections={data} />
 		</>
 	);
 };

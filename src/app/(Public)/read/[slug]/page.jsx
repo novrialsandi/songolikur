@@ -1,5 +1,4 @@
 import React from "react";
-import fetchApi from "@/lib/api/fetchApi";
 import SlugComponent from "@/lib/views/public/read/slug/Index";
 
 async function getSlugData(slug) {

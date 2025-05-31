@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Faculty_Glyphic } from "next/font/google";
+import { Faculty_Glyphic, Open_Sans } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
 const facultyGlyphic = Faculty_Glyphic({

@@ -1,11 +1,11 @@
 import React from "react";
 import Hero from "./Hero";
 
-const Index = () => {
+const Index = ({ collections }) => {
 	return (
-		<>
-			<Hero />
-		</>
+		<div>
+			<Hero collections={collections} />
+		</div>
 	);
 };
 
