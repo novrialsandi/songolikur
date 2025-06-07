@@ -6,83 +6,66 @@ import { useState } from "react";
 import { iconSvg } from "@/lib/Icons/icon";
 import { useRouter } from "next/navigation";
 import { useSessionStore } from "@/lib/stores";
-import { motion, AnimatePresence } from "framer-motion";
 import { setCookie, getCookie } from "@/lib/helpers/cookie";
 import fetchApi from "@/lib/api/fetchApi";
 import { toast } from "react-toastify";
 import Divider from "@/lib/components/Divider";
 
+// Asumsikan motion dan AnimatePresence sudah diimpor jika masih digunakan
+// import { motion, AnimatePresence } from "framer-motion";
+
 const Login = () => {
 	const { setSession } = useSessionStore();
 	const router = useRouter();
-	const [isLogin, setIsLogin] = useState(true);
+	// state 'isLogin' tidak lagi terlalu relevan jika halaman ini hanya untuk login
+	// const [isLogin, setIsLogin] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [userAuth, setUserAuth] = useState({
-		name: "",
+		name: "", // Bisa dihapus jika tidak ada form register
 		email: "",
 		password: "",
 	});
 
 	const [errorMsg, setErrorMsg] = useState("");
 
-	const formVariants = {
-		initial: { opacity: 0, x: 50 },
-		animate: { opacity: 1, x: 0 },
-		exit: { opacity: 0, x: -50 },
-	};
-
-	const isFormValid = isLogin
-		? userAuth.email.trim() !== "" && userAuth.password.trim() !== ""
-		: userAuth.name.trim() !== "" &&
-		  userAuth.email.trim() !== "" &&
-		  userAuth.password.trim() !== "";
+	const isFormValid =
+		userAuth.email.trim() !== "" && userAuth.password.trim() !== "";
 
 	const onAuth = async () => {
 		setIsLoading(true);
 		try {
-			if (isLogin) {
-				const req = await fetchApi.post("/auth/login", {
-					email: userAuth.email,
-					password: userAuth.password,
-				});
+			// Logika login dengan email/password
+			const req = await fetchApi.post("/auth/login", {
+				email: userAuth.email,
+				password: userAuth.password,
+			});
 
-				if (req.status === 200) {
-					setCookie("sid", req.data.token, "nextMonday");
-					setCookie("cid", req.data.user, "nextMonday");
-					setSession(getCookie("cid"));
-					setErrorMsg("");
+			if (req.status === 200) {
+				setCookie("sid", req.data.token, "nextMonday");
+				setCookie("cid", req.data.user, "nextMonday");
+				setSession(getCookie("cid"));
+				setErrorMsg("");
 
-					if (req.data.user.role === "user") {
-						setTimeout(() => {
-							window.location.href = "/";
-						}, 200);
-					} else {
-						setTimeout(() => {
-							window.location.href = "/dashboard";
-						}, 200);
-					}
+				const destination = ["admin", "editor", "contributor"].includes(
+					req.data.user.role
+				)
+					? "/dashboard"
+					: "/";
 
-					toast.success("Login successfully");
-				}
-			} else if (!isLogin) {
-				// const req = await fetchApi.post("/auth/register", {
-				// 	name: userAuth.name,
-				// 	email: userAuth.email,
-				// 	password: userAuth.password,
-				// });
-				// if (req.status === 201) {
-				// 	setCookie("cid", req.data.user);
-				// 	setErrorMsg("");
-				// 	router.push("/");
-				// }
+				window.location.href = destination; // Redirect setelah login sukses
+				toast.success("Login successfully");
 			}
 		} catch (error) {
 			setErrorMsg(error.response.data.message);
-
 			console.error(error);
 		} finally {
 			setIsLoading(false);
 		}
+	};
+
+	const handleGoogleLogin = () => {
+		setIsLoading(true);
+		window.location.href = `${process.env.NEXT_PUBLIC_SERVICE_HOST}/api/auth/google`;
 	};
 
 	const inputLogin = (e) => {
@@ -95,28 +78,20 @@ const Login = () => {
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter") {
-			onAuth(); // Trigger login on Enter key press
+			onAuth();
 		}
 	};
 
 	return (
 		<div className="flex max-h-screen w-full items-center justify-center">
 			<div className="flex w-1/2 justify-center">
-				<div
-					key="login"
-					variants={formVariants}
-					initial="initial"
-					animate="animate"
-					exit="exit"
-					transition={{ duration: 0.4 }}
-					className="w-full max-w-[455px] gap-6  flex flex-col items-center"
-				>
+				<div className="w-full max-w-[455px] gap-6  flex flex-col items-center">
 					<div className="w-1/2 pb-4 flex justify-center">
-						<Divider />
+						{/* Asumsi komponen Divider ada */}
 					</div>
 					<div className="text-center space-y-3 pb-4">
 						<div className="font-bold text-center text-4xl">
-							Login to Acount
+							Login to Account
 						</div>
 						<div className="text-base text-center text-[#62626D]">
 							Please log in to access the Songolikur Dashboard.
@@ -157,11 +132,26 @@ const Login = () => {
 							>
 								Login
 							</Button>
+
+							{/* --- BARU: Pemisah dan Tombol Google --- */}
+							<Divider text="OR" />
+
+							<Button
+								isLoading={isLoading}
+								variant="outline"
+								className="w-full rounded-md"
+								onClick={handleGoogleLogin}
+							>
+								<div className="flex items-center justify-center gap-2">
+									{iconSvg.google}
+									<span>Login with Google</span>
+								</div>
+							</Button>
 						</div>
 					</div>
 					<div className="w-1/2 pt-4 flex justify-center">
 						<Divider />
-					</div>{" "}
+					</div>
 				</div>
 			</div>
 			<img src="/login.webp" className="w-1/2 h-screen" alt="" />
