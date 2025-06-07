@@ -74,7 +74,7 @@ const LandingPage = async () => {
 
 	return (
 		<>
-			<LandingContent collections={collections} />
+			{collections.length > 0 && <LandingContent collections={collections} />}
 		</>
 	);
 };
