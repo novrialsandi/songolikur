@@ -1,7 +1,3 @@
-# KNOWLEDGE TEST
-
-This is a web application built using Next.js. The app supports full-stack functionality and is ready for local development and deployment.
-
 ## Getting Started
 
 First, run the development server:
