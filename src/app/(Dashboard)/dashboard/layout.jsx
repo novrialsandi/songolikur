@@ -6,7 +6,7 @@ import { transformURL } from "@/lib/utils/transformURL";
 
 export const dynamic = "force-dynamic";
 
-const getMe = async () => {
+export const getMe = async () => {
 	try {
 		const cookieStore = await cookies();
 		const token = cookieStore.get("sid")?.value;
@@ -20,6 +20,13 @@ const getMe = async () => {
 			},
 			cache: "no-store",
 		});
+
+		// Jika token tidak valid atau expired
+		if (res.status === 401 || res.status === 403) {
+			cookieStore.delete("sid");
+			cookieStore.delete("cid");
+			return { status: res.status, user: null };
+		}
 
 		if (!res.ok) {
 			return { status: res.status, user: null };
