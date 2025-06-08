@@ -110,7 +110,7 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex min-h-screen w-full items-center justify-center lg:max-h-screen">
+		<div className="flex min-h-svh w-full items-center justify-center lg:max-h-svh">
 			<div className="flex w-full lg:w-1/2 justify-center px-4 py-8 lg:px-0 lg:py-0">
 				<div className="w-full max-w-[455px] gap-6 flex flex-col items-center">
 					<div className="hidden lg:flex w-1/2 pb-4 justify-center">
