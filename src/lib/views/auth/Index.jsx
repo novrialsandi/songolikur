@@ -10,18 +10,15 @@ import { setCookie, getCookie } from "@/lib/helpers/cookie";
 import fetchApi from "@/lib/api/fetchApi";
 import { toast } from "react-toastify";
 import Divider from "@/lib/components/Divider";
-
-// Asumsikan motion dan AnimatePresence sudah diimpor jika masih digunakan
-// import { motion, AnimatePresence } from "framer-motion";
+import GoogleLoginPopup from "./GoogleLoginPopup";
 
 const Login = () => {
 	const { setSession } = useSessionStore();
 	const router = useRouter();
-	// state 'isLogin' tidak lagi terlalu relevan jika halaman ini hanya untuk login
 	// const [isLogin, setIsLogin] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [userAuth, setUserAuth] = useState({
-		name: "", // Bisa dihapus jika tidak ada form register
+		name: "",
 		email: "",
 		password: "",
 	});
@@ -34,7 +31,6 @@ const Login = () => {
 	const onAuth = async () => {
 		setIsLoading(true);
 		try {
-			// Logika login dengan email/password
 			const req = await fetchApi.post("/auth/login", {
 				email: userAuth.email,
 				password: userAuth.password,
@@ -52,7 +48,9 @@ const Login = () => {
 					? "/dashboard"
 					: "/";
 
-				window.location.href = destination; // Redirect setelah login sukses
+				setTimeout(() => {
+					window.location.href = destination; // Redirect setelah login sukses
+				}, 200);
 				toast.success("Login successfully");
 			}
 		} catch (error) {
@@ -61,11 +59,6 @@ const Login = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	};
-
-	const handleGoogleLogin = () => {
-		setIsLoading(true);
-		window.location.href = `${process.env.NEXT_PUBLIC_SERVICE_HOST}/api/auth/google`;
 	};
 
 	const inputLogin = (e) => {
@@ -79,6 +72,39 @@ const Login = () => {
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter") {
 			onAuth();
+		}
+	};
+
+	const handleGoogleSuccess = (data) => {
+		setCookie("sid", data.token, "nextMonday");
+		setCookie("cid", data.user, "nextMonday");
+
+		const destination = ["admin", "editor", "contributor"].includes(
+			data.user.role
+		)
+			? "/dashboard"
+			: "/";
+
+		setTimeout(() => {
+			window.location.href = destination; // Redirect setelah login sukses
+		}, 200);
+	};
+
+	const handleGoogleError = (error) => {
+		console.error("Google login error:", error);
+		// Handle error cases
+		switch (error) {
+			case "no_email":
+				alert("No email found in Google account");
+				break;
+			case "inactive_account":
+				alert("Your account is inactive");
+				break;
+			case "server_error":
+				alert("Server error occurred");
+				break;
+			default:
+				alert("Login failed");
 		}
 	};
 
@@ -136,17 +162,10 @@ const Login = () => {
 							{/* --- BARU: Pemisah dan Tombol Google --- */}
 							<Divider text="OR" />
 
-							<Button
-								isLoading={isLoading}
-								variant="outline"
-								className="w-full rounded-md"
-								onClick={handleGoogleLogin}
-							>
-								<div className="flex items-center justify-center gap-2">
-									{iconSvg.google}
-									<span>Login with Google</span>
-								</div>
-							</Button>
+							<GoogleLoginPopup
+								onSuccess={handleGoogleSuccess}
+								onError={handleGoogleError}
+							/>
 						</div>
 					</div>
 					<div className="w-1/2 pt-4 flex justify-center">
