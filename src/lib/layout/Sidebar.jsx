@@ -276,57 +276,56 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 				className={"p-6"}
 			>
 				<div className="space-y-4">
-					<>
-						<div className="text-2xl font-semibold">Edit Profile</div>
-						<div className="relative flex flex-col items-center gap-4">
-							<img
-								src={session?.avatar || "/avatar.png"}
-								alt="avatar"
-								className="w-24 h-24 rounded-full object-cover transition-opacity duration-300 hover:opacity-70"
-							/>
-							<div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100 pointer-events-none">
-								<div
-									className="bg-black/60 w-24 h-24 flex cursor-pointer items-center justify-center rounded-full p-2 pointer-events-auto"
-									onClick={selectLocalImage}
-								>
-									{iconSvg.edit}
-								</div>
+					<div className="text-2xl font-semibold">Edit Profile</div>
+					<div className="relative flex flex-col items-center gap-4">
+						<img
+							src={session?.avatar || "/avatar.png"}
+							alt="avatar"
+							className="w-24 h-24 rounded-full object-cover transition-opacity duration-300 hover:opacity-70"
+						/>
+						<div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100 pointer-events-none">
+							<div
+								className="bg-black/60 w-24 h-24 flex cursor-pointer items-center justify-center rounded-full p-2 pointer-events-auto"
+								onClick={selectLocalImage}
+							>
+								{iconSvg.edit}
 							</div>
 						</div>
-						<TextInput
-							label="Name:"
-							name="name"
-							placeholder="Full Name"
-							value={session.name}
-							onChange={inputData}
-							className="w-full"
-						/>
-						<TextInput
-							label="Bio:"
-							name="bio"
-							placeholder="Bio"
-							value={session.bio}
-							onChange={inputData}
-							className="w-full"
-						/>
-						<TextInput
-							isDisabled={true}
-							label="Username:"
-							name="username"
-							placeholder="Username"
-							value={session.username}
-							className="w-full"
-						/>
-						<TextInput
-							isDisabled={true}
-							label="Email:"
-							name="email"
-							type="email"
-							placeholder="Full email"
-							value={session.email}
-							className="w-full"
-						/>
-
+					</div>
+					<TextInput
+						label="Name:"
+						name="name"
+						placeholder="Full Name"
+						value={session.name}
+						onChange={inputData}
+						className="w-full"
+					/>
+					<TextInput
+						label="Bio:"
+						name="bio"
+						placeholder="Bio"
+						value={session.bio}
+						onChange={inputData}
+						className="w-full"
+					/>
+					<TextInput
+						isDisabled={true}
+						label="Username:"
+						name="username"
+						placeholder="Username"
+						value={session.username}
+						className="w-full"
+					/>
+					<TextInput
+						isDisabled={true}
+						label="Email:"
+						name="email"
+						type="email"
+						placeholder="Full email"
+						value={session.email}
+						className="w-full"
+					/>
+					{!session.provider && (
 						<div
 							className="text-blue-400 text-sm cursor-pointer"
 							onClick={() => {
@@ -336,15 +335,15 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 						>
 							Edit password
 						</div>
-						<Button
-							onClick={editProfile}
-							disabled={editLoading}
-							isLoading={editLoading}
-							className="w-full bg-blue-500 text-secondary rounded-lg"
-						>
-							Save Changes
-						</Button>
-					</>
+					)}
+					<Button
+						onClick={editProfile}
+						disabled={editLoading}
+						isLoading={editLoading}
+						className="w-full bg-blue-500 text-secondary rounded-lg"
+					>
+						Save Changes
+					</Button>
 				</div>
 			</Modal>
 
