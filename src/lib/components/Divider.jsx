@@ -6,6 +6,7 @@ const Divider = ({
 	orientation = "horizontal",
 	className = "",
 	color = "#E0E1E4",
+	text,
 }) => {
 	const isHorizontal = orientation === "horizontal";
 
@@ -21,13 +22,17 @@ const Divider = ({
 				className={clsx(isHorizontal ? "w-full border-t" : "h-full border-l")}
 				style={{ borderColor: color }}
 			></div>
-			<div
-				className={clsx(
-					"min-h-2 min-w-2 rotate-45 border",
-					isHorizontal ? "" : "rotate-[135deg]"
-				)}
-				style={{ backgroundColor: color, borderColor: color }}
-			></div>
+			{text ? (
+				<div className="">{text}</div>
+			) : (
+				<div
+					className={clsx(
+						"min-h-2 min-w-2 rotate-45 border",
+						isHorizontal ? "" : "rotate-[135deg]"
+					)}
+					style={{ backgroundColor: color, borderColor: color }}
+				></div>
+			)}
 			<div
 				className={clsx(isHorizontal ? "w-full border-t" : "h-full border-l")}
 				style={{ borderColor: color }}

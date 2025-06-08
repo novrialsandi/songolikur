@@ -109,20 +109,24 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex max-h-screen w-full items-center justify-center">
-			<div className="flex w-1/2 justify-center">
-				<div className="w-full max-w-[455px] gap-6  flex flex-col items-center">
-					<div className="w-1/2 pb-4 flex justify-center">
-						{/* Asumsi komponen Divider ada */}
+		<div className="flex min-h-screen w-full items-center justify-center lg:max-h-screen">
+			<div className="flex w-full lg:w-1/2 justify-center px-4 py-8 lg:px-0 lg:py-0">
+				<div className="w-full max-w-[455px] gap-6 flex flex-col items-center">
+					<div className="hidden lg:flex w-1/2 pb-4 justify-center">
+						<Divider />
 					</div>
-					<div className="text-center space-y-3 pb-4">
-						<div className="font-bold text-center text-4xl">
+
+					{/* Header Text */}
+					<div className="text-center space-y-3">
+						<div className="font-bold text-center text-2xl sm:text-3xl lg:text-4xl">
 							Login to Account
 						</div>
-						<div className="text-base text-center text-[#62626D]">
+						<div className="text-sm sm:text-base text-center text-[#62626D] px-4 lg:px-0">
 							Please log in to access the Songolikur Dashboard.
 						</div>
 					</div>
+
+					{/* Form Section */}
 					<div className="flex flex-col w-full items-center gap-4">
 						<TextInput
 							name="email"
@@ -145,35 +149,43 @@ const Login = () => {
 							onKeyDown={handleKeyDown}
 							className="w-full"
 						/>
-						<div className="w-full flex flex-col gap-2 pt-6">
+
+						{/* Buttons Section */}
+						<div className="w-full flex flex-col gap-2">
 							{errorMsg && (
-								<p className="text-red-500 text-sm text-center">{errorMsg}</p>
+								<p className="text-red-500 text-sm text-center px-2">
+									{errorMsg}
+								</p>
 							)}
 
 							<Button
 								isLoading={isLoading}
 								disabled={!isFormValid || isLoading}
-								className="w-full rounded-md"
+								className="w-full rounded-md py-3 sm:py-2"
 								onClick={onAuth}
 							>
 								Login
 							</Button>
-
-							{/* --- BARU: Pemisah dan Tombol Google --- */}
-							<Divider text="OR" />
-
-							<GoogleLoginPopup
-								onSuccess={handleGoogleSuccess}
-								onError={handleGoogleError}
-							/>
 						</div>
 					</div>
-					<div className="w-1/2 pt-4 flex justify-center">
+					<Divider text="OR" />
+
+					<GoogleLoginPopup
+						onSuccess={handleGoogleSuccess}
+						onError={handleGoogleError}
+					/>
+
+					<div className="hidden lg:flex w-1/2 pt-4 justify-center">
 						<Divider />
 					</div>
 				</div>
 			</div>
-			<img src="/login.webp" className="w-1/2 h-screen" alt="" />
+
+			<img
+				src="/login.webp"
+				className="hidden lg:block lg:w-1/2 h-screen object-cover"
+				alt="Login illustration"
+			/>
 		</div>
 	);
 };
