@@ -16,6 +16,7 @@ const attributes = [
 	"name",
 	"username",
 	"email",
+	"provider",
 	"role",
 	// "Draft",
 	// "On Review",
