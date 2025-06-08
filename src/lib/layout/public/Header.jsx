@@ -3,17 +3,29 @@
 import Button from "@/lib/components/Button";
 import Divider from "@/lib/components/Divider";
 import TextInput from "@/lib/components/TextInput";
+import { getCookie, removeCookie } from "@/lib/helpers/cookie";
 import { iconSvg } from "@/lib/Icons/icon";
+import { useSessionStore } from "@/lib/stores";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const HeaderPublic = () => {
 	const router = useRouter();
+	const { setSession } = useSessionStore();
+
+	useEffect(() => {
+		if (getCookie("cid")?.user_uuid) {
+			setIsLogin(true);
+		}
+	}, []);
+
 	const [search, setSearch] = useState("");
 	const [isVisible, setIsVisible] = useState(true);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isLogin, setIsLogin] = useState(false);
 
 	const menus = [
 		{
@@ -86,9 +98,29 @@ const HeaderPublic = () => {
 					</div>
 					<div className="w-1/3 flex flex-col items-end justify-between max-w-60">
 						<div className="flex gap-4 items-center h-8">
-							<div>Support us, with</div>
+							{/* <div>Support us, with</div>
 							<Button className="rounded-md" size="small">
 								Subscribe
+							</Button> */}
+							<Button
+								className="rounded-md"
+								size="small"
+								onClick={() => {
+									if (isLogin) {
+										removeCookie("sid");
+										removeCookie("cid");
+										setSession({});
+										toast.success("Logout successfully");
+
+										setTimeout(() => {
+											setIsLogin(false);
+										}, 200);
+									} else {
+										router.push("/login");
+									}
+								}}
+							>
+								{isLogin ? "Logout" : "Login"}
 							</Button>
 						</div>
 						<TextInput
@@ -232,6 +264,27 @@ const HeaderPublic = () => {
 								{val.label}
 							</Link>
 						))}
+						<Button
+							className="rounded-md"
+							size="small"
+							onClick={() => {
+								if (isLogin) {
+									removeCookie("sid");
+									removeCookie("cid");
+									setSession({});
+									setIsMobileMenuOpen(false);
+									toast.success("Logout successfully");
+
+									setTimeout(() => {
+										setIsLogin(false);
+									}, 200);
+								} else {
+									router.push("/login");
+								}
+							}}
+						>
+							{isLogin ? "Logout" : "Login"}
+						</Button>
 					</div>
 				</div>
 			</nav>

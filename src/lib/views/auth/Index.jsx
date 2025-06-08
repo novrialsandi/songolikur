@@ -78,6 +78,7 @@ const Login = () => {
 	const handleGoogleSuccess = (data) => {
 		setCookie("sid", data.token, "nextMonday");
 		setCookie("cid", data.user, "nextMonday");
+		setSession(getCookie("cid"));
 
 		const destination = ["admin", "editor", "contributor"].includes(
 			data.user.role
