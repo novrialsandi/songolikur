@@ -6,10 +6,10 @@ export const dynamic = "force-dynamic";
 export const metadata = {
 	title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
 	description: "Discover Yogyakarta Culture & Football",
-	metadataBase: new URL("https://songolikur.vercel.app"),
+	metadataBase: new URL("https://www.songolikur.id"),
 	openGraph: {
 		type: "website",
-		url: "https://songolikur.vercel.app/",
+		url: "https://www.songolikur.id/",
 		title: "Songolikur - Media To Discover Yogyakarta Culture & Football",
 		description: "Discover Yogyakarta Culture & Football",
 		images: [

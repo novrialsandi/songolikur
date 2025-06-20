@@ -3,10 +3,10 @@ import Read from "@/lib/views/public/read/Index";
 export const metadata = {
 	title: "Read Collections - Songolikur",
 	description: "Read Collections Songolikur",
-	metadataBase: new URL("https://songolikur.vercel.app"),
+	metadataBase: new URL("https://www.songolikur.id"),
 	openGraph: {
 		type: "website",
-		url: "https://songolikur.vercel.app/read/",
+		url: "https://www.songolikur.id/read/",
 		title: "Read Collections - Songolikur",
 		description: "Read Collections Songolikur",
 		images: [

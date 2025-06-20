@@ -4,10 +4,10 @@ import Auth from "@/lib/views/auth/Index";
 export const metadata = {
 	title: "Login - Songolikur",
 	description: "Login to Dashboard Songolikur",
-	metadataBase: new URL("https://songolikur.vercel.app"),
+	metadataBase: new URL("https://www.songolikur.id"),
 	openGraph: {
 		type: "website",
-		url: "https://songolikur.vercel.app/login/",
+		url: "https://www.songolikur.id/login/",
 		title: "Login - Songolikur",
 		description: "Login to Dashboard Songolikur",
 		images: [
