@@ -1,6 +1,7 @@
 import "./globals.css";
-import { Faculty_Glyphic, Open_Sans } from "next/font/google";
+import { Faculty_Glyphic } from "next/font/google";
 import { ToastContainer } from "react-toastify";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const facultyGlyphic = Faculty_Glyphic({
 	subsets: ["latin"],
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<body className={`${facultyGlyphic.className} antialiased`}>
 				{children}
+				<GoogleAnalytics gaId="G-920REJG2GY" />
 				<ToastContainer
 					position="top-center"
 					autoClose={3000}
@@ -24,7 +26,7 @@ export default function RootLayout({ children }) {
 					draggable={false}
 					pauseOnHover={false}
 					theme="light"
-				/>{" "}
+				/>
 			</body>
 		</html>
 	);
