@@ -7,6 +7,7 @@ import { getCookie, setCookie } from "@/lib/helpers/cookie";
 import Divider from "@/lib/components/Divider";
 import Diamond from "@/lib/components/Diamond";
 import moment from "moment";
+import { renderContent } from "@/lib/utils/renderContent";
 
 const SlugComponent = ({ data, slug }) => {
 	// const sanitizedContent =
@@ -77,10 +78,13 @@ const SlugComponent = ({ data, slug }) => {
 					</div>
 				</div>
 
-				<div
-					className="font-sans pt-6"
-					dangerouslySetInnerHTML={{ __html: data.content }}
-				/>
+				<div className="font-sans pt-6">
+					{data?.content ? (
+						renderContent(data.content)
+					) : (
+						<p className="text-gray-500">No content available</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);
