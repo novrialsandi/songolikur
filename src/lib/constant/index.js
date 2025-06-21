@@ -3,7 +3,7 @@ export const listCategories = [
 	{ label: "Suara 12", value: "suara-12" },
 	{ label: "Urban", value: "urban" },
 	{ label: "Zona Mataram", value: "zona-mataram" },
-	{ label: "More", value: "more" },
+	{ label: "Other", value: "other" },
 ];
 
 export const listTags = [
