@@ -31,26 +31,16 @@ export function middleware(request) {
 	}
 
 	// Redirect unauthenticated users to the login page
-	// if (!token?.value && !publicRoutes.includes(url.pathname)) {
-	// 	return NextResponse.redirect(new URL("/login", request.url));
-	// }
+	if (!token?.value && !publicRoutes.includes(url.pathname)) {
+		return NextResponse.redirect(new URL("/login", request.url));
+	}
 
 	// Restrict access to /dashboard based on role
 	if (
 		url.pathname.includes("/dashboard") &&
-		!token?.value &&
 		!["contributor", "editor", "admin"].includes(role)
 	) {
 		return NextResponse.redirect(new URL("/", request.url));
-	}
-
-	// Restrict access to /dashboard/user based on role
-	if (
-		url.pathname.includes("/dashboard/user") &&
-		!token?.value &&
-		role !== "admin"
-	) {
-		return NextResponse.redirect(new URL("/dashboard", request.url));
 	}
 
 	return NextResponse.next();
