@@ -13,11 +13,6 @@ import Modal from "@/lib/components/Modal";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { compressImage } from "@/lib/utils/imageCompression";
-import {
-	transformURL,
-	reverseTransformURL,
-	ReverseReplaceImageURLsInContent,
-} from "@/lib/utils/transformURL";
 
 const DetailsForm = ({
 	collection,
@@ -49,17 +44,10 @@ const DetailsForm = ({
 		try {
 			setLoading(true);
 
-			// Clone collection and reverse image URLs in the content
-			const updatedData = {
-				...collection,
-				content: ReverseReplaceImageURLsInContent(collection.content),
-				thumbnail: reverseTransformURL(collection.thumbnail),
-			};
-
-			const req = await fetchApi.patch(`/collection/${uuid}`, updatedData);
+			const req = await fetchApi.patch(`/collection/${uuid}`, collection);
 
 			if (req.status === 200) {
-				setCollection(updatedData); // local update
+				setCollection(collection); // local update
 				toast.success("Collection saved successfully");
 			} else {
 				console.error("Save failed with status:", req.status);
@@ -92,8 +80,7 @@ const DetailsForm = ({
 			);
 
 			if (req.status === 200) {
-				const updatedThumbnail = transformURL(req.data.thumbnail);
-				setCollection((prev) => ({ ...prev, thumbnail: updatedThumbnail }));
+				setCollection((prev) => ({ ...prev, thumbnail: req.data.thumbnail }));
 				toast.success("Thumbnail uploaded successfully");
 			} else {
 				console.error("Upload failed with status:", req.status);

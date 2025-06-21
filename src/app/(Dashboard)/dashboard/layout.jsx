@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "@/lib/layout/Index";
 import { iconSvg } from "@/lib/Icons/icon";
 import { cookies } from "next/headers";
-import { transformURL } from "@/lib/utils/transformURL";
 
 export const dynamic = "force-dynamic";
 
@@ -33,14 +32,6 @@ export const getMe = async () => {
 		}
 
 		const data = await res.json();
-
-		if (data.user.avatar && typeof data.user.avatar === "string") {
-			data.user.avatar = transformURL(data.user.avatar);
-		}
-
-		if (data.user.cover && typeof data.user.cover === "string") {
-			data.user.cover = transformURL(data.user.cover);
-		}
 
 		return { status: 200, user: data.user };
 	} catch (error) {

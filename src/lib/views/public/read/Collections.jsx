@@ -7,7 +7,6 @@ import { listTags, listCategories } from "@/lib/constant";
 import Dropdown from "@/lib/components/Dropdown";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { transformURL } from "@/lib/utils/transformURL";
 import ArticleCard from "@/lib/components/ArticleCard";
 
 const Collections = () => {
@@ -37,19 +36,7 @@ const Collections = () => {
 			const { data, pagination } = res.data;
 
 			if (res.status === 200) {
-				const transformedData = data.map((item) => {
-					if (item.thumbnail && typeof item.thumbnail === "string") {
-						item.thumbnail = transformURL(item.thumbnail);
-					}
-
-					if (item.user?.avatar && typeof item.user.avatar === "string") {
-						item.user.avatar = transformURL(item.user.avatar);
-					}
-
-					return item;
-				});
-
-				setCollections(transformedData);
+				setCollections(data);
 				setPagination(pagination);
 			}
 		} catch (error) {

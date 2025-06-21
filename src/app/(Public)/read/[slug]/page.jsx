@@ -1,9 +1,5 @@
 import React from "react";
 import SlugComponent from "@/lib/views/public/read/slug/Index";
-import {
-	transformURL,
-	replaceImageURLsInContent,
-} from "@/lib/utils/transformURL";
 
 async function getSlugData(slug) {
 	try {
@@ -24,17 +20,6 @@ async function getSlugData(slug) {
 		}
 
 		const data = await res.json();
-
-		if (data.thumbnail && typeof data.thumbnail === "string") {
-			data.thumbnail = transformURL(data.thumbnail);
-		}
-		if (data.user?.avatar && typeof data.user.avatar === "string") {
-			data.user.avatar = transformURL(data.user.avatar);
-		}
-
-		if (data.content && typeof data.content === "string") {
-			data.content = replaceImageURLsInContent(data.content);
-		}
 
 		return data;
 	} catch (error) {

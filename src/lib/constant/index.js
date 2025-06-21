@@ -1,6 +1,9 @@
 export const listCategories = [
-	{ label: "Article", value: "articles" },
-	{ label: "News", value: "news" },
+	{ label: "Kick Off", value: "kick-off" },
+	{ label: "Suara 12", value: "suara-12" },
+	{ label: "Urban", value: "urban" },
+	{ label: "Zona Mataram", value: "zona-mataram" },
+	{ label: "More", value: "more" },
 ];
 
 export const listTags = [

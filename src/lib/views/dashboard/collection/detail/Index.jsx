@@ -8,10 +8,6 @@ import { useSessionStore, useCollectionSelectedStore } from "@/lib/stores";
 import DOMPurify from "dompurify";
 import Button from "@/lib/components/Button";
 import { toast } from "react-toastify";
-import {
-	replaceImageURLsInContent,
-	transformURL,
-} from "@/lib/utils/transformURL";
 
 const CollectionDetail = () => {
 	const router = useRouter();
@@ -28,18 +24,6 @@ const CollectionDetail = () => {
 			setDetailLoading(true);
 			const req = await fetchApi.get(`/collection/${uuid}`);
 			if (req.status === 200) {
-				if (req.data.thumbnail && typeof req.data.thumbnail === "string") {
-					req.data.thumbnail = transformURL(req.data.thumbnail);
-				}
-
-				if (req.data.user?.avatar && typeof req.data.user.avatar === "string") {
-					req.data.user.avatar = transformURL(req.data.user.avatar);
-				}
-
-				if (req.data.content && typeof req.data.content === "string") {
-					req.data.content = replaceImageURLsInContent(req.data.content);
-				}
-
 				setCollection(req.data);
 
 				setCollectionSelected(req.data.title);

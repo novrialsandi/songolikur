@@ -3,7 +3,6 @@
 import fetchApi from "@/lib/api/fetchApi";
 import { useEffect, useState } from "react";
 import Card from "@/lib/components/dashboard/Card";
-import { transformURL } from "@/lib/utils/transformURL";
 
 const Collections = () => {
 	const [collections, setCollections] = useState([]);
@@ -17,19 +16,7 @@ const Collections = () => {
 
 			const res = await fetchApi.get("/collection", { params });
 			if (res.status === 200) {
-				const transformedData = res.data.map((item) => {
-					if (item.thumbnail && typeof item.thumbnail === "string") {
-						item.thumbnail = transformURL(item.thumbnail);
-					}
-
-					if (item.user?.avatar && typeof item.user.avatar === "string") {
-						item.user.avatar = transformURL(item.user.avatar);
-					}
-
-					return item;
-				});
-
-				setCollections(transformedData);
+				setCollections(res.data);
 			}
 		} catch (error) {
 			console.error("Error fetching collections:", error);

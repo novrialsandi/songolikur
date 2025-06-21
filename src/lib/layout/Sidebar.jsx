@@ -10,7 +10,6 @@ import fetchApi from "../api/fetchApi";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { compressImage } from "@/lib/utils/imageCompression";
-import { transformURL } from "../utils/transformURL";
 
 const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 	const pathname = usePathname();
@@ -145,11 +144,6 @@ const Sidebar = ({ onMiniSidebar, menus, miniSidebar }) => {
 
 			if (req.status === 200) {
 				const updatedUser = req.data.user;
-
-				// Transform avatar URL
-				if (updatedUser.avatar && typeof updatedUser.avatar === "string") {
-					updatedUser.avatar = transformURL(updatedUser.avatar);
-				}
 
 				setCookie("cid", updatedUser);
 				setSession(updatedUser);

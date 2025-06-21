@@ -1,4 +1,3 @@
-import { transformURL } from "@/lib/utils/transformURL";
 import LandingContent from "@/lib/views/public/Index";
 
 export const dynamic = "force-dynamic";
@@ -48,17 +47,6 @@ const getData = async () => {
 		}
 
 		const { data } = await res.json();
-
-		if (Array.isArray(data)) {
-			data.forEach((item) => {
-				if (item.thumbnail && typeof item.thumbnail === "string") {
-					item.thumbnail = transformURL(item.thumbnail);
-				}
-				if (item.user?.avatar && typeof item.user.avatar === "string") {
-					item.user.avatar = transformURL(item.user.avatar);
-				}
-			});
-		}
 
 		return data;
 	} catch (error) {

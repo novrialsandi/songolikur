@@ -6,7 +6,6 @@ import "quill/dist/quill.snow.css";
 import fetchApi from "../api/fetchApi";
 import { toast } from "react-toastify";
 import { compressImage } from "@/lib/utils/imageCompression";
-import { replaceImageURLsInContent } from "../utils/transformURL";
 
 const ReactQuill = ({ value = "", uuid, onChange }) => {
 	// Define toolbar options with all available formatting features
@@ -172,9 +171,6 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 		const handleTextChange = () => {
 			let html = quill.root.innerHTML;
 
-			// Replace URLs inside the content
-			html = replaceImageURLsInContent(html);
-
 			// Remove base64 images
 			const cleanedHtml = removeBase64Images(html);
 
@@ -195,7 +191,6 @@ const ReactQuill = ({ value = "", uuid, onChange }) => {
 
 		// Clean base64 images and replace URLs before pasting content
 		let cleanedValue = removeBase64Images(value);
-		cleanedValue = replaceImageURLsInContent(cleanedValue);
 
 		if (initialLoad.current) {
 			quill.clipboard.dangerouslyPasteHTML(cleanedValue);
