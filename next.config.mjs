@@ -6,7 +6,6 @@ const nextConfig = {
 	images: {
 		domains: ["songolikur.yomify.site"],
 	},
-	trailingSlash: true,
 };
 
 export default nextConfig;
