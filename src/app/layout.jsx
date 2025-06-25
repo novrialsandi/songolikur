@@ -9,10 +9,33 @@ const facultyGlyphic = Faculty_Glyphic({
 	display: "swap",
 });
 
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "NewsMediaOrganization",
+	name: "Songolikur",
+	url: "https://www.songolikur.id",
+	logo: {
+		"@type": "ImageObject",
+		url: "https://www.songolikur.id/meta.png",
+	},
+	description: "Discover Yogyakarta Culture & Football",
+	contactPoint: {
+		"@type": "ContactPoint",
+		email: "songolikurid@gmail.com",
+		contactType: "Admin",
+	},
+	// ethicsPolicy: "https://www.songolikur.id/kebijakan-etik",
+	// masthead: "https://www.songolikur.id/redaksi",
+};
+
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body className={`${facultyGlyphic.className} antialiased`}>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+				/>
 				{children}
 				<GoogleAnalytics gaId="G-920REJG2GY" />
 				<ToastContainer

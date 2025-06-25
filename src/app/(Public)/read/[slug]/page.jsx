@@ -71,8 +71,39 @@ const SlugPage = async ({ params }) => {
 		);
 	}
 
+	const articleJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "NewsArticle",
+		mainEntityOfPage: {
+			"@type": "WebPage",
+			"@id": `https://www.songolikur.id/read/${slug}`,
+		},
+		headline: data.title,
+		description: data.seo,
+		image: [data.thumbnail || "https://www.songolikur.id/meta.png"],
+		datePublished: data.publishedAt,
+		// dateModified: data.updatedAt,
+		author: {
+			"@type": "Person",
+			name: data.user.name || "Songolikur",
+			// url: data.author?.url || "https://www.songolikur.id/redaksi",
+		},
+		publisher: {
+			"@type": "NewsMediaOrganization",
+			name: "Songolikur",
+			logo: {
+				"@type": "ImageObject",
+				url: "https://www.songolikur.id/meta.png",
+			},
+		},
+	};
+
 	return (
 		<>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+			/>
 			<SlugComponent data={data} slug={slug} />
 		</>
 	);
