@@ -37,7 +37,7 @@ const SlugComponent = ({ data, slug }) => {
 		if (!viewedSlugs.includes(slug)) {
 			viewedSlugs.push(slug);
 
-			setCookie("viewed_title", viewedSlugs);
+			setCookie("viewed_title", viewedSlugs, "nextMonday");
 
 			hitViews();
 		}
