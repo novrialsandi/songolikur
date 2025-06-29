@@ -43,6 +43,8 @@ const SlugComponent = ({ data, slug }) => {
 		}
 	}, [slug]);
 
+	console.log(data.engagements.views);
+
 	return (
 		<div className="w-full flex flex-col items-center justify-center gap-6">
 			{data.thumbnail && (
@@ -59,7 +61,11 @@ const SlugComponent = ({ data, slug }) => {
 						<Diamond />
 						<div>{data.tag[0]}</div>
 					</div>
-					<div>{moment(data.publishedAt).format(" MMMM DD, YYYY")}</div>
+					<div className="flex gap-4 items-center">
+						<div>{data.engagements.views} views</div>
+						<Diamond />
+						<div>{moment(data.publishedAt).format(" MMMM DD, YYYY")}</div>
+					</div>
 				</div>
 				<div className="text-center text-4xl">{data.title}</div>
 
