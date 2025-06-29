@@ -69,8 +69,8 @@ const HeaderPublic = () => {
 	}, []);
 
 	return (
-		<div className=" bg-white flex flex-col gap-6">
-			<div
+		<head className=" bg-white flex flex-col gap-6">
+			<nav
 				className={`transition-all duration-300 md:block hidden ease-in-out ${
 					isVisible
 						? "opacity-100 translate-y-0"
@@ -145,7 +145,7 @@ const HeaderPublic = () => {
 						/>
 					</div>
 				</div>
-			</div>
+			</nav>
 
 			<nav
 				className={`fixed top-0 left-0 flex justify-center w-full md:h-20 h-16 bg-[#F7F8FA] border-b border-[#E0E1E4] shadow-md transition-transform duration-300 ease-in-out z-50 ${
@@ -297,7 +297,7 @@ const HeaderPublic = () => {
 			)}
 
 			<Divider />
-		</div>
+		</head>
 	);
 };
 
