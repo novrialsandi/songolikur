@@ -1,3 +1,5 @@
+import React from "react";
+
 export const renderContent = (htmlString) => {
 	if (!htmlString) return null;
 
