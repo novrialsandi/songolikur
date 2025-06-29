@@ -33,7 +33,7 @@ export default async function sitemap() {
 	const dynamicRoutes = allPosts.data.map((post) => ({
 		url: `https://www.songolikur.id/read/${post.slug}`,
 		lastModified: post.publishedAt || new Date(),
-		changeFrequency: "weekly",
+		changeFrequency: "daily",
 		priority: 0.8,
 	}));
 
