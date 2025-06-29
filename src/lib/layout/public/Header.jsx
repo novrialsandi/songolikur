@@ -69,7 +69,7 @@ const HeaderPublic = () => {
 	}, []);
 
 	return (
-		<head className=" bg-white flex flex-col gap-6">
+		<header className=" bg-white flex flex-col gap-6">
 			<nav
 				className={`transition-all duration-300 md:block hidden ease-in-out ${
 					isVisible
@@ -297,7 +297,7 @@ const HeaderPublic = () => {
 			)}
 
 			<Divider />
-		</head>
+		</header>
 	);
 };
 

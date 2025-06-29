@@ -12,8 +12,6 @@ const Hero = ({ collections = [] }) => {
 		repeatedData.push(...collections);
 	}
 
-	if (!collections || repeatedData.length < 5) return null;
-
 	return (
 		<>
 			{/* Desktop View */}
@@ -21,23 +19,23 @@ const Hero = ({ collections = [] }) => {
 				<div className="md:flex hidden md:gap-8 gap-4">
 					{/* Left Column */}
 					<div className="flex flex-col md:gap-4 gap-2 w-1/4">
-						<ArticleCard item={repeatedData[1]} />
-						<ArticleCard item={repeatedData[2]} />
+						<ArticleCard item={collections[1]} />
+						<ArticleCard item={collections[2]} />
 					</div>
 
 					<Divider orientation="vertical" />
 
 					{/* Center Column */}
 					<div className="flex flex-col md:gap-6 gap-4 w-2/4">
-						<ArticleCard item={repeatedData[0]} main={true} />
+						<ArticleCard item={collections[0]} main={true} />
 					</div>
 
 					<Divider orientation="vertical" />
 
 					{/* Right Column */}
 					<div className="flex flex-col md:gap-4 gap-2 w-1/4">
-						<ArticleCard item={repeatedData[3]} />
-						<ArticleCard item={repeatedData[4]} />
+						<ArticleCard item={collections[3]} />
+						<ArticleCard item={collections[4]} />
 					</div>
 				</div>
 			</div>
@@ -46,11 +44,11 @@ const Hero = ({ collections = [] }) => {
 			<div className="md:hidden flex flex-col gap-4">
 				<div>
 					<div>Latest</div>
-					<ArticleCard item={repeatedData[0]} />
+					<ArticleCard item={collections[0]} />
 				</div>
 				<Divider />
 
-				{repeatedData.slice(1, 5).map((val, index) => {
+				{collections.slice(1, 5).map((val, index) => {
 					return (
 						<Link
 							href={`/read/${val.slug}`}

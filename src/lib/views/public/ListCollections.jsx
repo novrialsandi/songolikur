@@ -4,15 +4,11 @@ import Link from "next/link";
 import React from "react";
 
 const ListCollections = ({ collections = [] }) => {
-	const repeatedData = [];
-
-	for (let i = 0; i < 5; i++) {
-		repeatedData.push(...collections);
-	}
+	if (collections < 5) return null;
 
 	return (
 		<div className="md:flex flex-col gap-4 hidden">
-			{repeatedData.slice(0, 5).map((val, index) => {
+			{collections.slice(6, 10).map((val, index) => {
 				return (
 					<Link
 						href={`/read/${val.slug}`}
