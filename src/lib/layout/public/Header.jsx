@@ -41,11 +41,11 @@ const HeaderPublic = () => {
 			href: "/read?search=&category=suara-12",
 		},
 		{
-			label: "URMAN",
+			label: "URBAN",
 			href: "/read?search=&category=urban",
 		},
 		{
-			label: "Zona Mataram",
+			label: "Mataram",
 			href: "/read?search=&category=zona-mataram",
 		},
 	];
