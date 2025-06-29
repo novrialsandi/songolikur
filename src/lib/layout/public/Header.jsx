@@ -29,19 +29,19 @@ const HeaderPublic = () => {
 
 	const menus = [
 		{
-			label: "Read",
+			label: "READ",
 			href: "/read",
 		},
 		{
-			label: "Kick Off",
+			label: "KICK OFF",
 			href: "/read?search=&category=kick-off",
 		},
 		{
-			label: "Suara 12",
+			label: "SUARA 12",
 			href: "/read?search=&category=suara-12",
 		},
 		{
-			label: "Urban",
+			label: "URMAN",
 			href: "/read?search=&category=urban",
 		},
 		{
@@ -90,9 +90,9 @@ const HeaderPublic = () => {
 							Media To Discover Yogyakarta Culture & Football
 						</div>
 					</div>
-					<div className="w-1/3 flex flex-col items-center justify-between max-w-96">
+					<div className="w-1/3 flex flex-col items-center justify-between">
 						<Link href={"/"}>{iconSvg.logoPublicSvg}</Link>
-						<div className="flex w-full justify-between">
+						<div className="flex w-full justify-center gap-6 text-nowrap">
 							{menus.map((val, index) => (
 								<Link href={val.href} key={index}>
 									{val.label}
