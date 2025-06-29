@@ -65,14 +65,14 @@ const DetailsForm = ({
 		setLoading(true);
 
 		try {
-			const compressedFile = await compressImage(file, {
-				maxWidthOrHeight: 1440,
-				maxSizeMB: 0.8,
-				initialQuality: 1,
-			});
+			// const compressedFile = await compressImage(file, {
+			// 	maxWidthOrHeight: 1440,
+			// 	maxSizeMB: 0.8,
+			// 	initialQuality: 1,
+			// });
 
 			const formData = new FormData();
-			formData.append("thumbnail", compressedFile);
+			formData.append("thumbnail", file);
 
 			const req = await fetchApi.patch(
 				`/collection/upload/thumbnail/${uuid}`,
