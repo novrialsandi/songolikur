@@ -32,6 +32,8 @@ export async function generateMetadata({ params }) {
 	const { slug } = await params;
 	const data = await getSlugData(slug);
 
+	console.log(data);
+
 	return {
 		title: `${data?.title || "Content Not Found"} - Songolikur`,
 		description: data?.seo || "Content Not Found",

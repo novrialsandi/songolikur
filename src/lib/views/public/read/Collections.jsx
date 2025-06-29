@@ -82,7 +82,7 @@ const Collections = () => {
 					items={listTags}
 					type="multi"
 					placeholder="Select Tags"
-					defaultValue={selectedTags.length > 0 ? selectedTags : ""} // Set default value from URL
+					defaultValue={selectedTags.length > 0 ? selectedTags : ""}
 					onStateChange={(tags) => {
 						setSelectedTags(tags);
 						updateQuery(selectedCategory, tags);
@@ -92,7 +92,7 @@ const Collections = () => {
 					{listCategories.map((category, index) => (
 						<div
 							key={index}
-							className={`text-center w-20 border rounded-md cursor-pointer ${
+							className={`text-center border rounded-md cursor-pointer ${
 								selectedCategory === category.value ? "bg-gray-200" : ""
 							}`}
 							onClick={() => {

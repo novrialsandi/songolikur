@@ -29,20 +29,24 @@ const HeaderPublic = () => {
 
 	const menus = [
 		{
-			label: "Info",
-			href: "/",
+			label: "Read",
+			href: "/read",
 		},
 		{
-			label: "Talks",
-			href: "/",
+			label: "Kick Off",
+			href: "/read?search=&category=kick-off",
 		},
 		{
-			label: "Speakers",
-			href: "/",
+			label: "Suara 12",
+			href: "/read?search=&category=suara-12",
 		},
 		{
-			label: "Sponsors",
-			href: "/",
+			label: "Urban",
+			href: "/read?search=&category=urban",
+		},
+		{
+			label: "Zona Mataram",
+			href: "/read?search=&category=zona-mataram",
 		},
 	];
 
@@ -86,7 +90,7 @@ const HeaderPublic = () => {
 							Media To Discover Yogyakarta Culture & Football
 						</div>
 					</div>
-					<div className="w-1/3 flex flex-col items-center justify-between max-w-64">
+					<div className="w-1/3 flex flex-col items-center justify-between max-w-96">
 						<Link href={"/"}>{iconSvg.logoPublicSvg}</Link>
 						<div className="flex w-full justify-between">
 							{menus.map((val, index) => (
