@@ -42,8 +42,8 @@ const Hero = ({ collections = [] }) => {
 			</div>
 
 			{/* Mobile View */}
-			<div className="md:hidden flex flex-col gap-4">
-				<div>
+			<div className="md:hidden flex flex-col gap-6">
+				<div className="space-y-2">
 					<div className="uppercase font-semibold">Latest</div>
 					<ReadCard item={collections[0]} />
 				</div>
@@ -51,23 +51,9 @@ const Hero = ({ collections = [] }) => {
 
 				{collections.slice(1, 5).map((val, index) => {
 					return (
-						<ReadCard key={index} item={val} />
-
-						// <Link
-						// 	href={`/read/${val.slug}`}
-						// 	key={index}
-						// 	className="flex flex-col gap-4"
-						// >
-						// 	<div className="flex items-center gap-4 max-h-20">
-						// 		<img
-						// 			src={val.thumbnail}
-						// 			alt=""
-						// 			className="size-20 rounded-md object-cover"
-						// 		/>
-						// 		<div>{val.title}</div>
-						// 	</div>
-						// 	<Divider />
-						// </Link>
+						<div key={index}>
+							<ReadCard item={val} />
+						</div>
 					);
 				})}
 

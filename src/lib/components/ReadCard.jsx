@@ -40,7 +40,7 @@ const ReadCard = ({ item, main }) => {
 
 						<div className="flex flex-wrap gap-4 mb-4 text-xs text-gray-500 items-center">
 							{item.user.name && (
-								<>
+								<div className="flex items-center gap-1">
 									<img
 										className="size-8 rounded-full"
 										src={item.user.avatar || "/avatar.png"}
@@ -49,7 +49,7 @@ const ReadCard = ({ item, main }) => {
 									<span className="font-medium text-gray-700">
 										By {item.user.name}
 									</span>
-								</>
+								</div>
 							)}
 							{item.publishedAt && (
 								<span>{moment(item.publishedAt).format("MMMM DD, YYYY")}</span>
