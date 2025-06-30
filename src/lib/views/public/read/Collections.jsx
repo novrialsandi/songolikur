@@ -3,11 +3,9 @@
 import React from "react";
 import fetchApi from "@/lib/api/fetchApi";
 import { useState, useEffect } from "react";
-import { listTags, listCategories } from "@/lib/constant";
+import { listTags } from "@/lib/constant";
 import Dropdown from "@/lib/components/Dropdown";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import ArticleCard from "@/lib/components/ArticleCard";
 import ReadCard from "@/lib/components/ReadCard";
 
 const Collections = () => {
@@ -112,11 +110,7 @@ const Collections = () => {
 				{loading ? (
 					<div>Loading...</div>
 				) : (
-					collections.map((val, index) => (
-						<>
-							<ReadCard key={index} item={val} />
-						</>
-					))
+					collections.map((val, index) => <ReadCard key={index} item={val} />)
 				)}
 			</div>
 		</div>
