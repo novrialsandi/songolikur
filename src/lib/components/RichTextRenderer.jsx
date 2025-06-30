@@ -12,7 +12,7 @@ export default function RichTextRenderer({ html }) {
 
 	return (
 		<div
-			className="prose prose-sm max-w-none prose-p:my-0 prose-h2:mt-0 prose-h2:mb-0"
+			className="prose prose-sm max-w-none [&_*]:my-0"
 			dangerouslySetInnerHTML={{ __html: cleanHTML }}
 		/>
 	);

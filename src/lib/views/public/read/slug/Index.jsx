@@ -50,8 +50,8 @@ const SlugComponent = ({ data, slug }) => {
 				<div className="flex w-full justify-between text-[10px] md:text-base font-sans uppercase text-[#62626D]">
 					<div className="flex gap-2 md:gap-4 items-center ">
 						<div>{data.category}</div>
-						<Diamond />
-						<div>{data.tag[0]}</div>
+						{/* <Diamond />
+						<div>{data.tag[0]}</div> */}
 					</div>
 					<div className="flex gap-2 md:gap-4 items-center">
 						<div>{data.engagements.views} views</div>
@@ -66,21 +66,38 @@ const SlugComponent = ({ data, slug }) => {
 				<div className="w-2/3 md:w-1/4 flex">
 					<Divider />
 				</div>
-				<div className="flex justify-center font-sans items-center gap-4">
+				<div className="flex justify-center font-sans items-center gap-2">
 					<img
 						className="size-8 rounded-full"
 						src={data.user.avatar || "/avatar.png"}
 						alt=""
 					/>
 					<div>
-						<div>{data.user.name}</div>
-						<div className="text-xs">Journalis</div>
+						<div>By {data.user.name}</div>
+						{/* <div className="text-xs">Journalis</div> */}
 					</div>
 				</div>
 
 				<div className="font-sans pt-6">
 					{data?.content ? (
-						<RichTextRenderer html={data.content} />
+						<>
+							<RichTextRenderer html={data.content} />
+							<div className="flex gap-2">
+								<div>Tags: </div>
+								{data.tag && data.tag.length > 0 && (
+									<div className="flex flex-wrap gap-2">
+										{data.tag.slice(0, 3).map((tag, index) => (
+											<span
+												key={index}
+												className="bg-gray-100 text-gray-600 px-2 py-1 rounded-lg text-xs font-medium"
+											>
+												{tag}
+											</span>
+										))}
+									</div>
+								)}
+							</div>
+						</>
 					) : (
 						<p className="text-gray-500">No content available</p>
 					)}
