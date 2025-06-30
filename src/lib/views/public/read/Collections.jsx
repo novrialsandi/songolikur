@@ -8,6 +8,7 @@ import Dropdown from "@/lib/components/Dropdown";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import ArticleCard from "@/lib/components/ArticleCard";
+import ReadCard from "@/lib/components/ReadCard";
 
 const Collections = () => {
 	const [collections, setCollections] = useState([]);
@@ -88,7 +89,7 @@ const Collections = () => {
 						updateQuery(selectedCategory, tags);
 					}}
 				/>
-				<div className="flex gap-2">
+				{/* <div className="flex gap-2">
 					{listCategories.map((category, index) => (
 						<div
 							key={index}
@@ -105,14 +106,16 @@ const Collections = () => {
 							<div className="p-1">{category.label}</div>
 						</div>
 					))}
-				</div>
+				</div> */}
 			</div>
-			<div>
+			<div className="space-y-6">
 				{loading ? (
 					<div>Loading...</div>
 				) : (
 					collections.map((val, index) => (
-						<ArticleCard key={index} item={val} />
+						<>
+							<ReadCard key={index} item={val} />
+						</>
 					))
 				)}
 			</div>

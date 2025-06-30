@@ -4,6 +4,7 @@ import Divider from "@/lib/components/Divider";
 import React from "react";
 import ArticleCard from "@/lib/components/ArticleCard";
 import Link from "next/link";
+import ReadCard from "@/lib/components/ReadCard";
 
 const Hero = ({ collections = [] }) => {
 	const repeatedData = [];
@@ -43,28 +44,30 @@ const Hero = ({ collections = [] }) => {
 			{/* Mobile View */}
 			<div className="md:hidden flex flex-col gap-4">
 				<div>
-					<div>Latest</div>
-					<ArticleCard item={collections[0]} />
+					<div className="uppercase font-semibold">Latest</div>
+					<ReadCard item={collections[0]} />
 				</div>
 				<Divider />
 
 				{collections.slice(1, 5).map((val, index) => {
 					return (
-						<Link
-							href={`/read/${val.slug}`}
-							key={index}
-							className="flex flex-col gap-4"
-						>
-							<div className="flex items-center gap-4 max-h-20">
-								<img
-									src={val.thumbnail}
-									alt=""
-									className="size-20 rounded-md object-cover"
-								/>
-								<div>{val.title}</div>
-							</div>
-							<Divider />
-						</Link>
+						<ReadCard key={index} item={val} />
+
+						// <Link
+						// 	href={`/read/${val.slug}`}
+						// 	key={index}
+						// 	className="flex flex-col gap-4"
+						// >
+						// 	<div className="flex items-center gap-4 max-h-20">
+						// 		<img
+						// 			src={val.thumbnail}
+						// 			alt=""
+						// 			className="size-20 rounded-md object-cover"
+						// 		/>
+						// 		<div>{val.title}</div>
+						// 	</div>
+						// 	<Divider />
+						// </Link>
 					);
 				})}
 

@@ -8,47 +8,65 @@ import { iconSvg } from "@/lib/Icons/icon";
 import { useSessionStore } from "@/lib/stores";
 import moment from "moment";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const HeaderPublic = () => {
 	const router = useRouter();
 	const { setSession } = useSessionStore();
-
-	useEffect(() => {
-		if (getCookie("cid")?.user_uuid) {
-			setIsLogin(true);
-		}
-	}, []);
+	const searchParams = useSearchParams();
 
 	const [search, setSearch] = useState("");
 	const [isVisible, setIsVisible] = useState(true);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [isLogin, setIsLogin] = useState(false);
+	const [selectedCategory, setSelectedCategory] = useState("");
+	const [currentPath, setCurrentPath] = useState("");
 
 	const menus = [
 		{
 			label: "READ",
 			href: "/read",
+			category: "", // For general read page
 		},
 		{
 			label: "KICK OFF",
 			href: "/read?search=&category=kick-off",
+			category: "kick-off",
 		},
 		{
 			label: "SUARA 12",
 			href: "/read?search=&category=suara-12",
+			category: "suara-12",
 		},
 		{
 			label: "MATARAM",
 			href: "/read?search=&category=zona-mataram",
+			category: "zona-mataram",
 		},
 		{
 			label: "URBAN",
 			href: "/read?search=&category=urban",
+			category: "urban",
 		},
 	];
+
+	// Function to check if menu item is active
+	const isMenuActive = (menu) => {
+		// If we're on /read page
+		if (currentPath === "/read") {
+			// If menu is "READ" and no category is selected
+			if (menu.label === "READ" && !selectedCategory) {
+				return true;
+			}
+			// If category matches
+			if (menu.category && menu.category === selectedCategory) {
+				return true;
+			}
+		}
+		return false;
+	};
 
 	useEffect(() => {
 		let lastScrollY = window.scrollY;
@@ -72,6 +90,20 @@ const HeaderPublic = () => {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (getCookie("cid")?.user_uuid) {
+			setIsLogin(true);
+		}
+	}, []);
+
+	useEffect(() => {
+		const category = searchParams.get("category") || "";
+		const pathname = window.location.pathname;
+
+		setSelectedCategory(category);
+		setCurrentPath(pathname);
+	}, [searchParams]);
+
 	return (
 		<header className=" bg-white flex flex-col gap-6">
 			<nav
@@ -92,9 +124,15 @@ const HeaderPublic = () => {
 					</div>
 					<div className="w-1/3 flex flex-col items-center justify-between">
 						<Link href={"/"}>{iconSvg.logoPublicSvg}</Link>
-						<div className="flex w-full justify-center gap-6 text-nowrap">
+						<div className={`flex w-full justify-center gap-6 text-nowrap `}>
 							{menus.map((val, index) => (
-								<Link href={val.href} key={index}>
+								<Link
+									href={val.href}
+									key={index}
+									className={`transition-colors duration-200 ${
+										isMenuActive(val) ? "font-bold" : "hover:font-semibold"
+									}`}
+								>
 									{val.label}
 								</Link>
 							))}
@@ -195,7 +233,9 @@ const HeaderPublic = () => {
 								<Link
 									href={val.href}
 									key={index}
-									className="hover:text-blue-600 transition-colors duration-200 font-medium"
+									className={`transition-colors duration-200 font-medium ${
+										isMenuActive(val) ? "font-bold" : "hover:font-semibold"
+									}`}
 								>
 									{val.label}
 								</Link>
@@ -261,7 +301,9 @@ const HeaderPublic = () => {
 							<Link
 								href={val.href}
 								key={index}
-								className="block py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium"
+								className={`block py-2 px-4 rounded-lg transition-colors duration-200  ${
+									isMenuActive(val) ? "bg-gray-200 font-bold" : "font-medium"
+								}`}
 								onClick={() => setIsMobileMenuOpen(false)}
 							>
 								{val.label}
