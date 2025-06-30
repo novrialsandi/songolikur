@@ -157,6 +157,9 @@ const HeaderPublic = () => {
 				}`}
 			>
 				<div className="flex md:px-28 px-4 w-full max-w-[1440px] justify-between items-center h-full">
+					<Link href="/" className="flex md:hidden">
+						<div className="flex md:hidden">{iconSvg.logoMarkSvg}</div>
+					</Link>
 					{/* Mobile Menu Button */}
 					<button
 						className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
@@ -199,10 +202,6 @@ const HeaderPublic = () => {
 							))}
 						</div>
 					</div>
-
-					<Link href="/" className="flex">
-						<div className="flex md:hidden">{iconSvg.logoMarkSvg}</div>
-					</Link>
 
 					<div className="hidden md:block">
 						<TextInput
