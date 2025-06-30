@@ -43,8 +43,6 @@ const SlugComponent = ({ data, slug }) => {
 		}
 	}, [slug]);
 
-	console.log(data.engagements.views);
-
 	return (
 		<div className="w-full flex flex-col items-center justify-center gap-6">
 			{data.thumbnail && (
@@ -55,21 +53,23 @@ const SlugComponent = ({ data, slug }) => {
 				/>
 			)}
 			<div className="max-w-[740px] space-y-4 flex flex-col items-center">
-				<div className="flex w-full justify-between text-[13px] font-sans uppercase text-[#62626D]">
-					<div className="flex gap-4 items-center">
+				<div className="flex w-full justify-between text-xs md:text-base font-sans uppercase text-[#62626D]">
+					<div className="flex gap-2 md:gap-4 items-center ">
 						<div>{data.category}</div>
 						<Diamond />
 						<div>{data.tag[0]}</div>
 					</div>
-					<div className="flex gap-4 items-center">
+					<div className="flex gap-2 md:gap-4 items-center">
 						<div>{data.engagements.views} views</div>
 						<Diamond />
-						<div>{moment(data.publishedAt).format(" MMMM DD, YYYY")}</div>
+						<div>{moment(data.publishedAt).format("MMMM DD, YYYY")}</div>
 					</div>
 				</div>
-				<div className="text-center text-4xl">{data.title}</div>
+				<div className="text-center text-2xl md:text-4xl lg:text-5xl">
+					{data.title}
+				</div>
 
-				<div className="w-1/4 flex">
+				<div className="w-2/3 md:w-1/4 flex">
 					<Divider />
 				</div>
 				<div className="flex justify-center font-sans items-center gap-4">
