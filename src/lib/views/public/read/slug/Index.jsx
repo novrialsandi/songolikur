@@ -2,19 +2,13 @@
 
 import fetchApi from "@/lib/api/fetchApi";
 import { useEffect } from "react";
-// import DOMPurify from "dompurify";
 import { getCookie, setCookie } from "@/lib/helpers/cookie";
 import Divider from "@/lib/components/Divider";
 import Diamond from "@/lib/components/Diamond";
 import moment from "moment";
-import { renderContent } from "@/lib/utils/renderContent";
+import RichTextRenderer from "@/lib/components/RichTextRenderer";
 
 const SlugComponent = ({ data, slug }) => {
-	// const sanitizedContent =
-	// 	typeof window !== "undefined"
-	// 		? DOMPurify.sanitize(data.content)
-	// 		: data.content;
-
 	const hitViews = async () => {
 		try {
 			await fetchApi.patch(`/engagement/view/${slug}`);
@@ -86,7 +80,7 @@ const SlugComponent = ({ data, slug }) => {
 
 				<div className="font-sans pt-6">
 					{data?.content ? (
-						renderContent(data.content)
+						<RichTextRenderer html={data.content} />
 					) : (
 						<p className="text-gray-500">No content available</p>
 					)}
