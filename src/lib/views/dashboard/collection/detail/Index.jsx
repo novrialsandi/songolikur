@@ -8,6 +8,7 @@ import { useSessionStore, useCollectionSelectedStore } from "@/lib/stores";
 import DOMPurify from "dompurify";
 import Button from "@/lib/components/Button";
 import { toast } from "react-toastify";
+import RichTextRenderer from "@/lib/components/RichTextRenderer";
 
 const CollectionDetail = () => {
 	const router = useRouter();
@@ -89,7 +90,7 @@ const CollectionDetail = () => {
 				<div className="p-6 w-full flex justify-center">
 					<div className="max-w-[740px]">
 						<img src={collection.thumbnail} alt="" />
-						<div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+						<RichTextRenderer html={sanitizedContent} />
 					</div>
 				</div>
 				<div className="w-full flex justify-center mb-4">
