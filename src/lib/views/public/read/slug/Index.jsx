@@ -59,7 +59,7 @@ const SlugComponent = ({ data, slug }) => {
 						<div>{moment(data.publishedAt).format("MMMM DD, YYYY")}</div>
 					</div>
 				</div>
-				<div className="text-center text-xl md:text-3xl lg:text-4xl">
+				<div className="text-center font-bold text-2xl md:text-3xl lg:text-4xl">
 					{data.title}
 				</div>
 
