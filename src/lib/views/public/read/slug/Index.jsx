@@ -47,7 +47,7 @@ const SlugComponent = ({ data, slug }) => {
 				/>
 			)}
 			<div className="max-w-[740px] space-y-4 flex flex-col items-center">
-				<div className="flex w-full justify-between text-xs md:text-base font-sans uppercase text-[#62626D]">
+				<div className="flex w-full justify-between text-[10px] md:text-base font-sans uppercase text-[#62626D]">
 					<div className="flex gap-2 md:gap-4 items-center ">
 						<div>{data.category}</div>
 						<Diamond />
@@ -59,7 +59,9 @@ const SlugComponent = ({ data, slug }) => {
 						<div>{moment(data.publishedAt).format("MMMM DD, YYYY")}</div>
 					</div>
 				</div>
-				<div className="text-center text-2xl md:text-4xl">{data.title}</div>
+				<div className="text-center text-xl md:text-3xl lg:text-4xl">
+					{data.title}
+				</div>
 
 				<div className="w-2/3 md:w-1/4 flex">
 					<Divider />
